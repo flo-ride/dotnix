@@ -24,7 +24,7 @@
       merge.tool = "fugitive";
       mergetool.fugitive.cmd = "nvim -f -c Gvdiffsplit! $LOCAL $REMOTE $MERGED";
 
-      safe.directory = [ "/etc/nixos" ]; # Allow to push my config with git
+      safe.directory = "*"; # Allow to push my config with git
     };
 
     # Alias
