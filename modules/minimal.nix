@@ -53,11 +53,8 @@
 
   # Enable the OpenSSH daemon.
   services = {
-    openssh.enable = true;
-
     # Hardware deamons
     fwupd.enable = true;
-
   };
 
   system.stateVersion = lib.mkDefault "24.05";
