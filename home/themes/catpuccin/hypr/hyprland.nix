@@ -24,6 +24,9 @@
 
     # General
     general = {
+      # monitor=eDP-1, preferred, auto, 1
+      # monitor=, preferred, auto, 1
+
       border_size = "$hypr_border_size";
       no_border_on_floating = false;
       gaps_in = "$hypr_gaps_in";
