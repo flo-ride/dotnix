@@ -50,22 +50,20 @@
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth.settings = {
+    General = {
+      Enable = "Source,Sink,Media,Socket";
+    };
+  };
 
-  services.pipewire.wireplumber.configPackages = [
-    (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua"
-      "	bluez_monitor.properties = {\n		[\"bluez5.enable-sbc-xq\"] = true,\n		[\"bluez5.enable-msbc\"] = true,\n		[\"bluez5.enable-hw-volume\"] = true,\n		[\"bluez5.headset-roles\"] = \"[ hsp_hs hsp_ag hfp_hf hfp_ag ]\"\n	}\n")
-  ];
-
-  #  TODO: Once #292115 is merged and has reached nixos-unstable, you'll be able to use services.pipewire.wireplumber.extraLuaConfig as well:
-  #
-  #  services.pipewire.wireplumber.extraLuaConfig.bluetooth."51-bluez-config" = ''
-  #  	bluez_monitor.properties = {
-  #  		["bluez5.enable-sbc-xq"] = true,
-  #  		["bluez5.enable-msbc"] = true,
-  #  		["bluez5.enable-hw-volume"] = true,
-  #  		["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-  #  	}
-  #  '';
+  services.pipewire.wireplumber.extraConfig.bluetoothEnhancements = {
+    "monitor.bluez.properties" = {
+      "bluez5.enable-sbc-xq" = true;
+      "bluez5.enable-msbc" = true;
+      "bluez5.enable-hw-volume" = true;
+      "bluez5.roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+    };
+  };
 
   security = {
     # userland niceness
