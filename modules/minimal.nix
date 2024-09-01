@@ -1,7 +1,7 @@
 { pkgs, config, lib, inputs, ... }:
 # configuration shared by all hosts
 {
-  environment.systemPackages = [ ];
+  environment.systemPackages = with pkgs; [ vim git wget curl ];
 
   # Set your time zone.
   time.timeZone = lib.mkDefault "Europe/Paris";
@@ -51,7 +51,6 @@
     fish.enable = true;
   };
 
-  # Enable the OpenSSH daemon.
   services = {
     # Hardware deamons
     fwupd.enable = true;
