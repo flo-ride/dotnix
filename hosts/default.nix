@@ -16,6 +16,9 @@
         ../modules/syncthing.nix
         ../modules/tailscale.nix
         ../modules/nix-ld.nix
+        ../modules/envfs.nix
+        ../modules/games.nix
+        ../modules/docker.nix
 
 
         {
@@ -38,6 +41,10 @@
         ../modules/desktop.nix
         ../modules/syncthing.nix
         ../modules/tailscale.nix
+        ../modules/nix-ld.nix
+        ../modules/envfs.nix
+        ../modules/games.nix
+        ../modules/docker.nix
 
         { home-manager.users.floride.imports = homeImports."floride@legion"; }
       ] ++ sharedModules ++ desktopModules;

@@ -7,8 +7,6 @@
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot/efi";
 
-    # systemd-boot.enable = true;
-
     grub.enable = true;
     grub.efiSupport = true;
     grub.device = "nodev";
@@ -25,18 +23,7 @@
     # firewall.checkReversePath = false;
   };
 
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    git
-    firefox
-    alacritty
-    fish
-  ];
-
-  virtualisation.docker.enable = true;
-
-  programs.steam.enable = true;
+  environment.systemPackages = with pkgs; [];
 
   system.stateVersion = "24.05";
 }
