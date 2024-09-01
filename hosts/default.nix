@@ -10,9 +10,6 @@
         ../modules/security.nix
         ../modules/clamav.nix
         ../modules/doas.nix
-        ../modules/xserver.nix
-        ../modules/hyprland.nix
-        ../modules/desktop.nix
         ../modules/syncthing.nix
         ../modules/tailscale.nix
         ../modules/nix-ld.nix
@@ -36,9 +33,6 @@
         ../modules/security.nix
         ../modules/clamav.nix
         ../modules/doas.nix
-        ../modules/xserver.nix
-        ../modules/hyprland.nix
-        ../modules/desktop.nix
         ../modules/syncthing.nix
         ../modules/tailscale.nix
         ../modules/nix-ld.nix

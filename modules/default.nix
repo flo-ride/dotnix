@@ -24,7 +24,7 @@ in {
         ./security.nix
       ];
 
-      desktopModules = [ ./hyprland.nix ];
+      desktopModules = [ ./desktop.nix ./hyprland.nix ./xserver.nix ];
     };
   }];
 }
