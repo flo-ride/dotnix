@@ -5,10 +5,6 @@
   # Sometime it even blocks the power off cycle of the compute
   # So autoStart is disabled.
   services.openvpn.servers = {
-    infomaniakVPN = {
-      config = '' config /etc/nixos/modules/vpn/infomaniak.ovpn '';
-      autoStart = false;
-    };
     atelierVPN = {
       config = '' config /etc/nixos/modules/vpn/atelier.ovpn '';
       autoStart = false;
