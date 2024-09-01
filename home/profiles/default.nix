@@ -1,15 +1,12 @@
 { inputs, self, withSystem, module_args, ... }:
 let
-  sharedModules = [ ../. ../shells module_args ];
+  sharedModules = [ ../. ../shells ../programs ../services module_args ];
 
-  desktopModules = with inputs; [ ../wayland ];
+  desktopModules = with inputs; [ ../wayland ../programs/rofi ../programs/packages.nix ../services/mako.nix ../terminals/alacritty.nix ];
 
   homeImports = {
-    "floride@hephaistos" = sharedModules ++ desktopModules ++ [ ./hephaistos ]
-      ++ [ ../themes/catpuccin ];
-
-    "floride@legion" = sharedModules ++ desktopModules ++ [ ./legion ]
-      ++ [ ../themes/catpuccin ];
+    "floride@hephaistos" = [ ./hephaistos ] ++ sharedModules ++ desktopModules ++ [ ../services/syncthing.nix ] ++ [ ../themes/catpuccin ];
+    "floride@legion" = [ ./legion ] ++ sharedModules ++ desktopModules ++ [ ../services/syncthing.nix ] ++ [ ../themes/catpuccin ];
   };
 
   inherit (inputs.home-manager.lib) homeManagerConfiguration;
