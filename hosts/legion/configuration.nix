@@ -25,5 +25,7 @@
 
   environment.systemPackages = with pkgs; [];
 
+  time.hardwareClockInLocalTime = true;
+
   system.stateVersion = "24.05";
 }
