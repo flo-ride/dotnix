@@ -6,9 +6,8 @@
     lfs.enable = true;
 
     # User config
-    userName = lib.mkDefault "FloRide1";
-    userEmail =
-      lib.mkDefault ("florian" + "." + "reimat" + "@" + "orange" + "." + "fr");
+    userName = lib.mkDefault "flo-ride";
+    userEmail = lib.mkDefault ("43076999+flo-ride@users.noreply.github.com");
 
     # Extra Config
     extraConfig = {
