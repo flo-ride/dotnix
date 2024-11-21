@@ -3,15 +3,7 @@
     enable = true;
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
-      ${lib.getExe pkgs.any-nix-shell} fish --info-right | source
-
-      function ros2Source --on-variable PWD
-          status --is-command-substitution; and return
-          if test -e "install/local_setup.bash"
-              bass source install/local_setup.bash
-              echo "Configured the folder as a ROS 2 workspace"
-          end
-      end
+      ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
     '';
     plugins = [
       {
@@ -38,14 +30,18 @@
         name = "bass";
         src = pkgs.fishPlugins.bass.src;
       }
-
+      {
+        name = "done";
+        src = pkgs.fishPlugins.done.src;
+      }
     ];
 
     shellAbbrs = {
-      # Nix
-      ns = "nix shell nixpkgs#";
-      nr = "nix run nixpkgs#";
-      nrs = "sudo nixos-rebuild switch --flake /etc/nixos/#(hostname)";
+      gl = "git l";
+      gd = "git diff";
+      gs = "git status";
+      gc = "git commit";
+      gca = "git commit --amend";
     };
 
     shellAliases = {
