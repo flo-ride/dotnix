@@ -4,6 +4,7 @@ end
 
 local plugins = {
     'lsp',
+    'lsp_rust',
     'lsp_jdtls',
     'lsp_omnisharp',
     'lspsaga',
