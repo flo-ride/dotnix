@@ -62,8 +62,8 @@ local keymaps = {
         t = {
             name = "NeoTest",
             t = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Toggle NeoTest" },
-            f = { "<cmd>lua require('neotest').run.run()<cr>", "Launch file test" },
-            h = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%')<cr>", "Launch hover test" },
+            f = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "Launch file" },
+            h = { "<cmd>lua require('neotest').run.run()<cr>", "Launch hover test" },
         },
     },
 
