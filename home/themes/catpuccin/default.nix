@@ -4,7 +4,7 @@
     ./hypr
     ./swaylock.nix
     ./waybar
-    ./cava.nix
+    # ./cava.nix
   ];
 
   fonts.fontconfig.enable = true;

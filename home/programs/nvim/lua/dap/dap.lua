@@ -36,7 +36,7 @@ end
 
 dap.adapters.lldb = {
     type = 'executable',
-    command = 'lldb-vscode', -- adjust as needed
+    command = 'lldb', -- adjust as needed
     name = "lldb"
 }
 

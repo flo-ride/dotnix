@@ -27,7 +27,7 @@
     termius
 
     # Programs
-    kicad
+    kicad-unstable
 
     # Fun
     spotify

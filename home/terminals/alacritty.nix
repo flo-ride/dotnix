@@ -6,7 +6,7 @@ in {
     enable = true;
 
     settings = {
-      live_config_reload = true;
+      general.live_config_reload = true;
 
       window = {
         title = "Terminal";
@@ -35,7 +35,7 @@ in {
 
       cursor.style = "Underline";
 
-      shell = {
+      terminal.shell = {
         program = "${pkgs.fish}/bin/fish";
         args = [ "--init-command" "echo; neofetch --disable packages; echo" ];
       };

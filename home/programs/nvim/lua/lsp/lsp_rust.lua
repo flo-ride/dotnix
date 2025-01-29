@@ -1,11 +1,28 @@
-require'lspconfig'.rust_analyzer.setup {
+local lspconfig = require'lspconfig'
+
+lspconfig.rust_analyzer.setup {
     settings = {                      
         ["rust-analyzer"] = {
-            diagnostics = {
-                enable = true,
-                disabled = {"unresolved-proc-macro"},
-                enableExperimental = true,
+            imports = {
+                granularity = {
+                    group = "module",
+                },
+                prefix = "self",
+            },
+            cargo = {
+                buildScripts = {
+                    enable = true,
+                },
+            },
+            procMacro = {
+                enable = true
             },
         }
     }
 }
+
+lspconfig.rust_analyzer.setup({
+    on_attach = function(client, bufnr)
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    end
+})

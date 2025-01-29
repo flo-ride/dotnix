@@ -43,7 +43,7 @@ in {
         ${lib.strings.fileContents ./lua/lsp/lsp.lua}
         ${lib.strings.fileContents ./lua/lsp/lsp_jdtls.lua}
         ${lib.strings.fileContents ./lua/lsp/lsp_omnisharp.lua}
-        ${lib.strings.fileContents ./lua/lsp/lsp_omnisharp.lua}
+        ${lib.strings.fileContents ./lua/lsp/lsp_rust.lua}
         ${lib.strings.fileContents ./lua/lsp/lspsaga.lua}
         ${lib.strings.fileContents ./lua/dap/dap.lua}
         ${lib.strings.fileContents ./lua/dap/dapui.lua}
@@ -74,8 +74,13 @@ in {
       nodePackages.typescript-language-server
       gopls
       texlab
-      nodePackages.pyright
+      pyright
       rust-analyzer
+
+      lldb
+      netcoredbg
+      gcc
+      texliveSmall
     ];
 
     plugins = with pkgs.vimPlugins; [

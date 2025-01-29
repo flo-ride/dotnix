@@ -35,7 +35,7 @@
         "$active_border_col_1 $active_border_col_2 $gradient_angle";
       "col.inactive_border" =
         "$inactive_border_col_1 $inactive_border_col_2 $gradient_angle";
-      apply_sens_to_raw = false;
+      # apply_sens_to_raw = false;
     };
 
     # Decoration
@@ -44,12 +44,12 @@
       active_opacity = 1.0;
       inactive_opacity = 1.0;
       fullscreen_opacity = 1.0;
-      drop_shadow = true;
-      shadow_range = 10;
-      shadow_render_power = 3;
-      "col.shadow" = "$active_shadow_col";
-      "col.shadow_inactive" = "$inactive_shadow_col";
-      shadow_scale = 1.0;
+      # drop_shadow = true;
+      # shadow_range = 10;
+      # shadow_render_power = 3;
+      # "col.shadow" = "$active_shadow_col";
+      # "col.shadow_inactive" = "$inactive_shadow_col";
+      # shadow_scale = 1.0;
       dim_inactive = false;
       dim_strength = 0.5;
     };
