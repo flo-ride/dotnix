@@ -28,6 +28,8 @@ local keymaps = {
 
     { "K", "<cmd>:Lspsaga hover_doc<cr>", desc = "Show doc of hover", nowait = true, remap = false },
 
+    { "fg", "<cmd>Neogit<cr>", desc = "NeoGit", nowait = true, remap = false },
+
     { "<space>", group = "Lsp", nowait = true, remap = false },
     { "<space><space>", "<cmd>Trouble diagnostics toggle<cr>", desc = "Trouble Toggle", nowait = true, remap = false },
     { "<space>d", "<cmd>Lspsaga peek_definition<cr>", desc = "Show Definition", nowait = true, remap = false },

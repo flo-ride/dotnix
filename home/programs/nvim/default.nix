@@ -107,6 +107,7 @@ in {
       # Git
       gitsigns-nvim
       vim-fugitive
+      neogit
       # vim-gitgutter
 
       # LSP
