@@ -194,6 +194,9 @@ let g:gitgutter_sign_removed = '-'
 let g:gitgutter_sign_removed_first_line = '-'
 let g:gitgutter_sign_modified_removed = '-'
 
+" NvimTree
+let g:nvim_tree_auto_open = 1
+
 " Colorizer
 set termguicolors
 

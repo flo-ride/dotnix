@@ -40,6 +40,7 @@ in {
         ${lib.strings.fileContents ./lua/ui/trouble.lua}
         ${lib.strings.fileContents ./lua/ui/gitsigns.lua}
         ${lib.strings.fileContents ./lua/ui/lualine.lua}
+        ${lib.strings.fileContents ./lua/ui/tree.lua}
         ${lib.strings.fileContents ./lua/lsp/lsp.lua}
         ${lib.strings.fileContents ./lua/lsp/lsp_jdtls.lua}
         ${lib.strings.fileContents ./lua/lsp/lsp_omnisharp.lua}
@@ -92,6 +93,7 @@ in {
       lspsaga-nvim
       todo-comments-nvim
       lualine-nvim
+      nvim-tree-lua
 
       # Navigation
       nvim-treesitter
