@@ -215,6 +215,7 @@ EOF
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Theme
 """"""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme carbonfox
+colorscheme sonokai
+" colorscheme carbonfox
 " let g:airline_powerline_fonts = 1
 " let g:airline_theme = 'purify'

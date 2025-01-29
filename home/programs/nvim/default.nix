@@ -119,6 +119,7 @@ in {
       nightfox-nvim
       tokyonight-nvim
       tender-vim
+      sonokai
 
       # Completion
       nvim-cmp
