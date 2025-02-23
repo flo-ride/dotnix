@@ -28,6 +28,8 @@ local keymaps = {
 
     { "K", "<cmd>:Lspsaga hover_doc<cr>", desc = "Show doc of hover", nowait = true, remap = false },
 
+    { "<F2>", "<cmd>NvimTreeToggle<cr>", desc = "Open Tree", nowait = true, remap = false },
+
     { "fg", "<cmd>Neogit<cr>", desc = "NeoGit", nowait = true, remap = false },
 
     { "<space>", group = "Lsp", nowait = true, remap = false },
@@ -42,7 +44,6 @@ local keymaps = {
     { "<leader>f", group = "Telescope", nowait = true, remap = false },
     { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Switch Buffer", nowait = true, remap = false },
     { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", nowait = true, remap = false },
-    { "<leader>fd", "<cmd>NvimTreeToggle<cr>", desc = "Open Tree", nowait = true, remap = false },
     { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Find Text in Workspace", nowait = true, remap = false },
     { "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File", nowait = true, remap = false },
     { "<leader>fr", "<cmd>Telescope resume<cr>", desc = "Resume Last Search", nowait = true, remap = false },
