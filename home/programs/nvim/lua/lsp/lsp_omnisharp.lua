@@ -9,7 +9,7 @@ end
 
 
 
-local omnisharp_bin = "omnisharp"
+local omnisharp_bin = "OmniSharp"
 require'lspconfig'.omnisharp.setup{
     cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
 
