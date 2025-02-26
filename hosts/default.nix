@@ -43,5 +43,16 @@
         { home-manager.users.floride.imports = homeImports."floride@legion"; }
       ] ++ sharedModules ++ desktopModules;
     };
+    erge = inputs.nixpkgs.lib.nixosSystem {
+      inherit system;
+
+      modules = [
+        inputs.nixos-wsl.nixosModules.default
+        ./erge
+
+        ../modules/docker.nix
+        { home-manager.users.floride.imports = homeImports."floride@erge"; }
+      ] ++ sharedModules;
+    };
   });
 }
