@@ -146,6 +146,7 @@ in {
       neotest-rust
 
       # Others
+      nix-develop-nvim
       mason-nvim
       mason-lspconfig-nvim
       toggleterm-nvim
