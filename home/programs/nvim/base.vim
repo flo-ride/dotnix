@@ -83,7 +83,7 @@ set wrap
 " Disable preview window on completion
 
 " Enables syntax highlighting
-syntax on
+" syntax on
 
 " Highlight current line
 set cursorline
