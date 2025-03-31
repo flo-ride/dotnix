@@ -37,6 +37,7 @@ in {
         ${lib.strings.fileContents ./lua/others/mason.lua}
         ${lib.strings.fileContents ./lua/others/which_key.lua}
         ${lib.strings.fileContents ./lua/ui/ui.lua}
+        ${lib.strings.fileContents ./lua/ui/animate.lua}
         ${lib.strings.fileContents ./lua/ui/trouble.lua}
         ${lib.strings.fileContents ./lua/ui/gitsigns.lua}
         ${lib.strings.fileContents ./lua/ui/lualine.lua}
@@ -149,6 +150,7 @@ in {
 
       # Others
       noice-nvim
+      mini-animate
       nix-develop-nvim
       mason-nvim
       mason-lspconfig-nvim
