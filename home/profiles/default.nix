@@ -7,7 +7,7 @@ let
   homeImports = {
     "floride@hephaistos" = [ ./hephaistos ] ++ sharedModules ++ desktopModules ++ [ ../services/syncthing.nix ] ++ [ ../themes/catpuccin ];
     "floride@legion" = [ ./legion ] ++ sharedModules ++ desktopModules ++ [ ../services/syncthing.nix ] ++ [ ../themes/catpuccin ];
-    "floride@erge" =  sharedModules ++ [ ../themes/catpuccin ];
+    "floride@erge" =  sharedModules ++ [../services/syncthing.nix] ++ [ ../themes/catpuccin ];
   };
 
   inherit (inputs.home-manager.lib) homeManagerConfiguration;
