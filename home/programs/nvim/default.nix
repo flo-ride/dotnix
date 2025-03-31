@@ -42,6 +42,8 @@ in {
         ${lib.strings.fileContents ./lua/ui/lualine.lua}
         ${lib.strings.fileContents ./lua/ui/bufferline.lua}
         ${lib.strings.fileContents ./lua/ui/tree.lua}
+        ${lib.strings.fileContents ./lua/ui/neogit.lua}
+        ${lib.strings.fileContents ./lua/ui/noice.lua}
         ${lib.strings.fileContents ./lua/lsp/lsp.lua}
         ${lib.strings.fileContents ./lua/lsp/lsp_jdtls.lua}
         ${lib.strings.fileContents ./lua/lsp/lsp_omnisharp.lua}
@@ -146,6 +148,7 @@ in {
       neotest-rust
 
       # Others
+      noice-nvim
       nix-develop-nvim
       mason-nvim
       mason-lspconfig-nvim
