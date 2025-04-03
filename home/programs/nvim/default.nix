@@ -99,6 +99,8 @@ in {
       lualine-nvim
       nvim-tree-lua
       bufferline-nvim
+      nui-nvim
+      nvim-notify
 
       # Navigation
       nvim-treesitter
