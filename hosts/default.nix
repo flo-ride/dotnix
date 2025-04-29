@@ -51,6 +51,7 @@
         ./erge
 
         ../modules/docker.nix
+        ../modules/ollama.nix
         { home-manager.users.floride.imports = homeImports."floride@erge"; }
       ] ++ sharedModules;
     };
