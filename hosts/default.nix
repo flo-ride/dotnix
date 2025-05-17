@@ -55,5 +55,21 @@
         { home-manager.users.floride.imports = homeImports."floride@erge"; }
       ] ++ sharedModules;
     };
+    nyx = inputs.nixpkgs.lib.nixosSystem {
+      inherit system;
+
+      modules = [
+        inputs.nixos-wsl.nixosModules.default
+        ./nyx
+
+        ../modules/doas.nix
+        ../modules/docker.nix
+        ../modules/syncthing.nix
+        ../modules/syncthing-global.nix
+        ../modules/tailscale.nix
+
+        { home-manager.users.floride.imports = homeImports."floride@nyx"; }
+      ] ++ sharedModules;
+    };
   });
 }

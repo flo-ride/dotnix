@@ -8,6 +8,7 @@ let
     "floride@hephaistos" = [ ./hephaistos ] ++ sharedModules ++ desktopModules ++ [ ../services/syncthing.nix ] ++ [ ../themes/catpuccin ];
     "floride@legion" = [ ./legion ] ++ sharedModules ++ desktopModules ++ [ ../services/syncthing.nix ] ++ [ ../themes/catpuccin ];
     "floride@erge" =  sharedModules ++ [../services/syncthing.nix] ++ [ ../themes/catpuccin ];
+    "floride@nyx" =  sharedModules ++ [ ../themes/catpuccin ];
   };
 
   inherit (inputs.home-manager.lib) homeManagerConfiguration;
@@ -25,6 +26,10 @@ in {
         inherit pkgs;
       };
       "floride@erge" = homeManagerConfiguration {
+        modules = homeImports."floride@erge" ++ module_args;
+        inherit pkgs;
+      };
+      "floride@nyx" = homeManagerConfiguration {
         modules = homeImports."floride@erge" ++ module_args;
         inherit pkgs;
       };
