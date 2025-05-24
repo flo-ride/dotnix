@@ -8,7 +8,7 @@ let
     "floride@hephaistos" = [ ./hephaistos ] ++ sharedModules ++ desktopModules ++ [ ../services/syncthing.nix ] ++ [ ../themes/catpuccin ];
     "floride@legion" = [ ./legion ] ++ sharedModules ++ desktopModules ++ [ ../services/syncthing.nix ] ++ [ ../themes/catpuccin ];
     "floride@erge" =  sharedModules ++ [../services/syncthing.nix] ++ [ ../themes/catpuccin ];
-    "floride@nyx" =  sharedModules ++ [ ../themes/catpuccin ];
+    "floride@nyx" =  sharedModules ++ [../services/syncthing.nix] ++ [ ../themes/catpuccin ];
   };
 
   inherit (inputs.home-manager.lib) homeManagerConfiguration;

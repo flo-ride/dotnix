@@ -65,7 +65,6 @@
         ../modules/doas.nix
         ../modules/docker.nix
         ../modules/syncthing.nix
-        ../modules/syncthing-global.nix
         ../modules/tailscale.nix
 
         { home-manager.users.floride.imports = homeImports."floride@nyx"; }
