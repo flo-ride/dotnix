@@ -2,4 +2,5 @@
 {
   imports = [ ];
 
+  networking.hostName = "erge";
 }
