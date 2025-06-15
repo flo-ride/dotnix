@@ -13,6 +13,7 @@ in
     self.nixosModules.gui
     self.nixosModules.syncthing
     self.nixosModules.games
+    self.nixosModules.docker
     self.nixosModules.vpn
     {
       home-manager.sharedModules = [
