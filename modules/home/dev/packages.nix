@@ -4,6 +4,7 @@
     grc
     lsd
     neofetch
+    cargo
   ];
 
   # Programs natively supported by home-manager.

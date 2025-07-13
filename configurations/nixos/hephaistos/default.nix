@@ -14,6 +14,7 @@ in
     self.nixosModules.syncthing
     self.nixosModules.games
     self.nixosModules.vpn
+    self.nixosModules.ollama
     {
       home-manager.sharedModules = [
         self.homeModules.dev

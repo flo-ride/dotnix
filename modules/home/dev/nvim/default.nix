@@ -39,6 +39,7 @@ in
       (lib.strings.fileContents ./base.vim)
       ''
         lua << EOF
+        ${lib.strings.fileContents ./lua/others/ai.lua}
         ${lib.strings.fileContents ./lua/others/telescope-nvim.lua}
         ${lib.strings.fileContents ./lua/others/neotest.lua}
         ${lib.strings.fileContents ./lua/others/mason.lua}
@@ -156,6 +157,9 @@ in
       neotest
       neotest-dotnet
       neotest-rust
+
+      # Ai
+      codecompanion-nvim
 
       # Others
       noice-nvim

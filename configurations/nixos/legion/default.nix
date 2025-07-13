@@ -15,6 +15,7 @@ in
     self.nixosModules.games
     self.nixosModules.docker
     self.nixosModules.vpn
+    self.nixosModules.ollama
     {
       home-manager.sharedModules = [
         self.homeModules.dev
