@@ -5,6 +5,7 @@
     lsd
     neofetch
     cargo
+    xclip
   ];
 
   # Programs natively supported by home-manager.
