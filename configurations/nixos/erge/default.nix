@@ -11,6 +11,8 @@ in
     self.nixosModules.default
     self.nixosModules.wsl
     self.nixosModules.syncthing
+    self.nixosModules.docker
+    self.nixosModules.vpn
     {
       home-manager.sharedModules = [
         self.homeModules.dev
