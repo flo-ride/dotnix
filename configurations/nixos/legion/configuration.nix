@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   imports = [ ./hardware-configuration.nix ];
 
@@ -23,4 +24,8 @@
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = "24.11";
+
+  environment.systemPackages = with pkgs; [
+    kicad
+  ];
 }
