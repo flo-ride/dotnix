@@ -6,6 +6,7 @@
     networkmanagerapplet
     blueberry
     wdisplays
+    pulsemixer
 
     # Dev
     libreoffice
