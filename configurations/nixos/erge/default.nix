@@ -13,6 +13,7 @@ in
     self.nixosModules.syncthing
     self.nixosModules.docker
     self.nixosModules.vpn
+    self.nixosModules.prefect
     {
       home-manager.sharedModules = [
         self.homeModules.dev
