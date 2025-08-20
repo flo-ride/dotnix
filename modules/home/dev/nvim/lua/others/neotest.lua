@@ -2,7 +2,7 @@ require("neotest").setup({
     adapters = {
         require("neotest-plenary"),
         require("neotest-dotnet"),
-        require("neotest-rust"),
+        require("rustaceanvim.neotest"),
     },
 
     icons = {
