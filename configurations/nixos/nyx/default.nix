@@ -9,9 +9,9 @@ in
 {
   imports = [
     self.nixosModules.default
-    self.nixosModules.vpn
     self.nixosModules.syncthing
     self.nixosModules.docker
+    self.nixosModules.vpn
     self.nixosModules.ollama
     {
       home-manager.sharedModules = [
