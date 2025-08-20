@@ -7,6 +7,7 @@
     blueberry
     wdisplays
     pulsemixer
+    brightnessctl
 
     # Dev
     libreoffice
