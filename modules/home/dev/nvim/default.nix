@@ -42,7 +42,6 @@ in
         ${lib.strings.fileContents ./lua/others/ai.lua}
         ${lib.strings.fileContents ./lua/others/telescope-nvim.lua}
         ${lib.strings.fileContents ./lua/others/neotest.lua}
-        ${lib.strings.fileContents ./lua/others/mason.lua}
         ${lib.strings.fileContents ./lua/others/which_key.lua}
         ${lib.strings.fileContents ./lua/ui/ui.lua}
         ${lib.strings.fileContents ./lua/ui/animate.lua}
@@ -90,6 +89,7 @@ in
       rust-analyzer
 
       lldb
+      vscode-extensions.vadimcn.vscode-lldb
       netcoredbg
       gcc
       texliveSmall
@@ -156,7 +156,7 @@ in
       FixCursorHold-nvim
       neotest
       neotest-dotnet
-      neotest-rust
+      # neotest-rust
 
       # Ai
       codecompanion-nvim
@@ -165,8 +165,6 @@ in
       noice-nvim
       mini-animate
       nix-develop-nvim
-      mason-nvim
-      mason-lspconfig-nvim
       toggleterm-nvim
       markdown-preview-nvim
       # glow-nvim
