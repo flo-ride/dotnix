@@ -16,7 +16,7 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     # Any
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
