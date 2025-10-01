@@ -5,6 +5,8 @@
     # NixOS
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
 
+    # NixOS Unstable
+    nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Windows
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
