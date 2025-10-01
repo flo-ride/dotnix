@@ -6,6 +6,7 @@
     neofetch
     cargo
     xclip
+    gemini-cli
   ];
 
   # Programs natively supported by home-manager.

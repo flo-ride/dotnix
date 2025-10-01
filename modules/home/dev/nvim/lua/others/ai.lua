@@ -1,20 +1,33 @@
 require("codecompanion").setup({
-adapters = {
-    llama3 = function()
-      return require("codecompanion.adapters").extend("ollama", {
-        name = "llama3.2",
-        schema = {
-          model = {
-            default = "llama3.2:latest",
-          },
-          num_ctx = {
-            default = 16384,
-          },
-          num_predict = {
-            default = -1,
-          },
+    opts = {
+        log_level = "DEBUG", -- TRACE|DEBUG|ERROR|INFO
+    },
+    adapters = {
+        acp = {
+            opts = {
+                show_defaults = false,
+            },
         },
-      })
-    end,
-  },
+        http = {
+            opts = {
+                show_defaults = false,
+            },
+        },
+        llama3 = function()
+            return require("codecompanion.adapters").extend("ollama", {
+                name = "llama3.2",
+                schema = {
+                    model = {
+                        default = "llama3.2:latest",
+                    },
+                    num_ctx = {
+                        default = 16384,
+                    },
+                    num_predict = {
+                        default = -1,
+                    },
+                },
+            })
+        end,
+    },
 });
