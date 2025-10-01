@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{ flake, pkgs, lib, ... }:
+let
+  inherit (flake) config inputs;
+  inherit (inputs) self;
+in
 {
   # Nix packages to install to $HOME
   #
@@ -19,6 +23,8 @@
     nix-info
     nixpkgs-fmt
 
+    sops
+    ssh-to-age
 
     # On ubuntu, we need this less for `man home-configuration.nix`'s pager to
     # work.

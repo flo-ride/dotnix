@@ -6,7 +6,7 @@
 , ...
 }:
 {
-  imports = [ ./doas.nix ./clamav.nix ];
+  imports = [ ./doas.nix ./clamav.nix ./secret.nix ];
 
   # tmpfs = /tmp is mounted in ram. Doing so makes temp file management speedy
   # on ssd systems and more secure (and volatile)! Because it's wiped on reboot.

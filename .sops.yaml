@@ -1,0 +1,12 @@
+
+keys:
+  - &users:
+    - &floride  age1fxd40zzu70ga73en9vf9dgf3w9ghvnnl3hq5sr037wcucd6z8prqkzuks4
+  - &hosts:
+    - &erge     age15zmela0nmnjxpxef8mf2z8856a89ty4ez2mlxh8rpshdrpg0gg4s35hyrn
+creation_rules:
+  - path_regex: secrets.yaml$
+    key_groups:
+      - age:
+        - *floride
+        - *erge
