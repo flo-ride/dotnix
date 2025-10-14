@@ -1,4 +1,15 @@
-{ pkgs, ... }:
+{ pkgs, prev, flake, lib, ... }:
+
+let
+  inherit (flake) inputs;
+  inherit (inputs) self;
+
+
+  unstable = import inputs.nixos-unstable {
+    system = pkgs.system;
+    config.allowUnfree = true;
+  };
+in
 {
   home.packages = with pkgs; [
     # Tools
@@ -23,5 +34,11 @@
 
     # Fun
     spotify
+
+    # SSH
+    unstable.xpipe
+
+    # Password
+    bitwarden-desktop
   ];
 }

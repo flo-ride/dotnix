@@ -7,6 +7,7 @@
     cargo
     xclip
     gemini-cli
+    bitwarden-cli
   ];
 
   # Programs natively supported by home-manager.
