@@ -32,13 +32,15 @@ local keymaps = {
 
     { "fg", "<cmd>Neogit<cr>", desc = "NeoGit", nowait = true, remap = false },
 
-    { "<space>", group = "Lsp", nowait = true, remap = false },
+    { "<space>", group = "<Space>", nowait = true, remap = false },
     { "<space><space>", "<cmd>Trouble diagnostics toggle<cr>", desc = "Trouble Toggle", nowait = true, remap = false },
     { "<space>d", "<cmd>Lspsaga peek_definition<cr>", desc = "Show Definition", nowait = true, remap = false },
     { "<space>D", "<cmd>Lspsaga goto_definition<cr>", desc = "Show Definition", nowait = true, remap = false },
     { "<space>f", "<cmd>Lspsaga code_action<cr>", desc = "Code Action", nowait = true, remap = false },
     { "<space>i", "<cmd>Lspsaga finder<cr>", desc = "Show Implementation", nowait = true, remap = false },
     { "<space>r", "<cmd>Lspsaga rename<cr>", desc = "Rename", nowait = true, remap = false },
+    
+    { "<space>a", "<cmd>CodeCompanionActions<cr>", desc = "AI Actions", nowait = true, remap = false },
 
     { "<leader>", group = "<Leader>", nowait = true, remap = false },
     { "<leader>f", group = "Telescope", nowait = true, remap = false },

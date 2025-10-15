@@ -1,4 +1,15 @@
 require("codecompanion").setup({
+    strategies = {
+        chat = {
+            adapter = "gemini",
+        },
+        inline = {
+            adapter = "gemini",
+        },
+        cmd = {
+            adapter = "gemini",
+        }
+    },
     opts = {
         log_level = "DEBUG", -- TRACE|DEBUG|ERROR|INFO
     },
