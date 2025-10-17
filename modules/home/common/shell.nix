@@ -1,5 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
+  sops.secrets.gemini_api_key = {
+    key = "nvim/gemini";
+  };
+
+
   programs = {
     bash = {
       enable = true;
@@ -31,6 +36,7 @@
       interactiveShellInit = ''
         set fish_greeting # Disable greeting
         set -x SSH_AUTH_SOCK $HOME/.bitwarden-ssh-agent.sock
+        set -gx GEMINI_API_KEY (cat ${config.sops.secrets.gemini_api_key.path})
         ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
       '';
       plugins = [
