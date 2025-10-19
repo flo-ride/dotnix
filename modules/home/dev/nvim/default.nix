@@ -138,6 +138,7 @@ in
       tokyonight-nvim
       tender-vim
       sonokai
+      catppuccin-nvim
 
       # Completion
       nvim-cmp
