@@ -4,6 +4,7 @@
     ./hypr
     ./swaylock.nix
     ./waybar
+    ./alacritty.nix
     # ./cava.nix
   ];
 

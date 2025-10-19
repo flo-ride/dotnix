@@ -41,40 +41,10 @@ in
         program = "${pkgs.fish}/bin/fish";
         args = [
           "--init-command"
-          "echo; neofetch --disable packages; echo"
+          "echo; ${pkgs.neofetch}/bin/neofetch --disable packages; echo"
         ];
       };
 
-      colors = {
-        primary = {
-          background = "#080F22";
-          foreground = "#77e7f1";
-        };
-        cursor = {
-          text = "0xFF261E";
-          cursor = "0xFF261E";
-        };
-        normal = {
-          black =  "#080F22";
-          red = "#FDE20D";
-          green = "#075AA3";
-          yellow = "#2F64C1";
-          blue = "#CF39A7";
-          magenta = "#4B9EB9";
-          cyan = "#02A3E3";
-          white = "#77e7f1";
-        };
-        bright = {
-          black =  "#53a1a8";
-          red =  "#FDE20D";
-          green =  "#075AA3";
-          yellow =  "#2F64C1";
-          blue =  "#CF39A7";
-          magenta =  "#4B9EB9";
-          cyan =  "#02A3E3";
-          white =  "#77e7f1";
-        };
-      };
     };
   };
 }
