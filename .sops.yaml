@@ -5,6 +5,7 @@ keys:
   - &hosts:
     - &erge     age15zmela0nmnjxpxef8mf2z8856a89ty4ez2mlxh8rpshdrpg0gg4s35hyrn
     - &legion   age17k38hh904slkwz4kkhnxc0cavrx4yfyqy520u7g267t2w2tcpy3skjn0tq
+    - &nyx      age1y6ppya58ewfm5q36gd723fc5380chz5kjvyxwennvdkkec33nf6q3e6ewh
 creation_rules:
   - path_regex: secrets.yaml$
     key_groups:
@@ -12,3 +13,4 @@ creation_rules:
         - *floride
         - *erge
         - *legion
+        - *nyx
