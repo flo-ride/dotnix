@@ -4,6 +4,6 @@
   programs.rofi = {
     enable = true;
     terminal = "${pkgs.alacritty}/bin/alacritty";
-    theme = ./theme.rafi;
+    # theme = ./theme.rafi;
   };
 }
