@@ -2,10 +2,22 @@
 , pkgs
 , lib
 , vimUtils
+, flake
 , ...
 }:
 
+
+
 let
+  inherit (flake) inputs;
+  inherit (inputs) self;
+
+
+  unstable = import inputs.nixos-unstable {
+    system = pkgs.system;
+    config.allowUnfree = true;
+  };
+
   # installs a vim plugin from git with a given tag / branch
   pluginGit =
     ref: repo:
@@ -78,6 +90,8 @@ in
 
       zathura
       xdotool
+
+      unstable.vectorcode
 
       # extra language servers
       #rnix-lsp TODO fix slow closing time of neovim
@@ -160,7 +174,8 @@ in
       # neotest-rust
 
       # Ai
-      codecompanion-nvim
+      unstable.vimPlugins.codecompanion-nvim
+      unstable.vimPlugins.vectorcode-nvim
 
       # Others
       noice-nvim
