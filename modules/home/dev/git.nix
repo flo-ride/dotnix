@@ -4,7 +4,6 @@
     gh
     glab
     git-lfs
-    gitAndTools.gitflow
   ];
 
   home.shellAliases = {

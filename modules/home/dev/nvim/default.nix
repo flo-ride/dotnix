@@ -174,8 +174,8 @@ in
       # neotest-rust
 
       # Ai
-      unstable.vimPlugins.codecompanion-nvim
-      unstable.vimPlugins.vectorcode-nvim
+      codecompanion-nvim
+      vectorcode-nvim
 
       # Others
       noice-nvim
