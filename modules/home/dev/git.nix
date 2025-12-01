@@ -18,12 +18,12 @@
       enable = true;
       lfs.enable = true;
 
-      # User config
-      userName = config.me.fullname;
-      userEmail = config.me.email;
+      settings = {
+        # User config
+        user.name = config.me.fullname;
+        user.email = config.me.email;
 
-      # Extra Config
-      extraConfig = {
+        # Extra Config
         init.defaultBranch = "master";
         push.autoSetupRemote = true;
 
@@ -37,14 +37,13 @@
         mergetool.fugitive.cmd = "nvim -f -c Gvdiffsplit! $LOCAL $REMOTE $MERGED";
 
         safe.directory = "*"; # Allow to push my config with git
-      };
 
-      # Alias
-      aliases = {
-        mr = "!sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -";
-        l = "log --graph --pretty='%Cred%h%Creset - %C(bold blue)<%an>%Creset %s%C(yellow)%d%Creset %Cgreen(%cr)' --abbrev-commit --date=relative";
-        whoops = "reset --hard";
-        back = "reset --hard HEAD^";
+        alias = {
+          mr = "!sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -";
+          l = "log --graph --pretty='%Cred%h%Creset - %C(bold blue)<%an>%Creset %s%C(yellow)%d%Creset %Cgreen(%cr)' --abbrev-commit --date=relative";
+          whoops = "reset --hard";
+          back = "reset --hard HEAD^";
+        };
       };
 
       ignores = [
