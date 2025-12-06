@@ -15,14 +15,12 @@ let
       light = "${pkgs.brightnessctl}/bin/brightnessctl";
       alsa = "${pkgs.alsa-utils}/bin/amixer -q sset Master";
       playerctl = "${pkgs.playerctl}/bin/playerctl";
-      xwaylandvideobridge = "${pkgs.kdePackages.xwaylandvideobridge}/bin/xwaylandvideobridge";
       hypridle = "${pkgs.hypridle}/bin/hypridle";
     in
     ''
       exec-once = ${hypridle}
 
       exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-      exec-once = ${xwaylandvideobridge}
 
       bind = $mainMod, Return, exec, ${term}
       bind = $mainMod, D, exec, ${dmenu}
