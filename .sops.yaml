@@ -1,12 +1,13 @@
 
 keys:
   - &users:
-    - &floride  age1fxd40zzu70ga73en9vf9dgf3w9ghvnnl3hq5sr037wcucd6z8prqkzuks4
+    - &floride    age1fxd40zzu70ga73en9vf9dgf3w9ghvnnl3hq5sr037wcucd6z8prqkzuks4
   - &hosts:
-    - &erge     age15zmela0nmnjxpxef8mf2z8856a89ty4ez2mlxh8rpshdrpg0gg4s35hyrn
-    - &legion   age17k38hh904slkwz4kkhnxc0cavrx4yfyqy520u7g267t2w2tcpy3skjn0tq
-    - &nyx      age1y6ppya58ewfm5q36gd723fc5380chz5kjvyxwennvdkkec33nf6q3e6ewh
-    - &ares     age19sgxpn8m7mk72jfgdtfwq2s49lyrvgw2g6qflj9mmw2375495qfqcxdtk7
+    - &erge       age15zmela0nmnjxpxef8mf2z8856a89ty4ez2mlxh8rpshdrpg0gg4s35hyrn
+    - &legion     age17k38hh904slkwz4kkhnxc0cavrx4yfyqy520u7g267t2w2tcpy3skjn0tq
+    - &nyx        age1y6ppya58ewfm5q36gd723fc5380chz5kjvyxwennvdkkec33nf6q3e6ewh
+    - &ares       age19sgxpn8m7mk72jfgdtfwq2s49lyrvgw2g6qflj9mmw2375495qfqcxdtk7
+    - &hephaistos age1qnt6wf7aesw6xzl3698fvh4dt97jfm8fx9734t7uctytmhsyt3sqtz65l3
 creation_rules:
   - path_regex: secrets.yaml$
     key_groups:
@@ -16,3 +17,4 @@ creation_rules:
         - *legion
         - *nyx
         - *ares
+        - *hephaistos
