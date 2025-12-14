@@ -31,4 +31,12 @@ in
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = "25.11";
+
+  environment.systemPackages = with pkgs; [
+    kicad
+    freecad-wayland
+    blender
+    dbeaver-bin
+    bambu-studio
+  ];
 }
