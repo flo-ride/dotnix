@@ -10,6 +10,7 @@
 
   services.open-webui = {
     enable = true;
+    port = 11444;
     environment = {
       ANONYMIZED_TELEMETRY = "False";
       DO_NOT_TRACK = "True";
