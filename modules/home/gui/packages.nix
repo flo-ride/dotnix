@@ -40,5 +40,8 @@ in
 
     # Password
     bitwarden-desktop
+
+    # Moonlight
+    moonlight-qt
   ];
 }
