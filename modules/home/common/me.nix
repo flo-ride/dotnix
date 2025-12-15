@@ -16,6 +16,12 @@
         description = "Your email for use in Git config";
       };
     };
+
+    enableSuspend = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable the system suspend listener in hypridle.";
+    };
   };
   config = {
     home.username = config.me.username;
