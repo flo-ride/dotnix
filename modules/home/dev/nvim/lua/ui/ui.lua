@@ -2,7 +2,7 @@ require("colorizer").setup()
 require("toggleterm").setup()
 require("todo-comments").setup()
 
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter').setup {
   highlight = {
     enable = true,
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
