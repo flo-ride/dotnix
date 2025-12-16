@@ -10,7 +10,7 @@ end
 
 
 local omnisharp_bin = "OmniSharp"
-require'lspconfig'.omnisharp.setup{
+vim.lsp.config.omnisharp.setup{
     cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
 
     on_attach = on_attach,

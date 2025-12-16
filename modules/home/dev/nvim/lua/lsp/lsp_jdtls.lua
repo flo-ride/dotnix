@@ -3,7 +3,7 @@ local workspace_folder = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(
 
 local launcher_jar_path = vim.fn.globpath(home .. '/.local/share/nvim/mason/packages/jdtls/plugins', 'org.eclipse.equinox.launcher_*.jar', false, true)[1]
 
-require'lspconfig'.jdtls.setup {
+vim.lsp.config.jdtls.setup {
     cmd = {
         'java', 
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',

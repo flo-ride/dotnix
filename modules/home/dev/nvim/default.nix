@@ -65,8 +65,6 @@ in
         ${lib.strings.fileContents ./lua/ui/neogit.lua}
         ${lib.strings.fileContents ./lua/ui/noice.lua}
         ${lib.strings.fileContents ./lua/lsp/lsp.lua}
-        ${lib.strings.fileContents ./lua/lsp/lsp_jdtls.lua}
-        ${lib.strings.fileContents ./lua/lsp/lsp_omnisharp.lua}
         ${lib.strings.fileContents ./lua/lsp/lspsaga.lua}
         ${lib.strings.fileContents ./lua/dap/dap.lua}
         ${lib.strings.fileContents ./lua/dap/dapui.lua}
