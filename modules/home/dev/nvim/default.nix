@@ -72,6 +72,7 @@ in
         ${lib.strings.fileContents ./lua/dap/dapui.lua}
         ${lib.strings.fileContents ./lua/dap/dap_csharp.lua}
         ${lib.strings.fileContents ./lua/cmp/cmp.lua}
+        ${lib.strings.fileContents ./lua/others/copy-paste.lua}
         EOF
       ''
     ];
