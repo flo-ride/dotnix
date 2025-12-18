@@ -18,6 +18,7 @@ in
     self.nixosModules.vpn
     self.nixosModules.ollama
     self.nixosModules.sunshine
+    self.nixosModules.no-suspend
     {
       home-manager.sharedModules = [
         self.homeModules.dev
