@@ -43,5 +43,7 @@ in
 
     # Moonlight
     moonlight-qt
+
+    feh
   ];
 }
