@@ -64,12 +64,12 @@ in
         ${lib.strings.fileContents ./lua/ui/tree.lua}
         ${lib.strings.fileContents ./lua/ui/neogit.lua}
         ${lib.strings.fileContents ./lua/ui/noice.lua}
+        ${lib.strings.fileContents ./lua/cmp/cmp.lua}
         ${lib.strings.fileContents ./lua/lsp/lsp.lua}
         ${lib.strings.fileContents ./lua/lsp/lspsaga.lua}
         ${lib.strings.fileContents ./lua/dap/dap.lua}
         ${lib.strings.fileContents ./lua/dap/dapui.lua}
         ${lib.strings.fileContents ./lua/dap/dap_csharp.lua}
-        ${lib.strings.fileContents ./lua/cmp/cmp.lua}
         ${lib.strings.fileContents ./lua/others/copy-paste.lua}
         EOF
       ''
@@ -155,6 +155,7 @@ in
 
       # Completion
       nvim-cmp
+      cmp-git
       cmp-nvim-lsp
       cmp-nvim-lua
       cmp-nvim-lsp-signature-help
