@@ -23,5 +23,6 @@
   # Add oterm to the systemPackages
   environment.systemPackages = with pkgs; [
     oterm
+    ollama-rocm
   ];
 }
