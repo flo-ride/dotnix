@@ -32,11 +32,16 @@ in
   # $ darwin-rebuild changelog
   system.stateVersion = "25.11";
 
+  services.lact.enable = true;
   environment.systemPackages = with pkgs; [
     kicad
     freecad-wayland
     blender
     dbeaver-bin
     bambu-studio
+    insomnia
+    obs-studio
+    easyeffects
+    vlc
   ];
 }
