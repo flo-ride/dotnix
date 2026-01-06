@@ -17,12 +17,12 @@ require("codecompanion").setup({
         http = {
             acp = {
                 opts = {
-                    show_defaults = false,
+                    show_defaults = true,
                 },
             },
             http = {
                 opts = {
-                    show_defaults = false,
+                    show_defaults = true,
                 },
             },
             llama3 = function()
@@ -41,6 +41,22 @@ require("codecompanion").setup({
                     },
                 })
             end,
+            qwen3 = function()
+                return require("codecompanion.adapters").extend("ollama", {
+                    name = "qwen3",
+                    schema = {
+                        model = {
+                            default = "qwen3-coder:latest",
+                        },
+                        num_ctx = {
+                            default = 16384,
+                        },
+                        num_predict = {
+                            default = -1,
+                        },
+                    },
+                })
+            end,
         },
     },
     prompt_library = {
@@ -49,7 +65,7 @@ require("codecompanion").setup({
             description = "Generate a conventional commit message from staged diff",
             opts = {
                 -- These are from your example and are great for usability
-                index = 10,
+                index = 1,
                 is_default = true,
                 is_slash_cmd = true,
                 short_name = "commit",
