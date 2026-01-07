@@ -38,10 +38,9 @@
     # Theme
     catppuccin.url = "github:catppuccin/nix/release-25.05";
 
-    # TODO:
-    # nixvim.url = "github:nix-community/nixvim";
-    # nixvim.inputs.nixpkgs.follows = "nixpkgs";
-    # nixvim.inputs.flake-parts.follows = "flake-parts";
+    nixvim.url = "github:nix-community/nixvim/nixos-25.11";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    nixvim.inputs.flake-parts.follows = "flake-parts";
   };
 
   # Wired using https://nixos-unified.org/autowiring.html
