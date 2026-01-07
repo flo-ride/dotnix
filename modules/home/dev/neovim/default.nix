@@ -14,7 +14,7 @@
       ./lsp.nix
       ./formatting.nix
       ./clipboard.nix
-      ./cmp.nix
+      ./completion.nix
       ./ai.nix
       ./debugger.nix
 

@@ -310,45 +310,10 @@
     ];
   };
 
-  # Mappings for cmp-nvim
-  plugins.cmp.settings.mapping = {
-    "<C-Space>" = "cmp.mapping.complete()";
-    "<C-e>" = "cmp.mapping.close()";
-    "<Tab>" = ''
-      cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        elseif require("luasnip").locally_jumpable(1) then
-          require("luasnip").jump(1)
-        else
-          fallback()
-        end
-      end, { "i", "s" })
-    '';
-    "<S-Tab>" = ''
-      cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        elseif require("luasnip").locally_jumpable(-1) then
-          require("luasnip").jump(-1)
-        else
-          fallback()
-        end
-      end, { "i", "s" })
-    '';
-    "<CR>" = ''
-      cmp.mapping(function(fallback)
-        if cmp.visible() then
-          if require("luasnip").expandable() then
-            require("luasnip").expand()
-          else
-            cmp.confirm({ select = true })
-          end
-        else
-          fallback()
-        end
-      end)
-    '';
+  # Mappings for blink.cmp
+  plugins.blink-cmp.settings.keymap = {
+    preset = "enter";
+    "<C-space>" = [ "show" "show_documentation" "hide_documentation" ];
   };
 
   # Mappings that don't fit well in Which-Key (Insert/Terminal/Command mode)
