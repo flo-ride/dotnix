@@ -4,8 +4,7 @@
   config,
   default,
   ...
-}:
-{
+}: {
   programs.cava = {
     enable = true;
     settings = {

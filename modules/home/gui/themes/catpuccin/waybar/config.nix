@@ -1,9 +1,9 @@
-{ config
-, pkgs
-, default
-, ...
-}:
 {
+  config,
+  pkgs,
+  default,
+  ...
+}: {
   # Add hyprctl to waybar env  = https://github.com/hyprwm/Hyprland/issues/1835
   # systemd.user.services.waybar.Service.Environment = "PATH=/run/wrappers/bin =${pkgs.hyprland}/bin";
 
@@ -79,7 +79,7 @@
       "backlight" = {
         "device" = "intel_backlight";
         "format" = "{icon} {percent}%";
-        "format-icons" = [ "" "" "" "" "" "" "" "" "" ];
+        "format-icons" = ["" "" "" "" "" "" "" "" ""];
       };
       "battery" = {
         "states" = {
@@ -89,14 +89,14 @@
         "format" = "{icon} {capacity}%";
         "format-charging" = "";
         "format-plugged" = "";
-        "format-icons" = [ "" "" "" "" "" "" "" "" "" "" "" "" ];
+        "format-icons" = ["" "" "" "" "" "" "" "" "" "" "" ""];
       };
       "pulseaudio" = {
         "scroll-step" = 1;
         "format" = "{icon} {volume}%";
         "format-muted" = "";
         "format-icons" = {
-          "default" = [ "" "" " " ];
+          "default" = ["" "" " "];
         };
         "on-click" = "${pkgs.pavucontrol}/bin/pavucontrol";
       };

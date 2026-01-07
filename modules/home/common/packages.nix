@@ -1,9 +1,12 @@
-{ flake, pkgs, lib, ... }:
-let
+{
+  flake,
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (flake) config inputs;
   inherit (inputs) self;
-in
-{
+in {
   # Nix packages to install to $HOME
   #
   # Search for packages here: https://search.nixos.org/packages
@@ -48,7 +51,7 @@ in
 
     tmate = {
       enable = true;
-      #host = ""; #In case you wish to use a server other than tmate.io 
+      #host = ""; #In case you wish to use a server other than tmate.io
     };
   };
 }

@@ -1,10 +1,10 @@
-{ pkgs
-, lib
-, config
-, default
-, ...
-}:
 {
+  pkgs,
+  lib,
+  config,
+  default,
+  ...
+}: {
   programs.swaylock = {
     package = pkgs.swaylock-effects;
     settings = {

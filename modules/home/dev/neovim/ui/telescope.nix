@@ -32,7 +32,7 @@
       ];
 
       # Border characters (matches your Lua table)
-      borderchars = [ "─" "│" "─" "│" "╭" "╮" "╯" "╰" ];
+      borderchars = ["─" "│" "─" "│" "╭" "╮" "╯" "╰"];
     };
   };
 }

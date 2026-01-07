@@ -1,4 +1,3 @@
-{ pkgs, ... }:
-{
-  environment.systemPackages = with pkgs; [ openfortivpn openfortivpn-webview ];
+{pkgs, ...}: {
+  environment.systemPackages = with pkgs; [openfortivpn openfortivpn-webview];
 }

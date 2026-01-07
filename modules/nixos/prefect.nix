@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   services.prefect = {
     enable = true;
     database = "sqlite";

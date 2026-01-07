@@ -1,13 +1,16 @@
-{ flake, pkgs, lib, ... }:
-let
+{
+  flake,
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (flake) config inputs;
   inherit (inputs) self;
-in
-{
+in {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
   ];
 
   sops.defaultSopsFile = ../../../secrets.yaml;
-  sops.age.sshKeyPaths = [ "/home/floride/.ssh/id_flo" ];
+  sops.age.sshKeyPaths = ["/home/floride/.ssh/id_flo"];
 }

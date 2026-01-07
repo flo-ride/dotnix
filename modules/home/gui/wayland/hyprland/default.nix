@@ -1,10 +1,10 @@
-{ config
-, inputs
-, lib
-, pkgs
-, ...
-}:
 {
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hyprpaper.nix
     ./hypridle.nix

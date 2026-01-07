@@ -48,12 +48,12 @@
         {
           position = "bottom";
           size = 10;
-          elements = [ "repl" ];
+          elements = ["repl"];
         }
       ];
       mappings = {
         edit = "e";
-        expand = [ "<CR>" "<2-LeftMouse>" ];
+        expand = ["<CR>" "<2-LeftMouse>"];
         open = "o";
         remove = "d";
         repl = "r";
@@ -61,7 +61,7 @@
       };
       floating = {
         border = "single";
-        mappings = { close = [ "q" "<Esc>" ]; };
+        mappings = {close = ["q" "<Esc>"];};
       };
       windows.indent = 1;
     };

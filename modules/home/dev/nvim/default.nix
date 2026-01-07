@@ -1,17 +1,13 @@
-{ config
-, pkgs
-, lib
-, vimUtils
-, flake
-, ...
-}:
-
-
-
-let
+{
+  config,
+  pkgs,
+  lib,
+  vimUtils,
+  flake,
+  ...
+}: let
   inherit (flake) inputs;
   inherit (inputs) self;
-
 
   unstable = import inputs.nixos-unstable {
     system = pkgs.system;
@@ -19,8 +15,7 @@ let
   };
 
   # installs a vim plugin from git with a given tag / branch
-  pluginGit =
-    ref: repo:
+  pluginGit = ref: repo:
     pkgs.vimUtils.buildVimPlugin {
       pname = "${lib.strings.sanitizeDerivationName repo}";
       version = ref;
@@ -32,12 +27,9 @@ let
 
   # always installs latest version
   plugin = pluginGit "HEAD";
-
   # https://github.com/breuerfelix/nixos/blob/main/shell/vim/init.nix
   # builtins.concatStringsSep "\n" [ (lib.strings.fileContents ./init.vim) ];
-
-in
-{
+in {
   programs.neovim = {
     enable = true;
     vimAlias = true;
@@ -192,6 +184,5 @@ in
       vim-toml
       # vim-clang-format
     ];
-
   };
 }

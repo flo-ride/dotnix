@@ -1,9 +1,9 @@
-{ flake
-, lib
-, pkgs
-, ...
-}:
 {
+  flake,
+  lib,
+  pkgs,
+  ...
+}: {
   services.mako = {
     enable = true;
 
@@ -22,5 +22,4 @@
   };
   #icon-path=/usr/share/icons/Papirus-Dark
   #font=JetBrainsMono Nerd Font 10
-
 }

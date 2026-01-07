@@ -1,9 +1,12 @@
-{ flake, pkgs, lib, ... }:
-let
+{
+  flake,
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (flake) config inputs;
   inherit (inputs) self;
-in
-{
+in {
   imports = [
     inputs.sops-nix.nixosModules.sops
   ];

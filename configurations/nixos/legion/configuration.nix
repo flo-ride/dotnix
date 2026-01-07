@@ -1,13 +1,15 @@
-{ pkgs, prev, flake, ... }:
-
-let
+{
+  pkgs,
+  prev,
+  flake,
+  ...
+}: let
   inherit (flake) inputs;
   inherit (inputs) self;
 
   unstable = inputs.nixos-unstable.legacyPackages.${pkgs.system};
-in
-{
-  imports = [ ./hardware-configuration.nix ];
+in {
+  imports = [./hardware-configuration.nix];
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
@@ -22,7 +24,7 @@ in
 
   # TODO: Maybe move this
   networking.networkmanager.enable = true;
-  networking.nameservers = [ "8.8.8.8" "1.1.1.1" ];
+  networking.nameservers = ["8.8.8.8" "1.1.1.1"];
 
   # TODO: Maybe move this
   console.keyMap = "uk";
@@ -33,10 +35,12 @@ in
   # $ darwin-rebuild changelog
   system.stateVersion = "24.11";
 
-  environment.systemPackages = with pkgs; [
-    kicad
-    freecad-wayland
-  ] ++ [
-    unstable.bambu-studio
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      kicad
+      freecad-wayland
+    ]
+    ++ [
+      unstable.bambu-studio
+    ];
 }

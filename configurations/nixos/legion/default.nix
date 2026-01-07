@@ -1,12 +1,9 @@
 # See /modules/nixos/* for actual settings
 # This file is just *top-level* configuration.
-{ flake, ... }:
-
-let
+{flake, ...}: let
   inherit (flake) inputs;
   inherit (inputs) self;
-in
-{
+in {
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-legion-y530-15ich
     self.nixosModules.default

@@ -1,9 +1,11 @@
-{ flake, pkgs, ... }:
-let
+{
+  flake,
+  pkgs,
+  ...
+}: let
   inherit (flake) inputs;
   inherit (inputs) self;
-in
-{
+in {
   imports = [
     ./hypr
     # ./swaylock.nix

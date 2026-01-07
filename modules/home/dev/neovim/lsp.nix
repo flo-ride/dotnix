@@ -26,7 +26,6 @@
     };
   };
 
-
   plugins.rustaceanvim = {
     enable = true;
     settings = {

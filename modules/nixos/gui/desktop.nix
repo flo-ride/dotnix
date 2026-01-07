@@ -1,10 +1,9 @@
-{ config
-, pkgs
-, inputs
-, ...
-}:
 {
-
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   fonts = {
     packages = with pkgs; [
       meslo-lgs-nf

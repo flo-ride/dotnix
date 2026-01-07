@@ -1,4 +1,3 @@
-{ config, ... }:
-{
-  imports = [ ./alacritty.nix ];
+{config, ...}: {
+  imports = [./alacritty.nix];
 }

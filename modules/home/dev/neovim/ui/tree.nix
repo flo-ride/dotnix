@@ -28,7 +28,7 @@
       local buf_info = vim.fn.getbufinfo(bufnr)[1]
       local tab_wins = vim.tbl_filter(function(w) return w~=winnr end, vim.api.nvim_tabpage_list_wins(tabnr))
       local tab_bufs = vim.tbl_map(vim.api.nvim_win_get_buf, tab_wins)
-      
+
       if buf_info.name:match(".*NvimTree_%d*$") then
         if not vim.tbl_isempty(tab_bufs) then
           api.tree.close()

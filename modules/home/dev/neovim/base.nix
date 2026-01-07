@@ -59,19 +59,18 @@
     softtabstop = -1;
     expandtab = true;
     smartindent = true;
-
   };
 
   # Custom Autocommands (Doxygen/Latex)
   autoCmd = [
     {
-      event = [ "BufRead" "BufNewFile" ];
-      pattern = [ "*.h" ];
+      event = ["BufRead" "BufNewFile"];
+      pattern = ["*.h"];
       command = "set filetype=c.doxygen";
     }
     {
-      event = [ "BufRead" "BufNewFile" ];
-      pattern = [ "*.tex" ];
+      event = ["BufRead" "BufNewFile"];
+      pattern = ["*.tex"];
       command = "set filetype=latex";
     }
   ];

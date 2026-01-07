@@ -1,11 +1,10 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Replace sudo with doas
   security.doas = {
     enable = true;
     extraRules = [
       {
-        groups = [ "wheel" ];
+        groups = ["wheel"];
         persist = true;
         keepEnv = true;
       }

@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   enableSuspend = false;
   wayland.windowManager.hyprland.settings = {
     monitor = [

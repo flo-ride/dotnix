@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   plugins = {
     # --- Colorizer ---
     # Highlights hex codes like #ff0000 directly in the editor
@@ -22,7 +22,7 @@
       enable = true;
       settings = {
         direction = "float";
-        float_opts = { border = "rounded"; };
+        float_opts = {border = "rounded";};
       };
     };
 

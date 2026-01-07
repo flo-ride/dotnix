@@ -1,14 +1,16 @@
-{ config, pkgs, lib, ... }:
-
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   # To use the `nix` from `inputs.nixpkgs` on templates using the standalone `home-manager` template
 
   # `nix.package` is already set if on `NixOS` or `nix-darwin`.
   # TODO: Avoid setting `nix.package` in two places. Does https://github.com/juspay/nixos-unified-template/issues/93 help here?
   nix.package = lib.mkDefault pkgs.nix;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.settings.auto-optimise-store = true;
   nix.settings.builders-use-substitutes = true;
   nix.settings.flake-registry = "/etc/nix/registry.json";
@@ -30,11 +32,9 @@
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
   ];
 
-  programs =
-    {
-      fish.enable = true;
-    };
-
+  programs = {
+    fish.enable = true;
+  };
 
   # Use this here for fixing nix run error (even if it's useless)
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
@@ -43,5 +43,5 @@
 
   console.keyMap = "uk";
 
-  environment.systemPackages = with pkgs; [ vim git wget curl ];
+  environment.systemPackages = with pkgs; [vim git wget curl];
 }

@@ -3,8 +3,7 @@
 # Theme Elements & Colors for Hyprland.
 # Edited for Garuda Linux by yurihikari
 # Edited by FloRide for its personal config
-{ ... }:
-{
+{...}: {
   wayland.windowManager.hyprland.settings = {
     # Elements
     "$hypr_border_size" = "2";

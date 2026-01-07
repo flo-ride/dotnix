@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   systemd.sleep.extraConfig = ''
     AllowSuspend=no
     AllowHibernation=no

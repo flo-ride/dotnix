@@ -1,63 +1,59 @@
-{ lib
-, config
-, pkgs
-, default
-, ...
-}:
-let
+{
+  lib,
+  config,
+  pkgs,
+  default,
+  ...
+}: let
   mainMod = "$mainMod = Mod4";
-  applicationsShortcuts =
-    let
-      term = "${pkgs.alacritty}/bin/alacritty";
-      dmenu = "${pkgs.rofi}/bin/rofi -modi drun -show drun";
-      swaylock = "${lib.getExe pkgs.swaylock-effects} -S";
-      screenshot = ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp})" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
-      light = "${pkgs.brightnessctl}/bin/brightnessctl";
-      alsa = "${pkgs.alsa-utils}/bin/amixer -q sset Master";
-      playerctl = "${pkgs.playerctl}/bin/playerctl";
-      hypridle = "${pkgs.hypridle}/bin/hypridle";
-    in
-    ''
-      exec-once = ${hypridle}
+  applicationsShortcuts = let
+    term = "${pkgs.alacritty}/bin/alacritty";
+    dmenu = "${pkgs.rofi}/bin/rofi -modi drun -show drun";
+    swaylock = "${lib.getExe pkgs.swaylock-effects} -S";
+    screenshot = ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp})" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
+    light = "${pkgs.brightnessctl}/bin/brightnessctl";
+    alsa = "${pkgs.alsa-utils}/bin/amixer -q sset Master";
+    playerctl = "${pkgs.playerctl}/bin/playerctl";
+    hypridle = "${pkgs.hypridle}/bin/hypridle";
+  in ''
+    exec-once = ${hypridle}
 
-      exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+    exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
-      bind = $mainMod, Return, exec, ${term}
-      bind = $mainMod, D, exec, ${dmenu}
-      bind = $mainMod, X, exec, ${swaylock}
-      bind = , PRINT, exec, ${screenshot}
+    bind = $mainMod, Return, exec, ${term}
+    bind = $mainMod, D, exec, ${dmenu}
+    bind = $mainMod, X, exec, ${swaylock}
+    bind = , PRINT, exec, ${screenshot}
 
-      binde = , XF86MonBrightnessDown, exec, ${light} set 5%-
-      binde = , XF86MonBrightnessUp, exec, ${light} set +5%
+    binde = , XF86MonBrightnessDown, exec, ${light} set 5%-
+    binde = , XF86MonBrightnessUp, exec, ${light} set +5%
 
-      binde = , XF86AudioRaiseVolume, exec, ${alsa} 1%+
-      binde = , XF86AudioLowerVolume, exec, ${alsa} 1%-
-      bindl = , XF86AudioMute, exec, ${alsa} toggle
+    binde = , XF86AudioRaiseVolume, exec, ${alsa} 1%+
+    binde = , XF86AudioLowerVolume, exec, ${alsa} 1%-
+    bindl = , XF86AudioMute, exec, ${alsa} toggle
 
-      bindl = , XF86AudioPlay, exec, ${playerctl} play-pause
-      bindl = , XF86AudioPause, exec, ${playerctl} play-pause
-      bindl = , XF86AudioNext, exec, ${playerctl} next
-      bindl = , XF86AudioPrev, exec, ${playerctl} previous
-    '';
+    bindl = , XF86AudioPlay, exec, ${playerctl} play-pause
+    bindl = , XF86AudioPause, exec, ${playerctl} play-pause
+    bindl = , XF86AudioNext, exec, ${playerctl} next
+    bindl = , XF86AudioPrev, exec, ${playerctl} previous
+  '';
 
   workspaceControl = ''
     # workspaces
     # binds mainMod + [shift +] {1..10} to [move to] ws {1..10}
     ${builtins.concatStringsSep "\n" (
       builtins.genList (
-        x:
-        let
-          ws =
-            let
-              c = (x + 1) / 10;
-            in
+        x: let
+          ws = let
+            c = (x + 1) / 10;
+          in
             builtins.toString (x + 1 - (c * 10));
-        in
-        ''
+        in ''
           bind = $mainMod, ${ws}, workspace, ${toString (x + 1)}
           bind = $mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}
         ''
-      ) 10
+      )
+      10
     )}
 
     bind = $mainMod, mouse_down, workspace, e+1
@@ -179,8 +175,7 @@ let
         animation = workspaces, 1, 6, default
     }
   '';
-in
-{
+in {
   wayland.windowManager.hyprland.extraConfig = ''
     ${mainMod}
     ${workspaceControl}

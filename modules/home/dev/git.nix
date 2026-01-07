@@ -1,10 +1,9 @@
-{ config, pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    gh
-    glab
-    git-lfs
-  ];
+  config,
+  pkgs,
+  ...
+}: {
+  home.packages = with pkgs; [gh glab git-lfs];
 
   home.shellAliases = {
     g = "git";
@@ -47,7 +46,7 @@
       };
 
       ignores = [
-        ## Syncthing 
+        ## Syncthing
         "*sync-conflict-*"
 
         ## Vim/Neovim

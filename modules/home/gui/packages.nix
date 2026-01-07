@@ -1,16 +1,18 @@
-{ pkgs, prev, flake, lib, ... }:
-
-let
+{
+  pkgs,
+  prev,
+  flake,
+  lib,
+  ...
+}: let
   inherit (flake) inputs;
   inherit (inputs) self;
-
 
   unstable = import inputs.nixos-unstable {
     system = pkgs.system;
     config.allowUnfree = true;
   };
-in
-{
+in {
   home.packages = with pkgs; [
     # Tools
     pavucontrol

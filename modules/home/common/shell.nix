@@ -1,9 +1,11 @@
-{ pkgs, config, ... }:
 {
+  pkgs,
+  config,
+  ...
+}: {
   sops.secrets.gemini_api_key = {
     key = "nvim/gemini";
   };
-
 
   programs = {
     bash = {

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # --- Treesitter ---
   # The engine for modern syntax highlighting
   plugins.treesitter = {

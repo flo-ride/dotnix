@@ -2,7 +2,7 @@
   plugins.which-key = {
     enable = true;
 
-    settings = { win = { border = "rounded"; }; };
+    settings = {win = {border = "rounded";};};
 
     settings.spec = [
       # --- Mappings  ---
@@ -238,8 +238,7 @@
       }
       {
         __unkeyed-1 = "<leader>tf";
-        __unkeyed-2 =
-          "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>";
+        __unkeyed-2 = "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>";
         desc = "Launch file";
       }
       {
@@ -313,7 +312,7 @@
   # Mappings for blink.cmp
   plugins.blink-cmp.settings.keymap = {
     preset = "enter";
-    "<C-space>" = [ "show" "show_documentation" "hide_documentation" ];
+    "<C-space>" = ["show" "show_documentation" "hide_documentation"];
   };
 
   # Mappings that don't fit well in Which-Key (Insert/Terminal/Command mode)
@@ -336,5 +335,4 @@
   extraConfigVim = ''
     cnoreabbrev w!! w !sudo tee % >/dev/null
   '';
-
 }

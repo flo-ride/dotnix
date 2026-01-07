@@ -27,7 +27,7 @@
       # Optional: Summary window settings to match your UI style
       summary = {
         mappings = {
-          expand = [ "<CR>" "o" ];
+          expand = ["<CR>" "o"];
           stop = "u";
         };
       };

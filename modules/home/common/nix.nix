@@ -1,10 +1,14 @@
-{ config, pkgs, lib, ... }:
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   # To use the `nix` from `inputs.nixpkgs` on templates using the standalone `home-manager` template
 
   # `nix.package` is already set if on `NixOS` or `nix-darwin`.
   # TODO: Avoid setting `nix.package` in two places. Does https://github.com/juspay/nixos-unified-template/issues/93 help here?
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.settings.auto-optimise-store = true;
   nix.settings.builders-use-substitutes = true;
   nix.settings.flake-registry = "/etc/nix/registry.json";

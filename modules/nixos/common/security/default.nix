@@ -1,12 +1,12 @@
 # security tweaks borrowed from @hlissner : https://github.com/hlissner/dotfiles/blob/55194e703d1fe82e7e0ffd06e460f1897b6fc404/modules/security.nix
-{ flake
-, pkgs
-, lib
-, config
-, ...
-}:
 {
-  imports = [ ./sudo.nix ./clamav.nix ./secret.nix ];
+  flake,
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
+  imports = [./sudo.nix ./clamav.nix ./secret.nix];
 
   # tmpfs = /tmp is mounted in ram. Doing so makes temp file management speedy
   # on ssd systems and more secure (and volatile)! Because it's wiped on reboot.
@@ -59,5 +59,5 @@
     "net.ipv4.tcp_congestion_control" = "bbr";
     "net.core.default_qdisc" = "cake";
   };
-  boot.kernelModules = [ "tcp_bbr" ];
+  boot.kernelModules = ["tcp_bbr"];
 }

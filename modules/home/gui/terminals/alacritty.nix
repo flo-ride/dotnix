@@ -1,9 +1,6 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   # colors = import ../colorschemes.nix; # Custom colorscheme
-in
-{
+in {
   programs.alacritty = {
     enable = true;
 
@@ -44,7 +41,6 @@ in
           "echo; ${pkgs.neofetch}/bin/neofetch --disable packages; echo"
         ];
       };
-
     };
   };
 }
