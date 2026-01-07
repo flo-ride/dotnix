@@ -1,8 +1,10 @@
-{ flake, lib, ... }: {
+{ flake, lib, pkgs, ... }: {
   imports = [ flake.inputs.nixvim.homeModules.nixvim ];
 
   # Disable neovim in this case
   programs.neovim.enable = lib.mkForce false;
+
+  home.packages = with pkgs; [ vectorcode alejandra ];
 
   programs.nixvim = {
     enable = true;

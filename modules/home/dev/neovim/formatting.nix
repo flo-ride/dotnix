@@ -13,7 +13,7 @@
         # Lua
         stylua.enable = true;
         # Nix
-        nixfmt.enable = true;
+        alejandra.enable = true;
         # Shell
         shfmt.enable = true;
         # Python
