@@ -3,8 +3,12 @@
   services.xserver.xkb.variant = "extd";
 
   services.displayManager.gdm = {
-    enable = true;
+    enable = false;
     wayland = true;
+  };
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "floride";
   };
   services.xserver = {
     enable = true;

@@ -14,9 +14,14 @@
     playerctl = "${pkgs.playerctl}/bin/playerctl";
     hypridle = "${pkgs.hypridle}/bin/hypridle";
   in ''
-    exec-once = ${hypridle}
+    exec-once = ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+    exec-once = ${pkgs.systemd}/bin/systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+    exec-once = ${pkgs.systemd}/bin/systemctl --user start graphical-session.target
+    exec-once = ${pkgs.systemd}/bin/systemctl --user restart steam-run-url-service
 
-    exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+    exec-once = ${hypridle}
+    exec-once = ${pkgs.hyprlock}/bin/hyprlock --immediate
+    exec-once = ${pkgs.systemd}/bin/systemctl --user start waybar.service
 
     bind = $mainMod, Return, exec, ${term}
     bind = $mainMod, D, exec, ${dmenu}

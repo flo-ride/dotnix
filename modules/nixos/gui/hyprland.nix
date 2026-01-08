@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -11,4 +6,5 @@
   };
   # add hyprland to display manager sessions
   services.displayManager.sessionPackages = [pkgs.hyprland];
+  services.displayManager.defaultSession = "hyprland";
 }
