@@ -1,16 +1,10 @@
-{
-  pkgs,
-  lib,
-  config,
-  default,
-  ...
-}:
+{pkgs, ...}:
 # Wayland config
 {
   imports = [
     ./hyprland
     ./waybar.nix
-    ./swaylock.nix
+    ./lock.nix
     ./mako.nix
   ];
 

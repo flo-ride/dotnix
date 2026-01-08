@@ -4,11 +4,9 @@
   ...
 }: let
   inherit (flake) inputs;
-  inherit (inputs) self;
 in {
   imports = [
     ./hypr
-    # ./swaylock.nix
     ./waybar
     ./alacritty.nix
     ./gtk.nix

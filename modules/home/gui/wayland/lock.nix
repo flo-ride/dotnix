@@ -1,5 +1,5 @@
 {...}: {
-  programs.swaylock = {
+  programs.hyprlock = {
     enable = true;
   };
 }

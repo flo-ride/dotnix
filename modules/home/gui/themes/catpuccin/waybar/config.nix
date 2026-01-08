@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  default,
-  ...
-}: {
+{pkgs, ...}: {
   # Add hyprctl to waybar env  = https://github.com/hyprwm/Hyprland/issues/1835
   # systemd.user.services.waybar.Service.Environment = "PATH=/run/wrappers/bin =${pkgs.hyprland}/bin";
 
@@ -102,7 +97,7 @@
       };
       "custom/lock" = {
         "tooltip" = false;
-        "on-click" = "sh -c '(sleep 0.5s; ${pkgs.swaylock}/bin/swaylock --grace 0)' & disown";
+        "on-click" = "sh -c '(sleep 0.5s; ${pkgs.hyprlock}/bin/hyprlock --grace 0)' & disown";
         "format" = "";
       };
       "custom/power" = {

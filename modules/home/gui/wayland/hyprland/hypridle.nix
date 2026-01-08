@@ -1,11 +1,10 @@
 {
   config,
-  inputs,
   lib,
   pkgs,
   ...
 }: let
-  swaylock = "${lib.getExe pkgs.swaylock-effects} -S";
+  lock = "${lib.getExe pkgs.hyprlock}";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
   brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
   systemctl = "${pkgs.systemd}/bin/systemctl";
@@ -23,7 +22,7 @@ in {
 
   home.file.".config/hypr/hypridle.conf".text = ''
       general {
-          lock_cmd = pidof swaylock || ${swaylock}        # avoid starting multiple hyprlock instances.
+          lock_cmd = pidof hyprlock || ${lock}        # avoid starting multiple hyprlock instances.
           before_sleep_cmd = ${loginctl} lock-session     # lock before suspend.
           after_sleep_cmd = ${hyprctl} dispatch dpms on   # to avoid having to press a key twice to turn on the display.
           ignore_dbus_inhibit = false
