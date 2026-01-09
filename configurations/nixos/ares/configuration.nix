@@ -1,14 +1,8 @@
 {
   pkgs,
-  prev,
   flake,
   ...
-}: let
-  inherit (flake) inputs;
-  inherit (inputs) self;
-
-  unstable = inputs.nixos-unstable.legacyPackages.${pkgs.system};
-in {
+}: {
   imports = [./hardware-configuration.nix];
 
   boot.loader.efi.canTouchEfiVariables = true;
@@ -28,11 +22,22 @@ in {
   # TODO: Maybe move this
   console.keyMap = "uk";
 
-  time.hardwareClockInLocalTime = true;
-
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = "25.11";
+
+  services.xserver.videoDrivers = ["amdgpu"];
+  services.ollama = {
+    acceleration = "rocm";
+    rocmOverrideGfx = "12.0.1";
+    environmentVariables = {
+      # Hide the iGPU (gfx1036) so Ollama only sees the 9070 XT
+      # HIP_VISIBLE_DEVICES = "0" usually targets the discrete card
+      HIP_VISIBLE_DEVICES = "0";
+      # Additional safety override
+      HSA_OVERRIDE_GFX_VERSION = "12.0.1";
+    };
+  };
 
   services.lact.enable = true;
   environment.systemPackages = with pkgs; [
@@ -45,5 +50,6 @@ in {
     obs-studio
     easyeffects
     vlc
+    ollama-rocm
   ];
 }
