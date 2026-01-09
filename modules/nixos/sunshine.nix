@@ -30,11 +30,11 @@
     ${pkgs.hyprland}/bin/hyprctl output create headless SUNSHINE-STEAM
     ${pkgs.hyprland}/bin/hyprctl keyword monitor SUNSHINE-STEAM,''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS},auto,1
     ${pkgs.hyprland}/bin/hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.name | startswith("SUNSHINE-") | not) | .name' | xargs -I {} ${pkgs.hyprland}/bin/hyprctl keyword monitor {},disable
-    ${lib.getExe steam-run-url} steam://open/bigpicture &
+    ${lib.getExe steam-launch-and-wait} steam://open/bigpicture &
   '';
 
   steam-sunshine-undo = pkgs.writeShellScriptBin "steam-sunshine-undo" ''
-    ${pkgs.util-linux}/bin/setsid ${pkgs.steam}/bin/steam steam://close/bigpicture || true
+    ${lib.getExe steam-run-url} steam://close/bigpicture
     SUNSHINE_COUNT=$(${pkgs.hyprland}/bin/hyprctl monitors -j | ${pkgs.jq}/bin/jq '[.[] | select(.name | startswith("SUNSHINE-"))] | length')
 
     if [ "$SUNSHINE_COUNT" -le 1 ]; then
@@ -55,6 +55,15 @@
   steam-run-url = pkgs.writeShellApplication {
     name = "steam-run-url";
     text = ''
+      echo "$1" > "/run/user/$(id --user)/steam-run-url.fifo"
+    '';
+    runtimeInputs = [
+      pkgs.coreutils
+    ];
+  };
+  steam-launch-and-wait = pkgs.writeShellApplication {
+    name = "steam-run-url";
+    text = ''
       # Write the URL to the FIFO to launch Steam
       echo "$1" > "/run/user/$(id --user)/steam-run-url.fifo"
       # Wait a moment for Steam to start
@@ -70,7 +79,7 @@
     ];
   };
 in {
-  environment.systemPackages = [steam-run-url];
+  environment.systemPackages = [steam-run-url steam-launch-and-wait];
   systemd.user.services.steam-run-url-service = {
     enable = true;
     description = "Listen and starts steam games by id";
@@ -111,8 +120,8 @@ in {
           name = "Desktop";
           prep-cmd = [
             {
-              do = "${sunshine-do}/bin/sunshine-do";
-              undo = "${sunshine-undo}/bin/sunshine-undo";
+              do = lib.getExe sunshine-do;
+              undo = lib.getExe sunshine-undo;
             }
           ];
           exclude-global-prep-cmd = "false";
@@ -122,8 +131,8 @@ in {
           name = "Steam Big Picture";
           prep-cmd = [
             {
-              do = "${steam-sunshine-do}/bin/steam-sunshine-do";
-              undo = "${steam-sunshine-undo}/bin/steam-sunshine-undo";
+              do = "${lib.getExe steam-sunshine-do}";
+              undo = "${lib.getExe steam-sunshine-undo}";
             }
           ];
           image-path = "steam.png";
