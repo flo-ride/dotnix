@@ -11,9 +11,9 @@ in {
 
     settings = {
       strategies = {
-        chat.adapter = "oqwen3";
-        inline.adapter = "oqwen3";
-        cmd.adapter = "oqwen3";
+        chat.adapter = "gemini";
+        inline.adapter = "gemini";
+        cmd.adapter = "gemini";
       };
 
       opts = {log_level = "DEBUG";};
