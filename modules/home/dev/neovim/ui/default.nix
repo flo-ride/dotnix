@@ -33,5 +33,8 @@
     # --- Render Markdown ---
     # Markdown rendering in neovim
     render-markdown.enable = true;
+    render-markdown.settings = {
+      file_types = ["markdown" "codecompanion"];
+    };
   };
 }
