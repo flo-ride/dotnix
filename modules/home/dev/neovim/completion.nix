@@ -4,7 +4,7 @@
     settings = {
       appearance.use_nvim_cmp_as_default = true;
 
-      sources = {default = ["lsp" "path" "snippets" "buffer"];};
+      sources = {default = ["lsp" "path" "snippets" "buffer" "codecompanion"];};
       signature.enabled = true;
 
       completion = {
