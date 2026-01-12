@@ -1,15 +1,21 @@
-{ flake, lib, pkgs, ... }: {
-  imports = [ flake.inputs.nixvim.homeModules.nixvim ];
+{
+  flake,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [flake.inputs.nixvim.homeModules.nixvim];
 
   # Disable neovim in this case
   programs.neovim.enable = lib.mkForce false;
 
-  home.packages = with pkgs; [ vectorcode alejandra ];
+  home.packages = with pkgs; [vectorcode alejandra];
 
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
     vimdiffAlias = true;
+    _module.args = {inherit flake;};
     imports = [
       ./base.nix
       ./keybindings.nix

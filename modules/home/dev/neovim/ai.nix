@@ -1,6 +1,13 @@
 {
+  flake,
+  pkgs,
+  ...
+}: let
+  unstablePkgs = flake.inputs.nixos-unstable.legacyPackages.${pkgs.system};
+in {
   plugins.codecompanion = {
     enable = true;
+    package = unstablePkgs.vimPlugins.codecompanion-nvim;
 
     settings = {
       strategies = {
