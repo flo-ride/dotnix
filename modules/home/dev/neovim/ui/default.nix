@@ -29,5 +29,9 @@
     # --- Trouble ---
     # Diagnostic list
     trouble.enable = true;
+
+    # --- Render Markdown ---
+    # Markdown rendering in neovim
+    render-markdown.enable = true;
   };
 }
