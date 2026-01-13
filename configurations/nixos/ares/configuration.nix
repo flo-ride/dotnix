@@ -52,5 +52,6 @@
     vlc
     ollama-rocm
     ethtool
+    amdgpu_top
   ];
 }
