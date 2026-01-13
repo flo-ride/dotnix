@@ -31,9 +31,12 @@
     acceleration = "rocm";
     rocmOverrideGfx = "12.0.1";
     environmentVariables = {
+      OLLAMA_CONTEXT_LENGTH = "32000";
+
       # Hide the iGPU (gfx1036) so Ollama only sees the 9070 XT
-      # HIP_VISIBLE_DEVICES = "0" usually targets the discrete card
       HIP_VISIBLE_DEVICES = "0";
+      ROCR_VISIBLE_DEVICES = "0";
+
       # Additional safety override
       HSA_OVERRIDE_GFX_VERSION = "12.0.1";
     };
