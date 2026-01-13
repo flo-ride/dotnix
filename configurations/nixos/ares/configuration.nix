@@ -51,5 +51,6 @@
     easyeffects
     vlc
     ollama-rocm
+    ethtool
   ];
 }
