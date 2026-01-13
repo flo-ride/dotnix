@@ -11,56 +11,71 @@ in {
 
     settings = {
       strategies = {
-        chat.adapter = "gemini";
-        inline.adapter = "gemini";
-        cmd.adapter = "gemini";
+        chat.adapter = "ogptoss";
+        inline.adapter = "ogptoss";
+        cmd.adapter = "ogptoss";
       };
 
       opts = {log_level = "DEBUG";};
 
       adapters = {
-        # Custom Ollama extensions
-        odeepseek = {
-          __raw = ''
-            function()
-              return require("codecompanion.adapters").extend("ollama", {
-                name = "odeepseek",
-                schema = {
-                  model = { default = "deepseek-r1:latest" },
-                  num_ctx = { default = 16384 },
-                  num_predict = { default = -1 },
-                },
-              })
-            end
-          '';
-        };
-        ollama3 = {
-          __raw = ''
-            function()
-              return require("codecompanion.adapters").extend("ollama", {
-                name = "ollama3.2",
-                schema = {
-                  model = { default = "llama3.2:latest" },
-                  num_ctx = { default = 16384 },
-                  num_predict = { default = -1 },
-                },
-              })
-            end
-          '';
-        };
-        oqwen3 = {
-          __raw = ''
-            function()
-              return require("codecompanion.adapters").extend("ollama", {
-                name = "oqwen3-coder",
-                schema = {
-                  model = { default = "qwen3-coder:latest" },
-                  num_ctx = { default = 16384 },
-                  num_predict = { default = -1 },
-                },
-              })
-            end
-          '';
+        http = {
+          odeepseek = {
+            __raw = ''
+              function()
+                return require("codecompanion.adapters").extend("ollama", {
+                  name = "odeepseek",
+                  schema = {
+                    model = { default = "deepseek-r1:latest" },
+                    num_ctx = { default = 16384 },
+                    num_predict = { default = -1 },
+                  },
+                })
+              end
+            '';
+          };
+          ollama3 = {
+            __raw = ''
+              function()
+                return require("codecompanion.adapters").extend("ollama", {
+                  name = "ollama3.2",
+                  schema = {
+                    model = { default = "llama3.2:latest" },
+                    num_ctx = { default = 16384 },
+                    num_predict = { default = -1 },
+                  },
+                })
+              end
+            '';
+          };
+          oqwen3 = {
+            __raw = ''
+              function()
+                return require("codecompanion.adapters").extend("ollama", {
+                  name = "oqwen3-coder",
+                  schema = {
+                    model = { default = "qwen3-coder:latest" },
+                    num_ctx = { default = 16384 },
+                    num_predict = { default = -1 },
+                  },
+                })
+              end
+            '';
+          };
+          ogptoss = {
+            __raw = ''
+              function()
+                return require("codecompanion.adapters").extend("ollama", {
+                  name = "ogptoss",
+                  schema = {
+                    model = { default = "gpt-oss:latest" },
+                    num_ctx = { default = 131072 },
+                    num_predict = { default = -1 },
+                  },
+                })
+              end
+            '';
+          };
         };
       };
       prompt_library = {
