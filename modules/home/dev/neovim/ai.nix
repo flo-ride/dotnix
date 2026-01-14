@@ -5,6 +5,13 @@
 }: let
   unstablePkgs = flake.inputs.nixos-unstable.legacyPackages.${pkgs.system};
 in {
+  extraPlugins = with unstablePkgs.vimPlugins; [
+    vectorcode-nvim
+  ];
+
+  extraConfigLua = ''
+    require('vectorcode').setup({})
+  '';
   plugins.codecompanion = {
     enable = true;
     package = unstablePkgs.vimPlugins.codecompanion-nvim;
@@ -122,6 +129,43 @@ in {
               opts.contains_code = true;
             }
           ];
+        };
+      };
+      extensions = {
+        vectorcode = {
+          opts = {
+            tool_group = {
+              enabled = true;
+              extras = ["file_search"];
+              collapse = false;
+            };
+            tool_opts = {
+              "*" = {};
+              ls = {};
+              vectorise = {};
+              query = {
+                max_num = {
+                  chunk = -1;
+                  document = -1;
+                };
+                default_num = {
+                  chunk = 50;
+                  document = 10;
+                };
+                include_stderr = false;
+                use_lsp = true;
+                no_duplicate = true;
+                chunk_mode = false;
+                summarise = {
+                  enabled = false;
+                  adapter = null;
+                  query_augmented = true;
+                };
+              };
+              files_ls = {};
+              files_rm = {};
+            };
+          };
         };
       };
     };
