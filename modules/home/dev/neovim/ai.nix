@@ -1,6 +1,7 @@
 {
   flake,
   pkgs,
+  config,
   ...
 }: let
   unstablePkgs = flake.inputs.nixos-unstable.legacyPackages.${pkgs.system};
@@ -18,9 +19,9 @@ in {
 
     settings = {
       strategies = {
-        chat.adapter = "ogptoss";
-        inline.adapter = "ogptoss";
-        cmd.adapter = "ogptoss";
+        chat.adapter = "gemini_cli";
+        inline.adapter = "gemini_cli";
+        cmd.adapter = "gemini_cli";
       };
 
       opts = {log_level = "DEBUG";};
@@ -78,6 +79,19 @@ in {
                     model = { default = "gpt-oss:latest" },
                     num_ctx = { default = 131072 },
                     num_predict = { default = -1 },
+                  },
+                })
+              end
+            '';
+          };
+        };
+        acp = {
+          gemini_cli = {
+            __raw = ''
+              function()
+                return require("codecompanion.adapters").extend("gemini_cli", {
+                  default = {
+                    auth_method = "oauth-personal",
                   },
                 })
               end
