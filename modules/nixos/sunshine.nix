@@ -4,6 +4,7 @@
   ...
 }: let
   sunshine-do = pkgs.writeShellScriptBin "sunshine-do" ''
+    ${pkgs.hyprland}/bin/hyprctl dispatch dpms on
     ${pkgs.procps}/bin/pkill -USR1 hyprlock
     ${pkgs.hyprland}/bin/hyprctl output create headless SUNSHINE-DESKTOP
     ${pkgs.hyprland}/bin/hyprctl keyword monitor SUNSHINE-DESKTOP,''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS},auto,1
@@ -26,6 +27,7 @@
     fi
   '';
   steam-sunshine-do = pkgs.writeShellScriptBin "steam-sunshine-do" ''
+    ${pkgs.hyprland}/bin/hyprctl dispatch dpms on
     ${pkgs.procps}/bin/pkill -USR1 hyprlock || true
     ${pkgs.hyprland}/bin/hyprctl output create headless SUNSHINE-STEAM
     ${pkgs.hyprland}/bin/hyprctl keyword monitor SUNSHINE-STEAM,''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS},auto,1
