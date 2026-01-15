@@ -1,11 +1,17 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  flake,
+  ...
+}: let
+  unstablePkgs = flake.inputs.nixos-unstable.legacyPackages.${pkgs.system};
+in {
   home.packages = with pkgs; [
     grc
     lsd
     neofetch
     cargo
     xclip
-    gemini-cli
+    unstablePkgs.gemini-cli
     bitwarden-cli
   ];
 
