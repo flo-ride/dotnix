@@ -1,7 +1,6 @@
 {
   flake,
   pkgs,
-  config,
   ...
 }: let
   unstablePkgs = flake.inputs.nixos-unstable.legacyPackages.${pkgs.system};
@@ -100,6 +99,54 @@ in {
         };
       };
       prompt_library = {
+        "Document Code File" = {
+          strategy = "chat";
+          description = "Ask the AI to document the current buffer using its editing tools";
+          opts = {
+            index = 3;
+            is_default = false;
+            is_slash_cmd = true;
+            alias = "docs";
+            auto_submit = true;
+          };
+          prompts = [
+            {
+              role = "user";
+              content = {
+                __raw = ''
+                  function(context)
+                    local ft = vim.bo.filetype
+                    local full_path = vim.api.nvim_buf_get_name(context.bufnr)
+
+                    local lang_rules = {
+                      rust = "Use /// for items and //! for module headers. Document Panics and Errors.",
+                      python = 'Use triple-quoted docstrings """ """ inside the function/class.',
+                      lua = "Use --- LDoc style comments.",
+                      javascript = "Use JSDoc /** */ style.",
+                      typescript = "Use TSDoc /** */ style.",
+                      go = "Use standard // comments starting with the name of the object.",
+                      nix = "Use standard # comments."
+                    }
+                    local rule = lang_rules[ft] or ("Use the standard documentation convention for " .. ft)
+
+                    return string.format(
+                      "You are an agentic assistant. Please add documentation comments to the file at: %s\n\n" ..
+                      "**Language Rules for %s:**\n%s\n\n" ..
+                      "**Task:**\n" ..
+                      "1. Read the code provided via the #buffer variable.\n" ..
+                      "2. Use your `edit_file` tool to apply these comments directly to the file.\n" ..
+                      "3. Ensure parameters and return types are documented.\n\n" ..
+                      "Perform the file edit now.",
+                      full_path, ft, rule
+                    )
+                  end
+                '';
+              };
+              opts.contains_code = true;
+            }
+          ];
+        };
+
         "Generate Merge Request Message" = {
           strategy = "chat";
           description = "Generate a MR description (Conventional Commits) with branch selection";
@@ -107,7 +154,7 @@ in {
             index = 2;
             is_default = false;
             is_slash_cmd = true;
-            short_name = "mr";
+            alias = "mr";
             auto_submit = true;
           };
 
@@ -170,7 +217,7 @@ in {
             index = 1;
             is_default = true;
             is_slash_cmd = true;
-            short_name = "commit";
+            alias = "commit";
             auto_submit = true;
           };
           prompts = [
