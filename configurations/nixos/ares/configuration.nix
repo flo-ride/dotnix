@@ -41,6 +41,15 @@
       HSA_OVERRIDE_GFX_VERSION = "12.0.1";
     };
   };
+  services.printing = {
+    enable = true;
+    drivers = [pkgs.ptouch-driver];
+  };
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
 
   services.lact.enable = true;
   environment.systemPackages = with pkgs; [
@@ -56,5 +65,6 @@
     ollama-rocm
     ethtool
     amdgpu_top
+    ptouch-print
   ];
 }
