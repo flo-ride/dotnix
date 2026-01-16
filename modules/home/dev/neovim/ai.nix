@@ -99,6 +99,43 @@ in {
         };
       };
       prompt_library = {
+        "Document Folder" = {
+          strategy = "chat";
+          description = "Document all files in a specific folder (Agentic)";
+          opts = {
+            index = 4;
+            is_default = false;
+            is_slash_cmd = true;
+            alias = "docdir";
+            auto_submit = true;
+          };
+          prompts = [
+            {
+              role = "user";
+              content = {
+                __raw = ''
+                  function()
+                    local folder_path = vim.fn.input("Folder to document (relative to root): ", "./src/")
+                    if folder_path == "" then return nil end
+
+                    return string.format(
+                      "You are a technical documentation agent. I want you to document the entire folder at: `%s`\n\n" ..
+                      "**Your Workflow:**\n" ..
+                      "1. Use your `ls` or `files` tool to list all files in that directory.\n" ..
+                      "2. For each relevant source file (skip lockfiles/binaries):\n" ..
+                      "   - Read the file content.\n" ..
+                      "   - Add language-appropriate doc-comments (/// for Rust, etc.).\n" ..
+                      "   - Use your `edit_file` tool to save the changes.\n\n" ..
+                      "Start by listing the files in `%s`.",
+                      folder_path, folder_path
+                    )
+                  end
+                '';
+              };
+              opts.contains_code = true;
+            }
+          ];
+        };
         "Document Code File" = {
           strategy = "chat";
           description = "Ask the AI to document the current buffer using its editing tools";
