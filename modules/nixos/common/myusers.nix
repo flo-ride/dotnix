@@ -41,7 +41,7 @@ in {
         }
         // lib.optionalAttrs pkgs.stdenv.isLinux {
           shell = pkgs.fish;
-          extraGroups = ["wheel" "video" "networkmanager" "docker"];
+          extraGroups = ["wheel" "video" "networkmanager" "docker" "lp" "scanner"];
           isNormalUser = true;
         }
     );
