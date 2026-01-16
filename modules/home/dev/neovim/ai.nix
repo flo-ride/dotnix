@@ -100,6 +100,69 @@ in {
         };
       };
       prompt_library = {
+        "Generate Merge Request Message" = {
+          strategy = "chat";
+          description = "Generate a MR description (Conventional Commits) with branch selection";
+          opts = {
+            index = 2;
+            is_default = false;
+            is_slash_cmd = true;
+            short_name = "mr";
+            auto_submit = true;
+          };
+
+          prompts = [
+            {
+              role = "user";
+              content = {
+                __raw = ''
+                  function()
+                    local fmt = string.format
+
+                    -- 1. Get the default branch (fallback to main)
+                    local default_branch = vim.fn.system("git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@'"):gsub("%s+", "")
+                    if default_branch == "" then default_branch = "main" end
+
+                    -- 2. Prompt user for the base branch
+                    local base_branch = vim.fn.input("Base branch (default: " .. default_branch .. "): ")
+                    if base_branch == "" then base_branch = default_branch end
+
+
+                    -- 3. Gather Git context
+                    local diff = vim.fn.system(fmt("git diff %s...HEAD", base_branch))
+                    local summary = vim.fn.system(fmt("git log %s..HEAD --oneline", base_branch))
+
+                    local prompt_template = [[
+                      You are an expert technical writer. Generate a Merge Request description.
+
+                      STRICT RULES:
+                      1. Use the Conventional Commits 1.0.0 specification for the summary line.
+                      2. Output Format:
+                         # <type>(<scope>): <subject>
+
+                         ## Summary
+                         (Briefly explain the 'why' behind these changes)
+
+                         ## Changes
+                         (Bullet points of technical changes)
+
+                      CONTEXT:
+                      **Base Branch:** %s
+                      **Commits:**
+                      %s
+
+                      **Diff:**
+                      %s
+                    ]]
+                    return fmt(prompt_template, base_branch, summary, diff)
+                  end
+                '';
+              };
+              opts.contains_code = true;
+            }
+          ];
+        };
+
         "Generate Conventional Commit Message" = {
           strategy = "chat";
           description = "Generate a conventional commit message from staged diff";
