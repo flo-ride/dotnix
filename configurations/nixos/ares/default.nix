@@ -16,6 +16,7 @@ in {
     self.nixosModules.ollama
     self.nixosModules.sunshine
     self.nixosModules.no-suspend
+    self.nixosModules.vm
     {
       home-manager.sharedModules = [
         self.homeModules.dev
