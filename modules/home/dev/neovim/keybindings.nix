@@ -131,7 +131,7 @@
       # Search & UI
       {
         __unkeyed-1 = "<C-f>";
-        __unkeyed-2 = "<cmd>Telescope current_buffer_fuzzy_find<cr>";
+        __unkeyed-2 = "<cmd>lua Snacks.picker.lines()<cr>";
         desc = "Find Text in Current Buffer";
       }
       {
@@ -191,28 +191,25 @@
         desc = "AI Actions";
       }
 
-      # Leader Group (Telescope)
+      # Leader Group
       {
         __unkeyed-1 = "<leader>";
         group = "<Leader>";
       }
+
+      # Snacks
       {
         __unkeyed-1 = "<leader>f";
-        group = "Telescope";
-      }
-      {
-        __unkeyed-1 = "<leader>fb";
-        __unkeyed-2 = "<cmd>Telescope buffers<cr>";
-        desc = "Switch Buffer";
+        group = "Snacks";
       }
       {
         __unkeyed-1 = "<leader>ff";
-        __unkeyed-2 = "<cmd>Telescope find_files<cr>";
+        __unkeyed-2 = "<cmd>lua Snacks.picker.files({ hidden = true })<cr>";
         desc = "Find File";
       }
       {
         __unkeyed-1 = "<leader>fg";
-        __unkeyed-2 = "<cmd>Telescope live_grep<cr>";
+        __unkeyed-2 = "<cmd>lua Snacks.picker.grep()<cr>";
         desc = "Find Text in Workspace";
       }
       {

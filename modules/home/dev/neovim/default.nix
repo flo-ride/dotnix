@@ -37,6 +37,7 @@
       ./ui/treesitter.nix
       ./ui/tree.nix
       ./ui/debugger.nix
+      ./ui/snacks.nix
     ];
   };
 }
