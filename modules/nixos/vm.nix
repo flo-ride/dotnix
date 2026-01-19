@@ -8,4 +8,8 @@
     };
   };
   programs.virt-manager.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    looking-glass-client
+  ];
 }
