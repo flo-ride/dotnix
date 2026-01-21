@@ -13,11 +13,25 @@
   ];
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
-  boot.initrd.kernelModules = ["amdgpu"];
+  boot.initrd.kernelModules = [
+    # "vfio_pci"
+    # "vfio"
+    # "vfio_iommu_type1"
+    "amdgpu"
+  ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelParams = ["amdgpu.cwsr_enable=0"];
-  boot.kernelModules = ["kvm-amd"];
-  boot.extraModulePackages = [];
+  boot.kernelParams = [
+    # "amd_iommu=on"
+    # "vfio-pci.ids=1002:7550,1002:ab40"
+    "amd_pstate=active"
+  ];
+  boot.kernelModules = ["kvm-amd" "amd_3d_vcache" "ryzen_smu" "zenpower" "amd_pstate"];
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    ryzen-smu
+    zenpower
+  ];
+  boot.extraModprobeConfig = "";
+  boot.blacklistedKernelModules = ["k10temp"];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/3577fe28-7413-40fb-9097-55d86d6addc9";
