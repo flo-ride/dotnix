@@ -29,7 +29,6 @@
       enable = true;
       interactiveShellInit = ''
         set fish_greeting # Disable greeting
-        set -x SSH_AUTH_SOCK $HOME/.bitwarden-ssh-agent.sock
         ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
       '';
       plugins = [
@@ -73,6 +72,7 @@
 
       shellAliases = {
         v = "nvim";
+        vim = "nvim";
         c = "clear";
         untar = "tar -xvzf";
         tarc = "tar -cvzf";
@@ -85,6 +85,8 @@
         l = "lsd -al";
         sl = "lsd";
         tree = "lsd --tree";
+        sshflo = "eval $(ssh-agent -c); ssh-add ~/.ssh/id_flo";
+        sshbit = "set -x SSH_AUTH_SOCK $HOME/.bitwarden-ssh-agent.sock";
         lgitignore = "ln -sf .git/info/exclude .gitignore_local && echo '.gitignore_local' >> .gitignore_local";
       };
     };
