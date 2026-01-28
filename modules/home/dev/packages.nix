@@ -13,6 +13,7 @@ in {
     xclip
     unstablePkgs.gemini-cli
     bitwarden-cli
+    tldr
   ];
 
   # Programs natively supported by home-manager.
