@@ -96,6 +96,23 @@ in {
               end
             '';
           };
+          gemini_flash = {
+            __raw = ''
+              function()
+                return require("codecompanion.adapters").extend("gemini_cli", {
+                  name = "gemini_flash",
+                  schema = {
+                    model = {
+                      default = "gemini-2.5-flash-lite",
+                    },
+                  },
+                  default = {
+                    auth_method = "oauth-personal",
+                  },
+                })
+              end
+            '';
+          };
         };
       };
       prompt_library = {
@@ -250,6 +267,7 @@ in {
         "Generate Conventional Commit Message" = {
           strategy = "chat";
           description = "Generate a conventional commit message from staged diff";
+          adapter = "gemini_flash";
           opts = {
             index = 1;
             is_default = true;
