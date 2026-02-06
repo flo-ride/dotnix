@@ -70,6 +70,17 @@
 
         # Persistent undo
         "[._]*.un~"
+
+        ## AI prompt files
+        ".gemini/"
+        "GEMINI.md"
+        "CLAUDE.md"
+        "CHATGPT.md"
+        "AI.md"
+        ".cursorrules"
+        ".clineignore"
+        ".clinerules"
+        ".geminiignore"
       ];
     };
   };
