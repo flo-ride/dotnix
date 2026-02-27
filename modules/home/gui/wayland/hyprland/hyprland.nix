@@ -143,6 +143,13 @@
     windowrulev2 = idleinhibit focus, class:^(mpv|.+exe)$
     windowrulev2 = idleinhibit focus, class:^(firefox)$, title:^(.*YouTube.*)$
     windowrulev2 = idleinhibit fullscreen, class:^(firefox)$
+
+    # Desktop Heroes rules
+    windowrulev2 = monitor DP-1, class:^(Desktop Heroes)$
+    windowrulev2 = noblur, class:^(Desktop Heroes)$
+    windowrulev2 = noborder, class:^(Desktop Heroes)$
+    windowrulev2 = noshadow, class:^(Desktop Heroes)$
+    windowrulev2 = opacity 1.0 override 1.0 override, class:^(Desktop Heroes)$
   '';
   decoration = ''
     decoration {
