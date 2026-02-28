@@ -66,5 +66,6 @@
     ethtool
     amdgpu_top
     ptouch-print
+    qpwgraph
   ];
 }
