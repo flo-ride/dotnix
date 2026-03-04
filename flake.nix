@@ -36,7 +36,7 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     # Theme
-    catppuccin.url = "github:catppuccin/nix/release-25.05";
+    catppuccin.url = "github:catppuccin/nix/release-25.11";
 
     nixvim.url = "github:nix-community/nixvim/nixos-25.11";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
