@@ -1,8 +1,11 @@
 {
   pkgs,
   flake,
+  lib,
   ...
-}: {
+}: let
+  unstable = flake.inputs.nixos-unstable.legacyPackages.${pkgs.system};
+in {
   imports = [./hardware-configuration.nix];
 
   boot.loader.efi.canTouchEfiVariables = true;
@@ -28,6 +31,7 @@
 
   services.xserver.videoDrivers = ["amdgpu"];
   services.ollama = {
+    package = lib.mkForce unstable.pkgs.ollama-rocm;
     acceleration = "rocm";
     rocmOverrideGfx = "12.0.1";
     environmentVariables = {
