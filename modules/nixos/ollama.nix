@@ -1,6 +1,13 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  flake,
+  ...
+}: let
+  unstable = flake.inputs.nixos-unstable.legacyPackages.${pkgs.system};
+in {
   services.ollama = {
     enable = true;
+    package = unstable.pkgs.ollama;
   };
 
   systemd.services.ollama.serviceConfig = {
