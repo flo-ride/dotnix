@@ -71,5 +71,6 @@ in {
     amdgpu_top
     ptouch-print
     qpwgraph
+    unstable.llmfit
   ];
 }
