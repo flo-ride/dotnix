@@ -27,55 +27,13 @@ in {
 
       adapters = {
         http = {
-          odeepseek = {
-            __raw = ''
-              function()
-                return require("codecompanion.adapters").extend("ollama", {
-                  name = "odeepseek",
-                  schema = {
-                    model = { default = "deepseek-r1:latest" },
-                    num_ctx = { default = 16384 },
-                    num_predict = { default = -1 },
-                  },
-                })
-              end
-            '';
-          };
-          ollama3 = {
-            __raw = ''
-              function()
-                return require("codecompanion.adapters").extend("ollama", {
-                  name = "ollama3.2",
-                  schema = {
-                    model = { default = "llama3.2:latest" },
-                    num_ctx = { default = 16384 },
-                    num_predict = { default = -1 },
-                  },
-                })
-              end
-            '';
-          };
-          oqwen3 = {
-            __raw = ''
-              function()
-                return require("codecompanion.adapters").extend("ollama", {
-                  name = "oqwen3-coder",
-                  schema = {
-                    model = { default = "qwen3-coder:latest" },
-                    num_ctx = { default = 16384 },
-                    num_predict = { default = -1 },
-                  },
-                })
-              end
-            '';
-          };
-          ogptoss = {
+          ollama = {
             __raw = ''
               function()
                 return require("codecompanion.adapters").extend("ollama", {
                   name = "ogptoss",
                   schema = {
-                    model = { default = "gpt-oss:latest" },
+                    model = { default = "qwen3.5:latest" },
                     num_ctx = { default = 131072 },
                     num_predict = { default = -1 },
                   },
@@ -89,23 +47,6 @@ in {
             __raw = ''
               function()
                 return require("codecompanion.adapters").extend("gemini_cli", {
-                  default = {
-                    auth_method = "oauth-personal",
-                  },
-                })
-              end
-            '';
-          };
-          gemini_flash = {
-            __raw = ''
-              function()
-                return require("codecompanion.adapters").extend("gemini_cli", {
-                  name = "gemini_flash",
-                  schema = {
-                    model = {
-                      default = "gemini-2.5-flash-lite",
-                    },
-                  },
                   default = {
                     auth_method = "oauth-personal",
                   },
@@ -267,7 +208,7 @@ in {
         "Generate Conventional Commit Message" = {
           strategy = "chat";
           description = "Generate a conventional commit message from staged diff";
-          adapter = "gemini_flash";
+          adapter = "oqwen3";
           opts = {
             index = 1;
             is_default = true;
