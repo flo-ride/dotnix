@@ -65,7 +65,6 @@
 
   compositorControls = ''
     bind = $mainMod SHIFT, Q, killactive
-    bind = $mainMod SHIFT, E, exec, poweroff
 
     bind = $mainMod, F, fullscreen
     bind = $mainMod, Space, togglefloating
