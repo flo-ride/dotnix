@@ -43,6 +43,9 @@ in {
           shell = pkgs.fish;
           extraGroups = ["wheel" "video" "networkmanager" "docker" "lp" "scanner" "libvirtd"];
           isNormalUser = true;
+          openssh.authorizedKeys.keys = lib.optionals (name == "floride") [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBKU6loLFMKQrY1K3Ca5Bwwas1PFzV+YI+/NNJW7s9Zf floride@ares" # Sack Key
+          ];
         }
     );
 
