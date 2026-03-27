@@ -1,3 +1,9 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [openfortivpn openfortivpn-webview];
+  networking.networkmanager.plugins = [pkgs.networkmanager-fortisslvpn];
+
+  environment.systemPackages = with pkgs; [
+    openfortivpn
+    openfortivpn-webview
+    networkmanager-fortisslvpn
+  ];
 }
