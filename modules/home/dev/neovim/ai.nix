@@ -18,9 +18,9 @@ in {
 
     settings = {
       strategies = {
-        chat.adapter = "gemini_cli";
-        inline.adapter = "gemini_cli";
-        cmd.adapter = "gemini_cli";
+        chat.adapter = "ollama";
+        inline.adapter = "ollama";
+        cmd.adapter = "ollama";
       };
 
       opts = {log_level = "DEBUG";};
