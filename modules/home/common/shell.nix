@@ -86,8 +86,6 @@
         l = "lsd -al";
         sl = "lsd";
         tree = "lsd --tree";
-        sshflo = "eval $(ssh-agent -c); ssh-add ~/.ssh/id_flo";
-        sshbit = "set -x SSH_AUTH_SOCK $HOME/.bitwarden-ssh-agent.sock";
         lgitignore = "ln -sf .git/info/exclude .gitignore_local && echo '.gitignore_local' >> .gitignore_local";
       };
     };
