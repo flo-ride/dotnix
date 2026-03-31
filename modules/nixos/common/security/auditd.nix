@@ -20,9 +20,9 @@
       "-w /var/log/journal/ -p wa -k systemd_journal"
 
       # Surveillance des modules kernel (chargement/déchargement suspect)
-      "-w /sbin/insmod -p x -k kernel_modules"
-      "-w /sbin/rmmod -p x -k kernel_modules"
-      "-w /sbin/modprobe -p x -k kernel_modules"
+      "-w /run/current-system/sw/bin/insmod -p x -k kernel_modules"
+      "-w /run/current-system/sw/bin/rmmod -p x -k kernel_modules"
+      "-w /run/current-system/sw/bin/modprobe -p x -k kernel_modules"
     ];
   };
 }
