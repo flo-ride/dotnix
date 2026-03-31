@@ -6,6 +6,7 @@
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       AllowAgentForwarding = true;
+      PermitRootLogin = "no";
     };
   };
   networking.firewall.allowedTCPPorts = [42022];
