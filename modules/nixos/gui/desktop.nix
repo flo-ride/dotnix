@@ -25,10 +25,6 @@
   # started in user sessions.
   programs = {
     light.enable = true;
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
     dconf.enable = true;
   };
 
