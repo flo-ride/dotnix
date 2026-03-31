@@ -38,7 +38,7 @@ in {
     spotify
 
     # SSH
-    xpipe
+    unstable.xpipe
 
     # Password
     bitwarden-desktop
