@@ -89,6 +89,7 @@
         sl = "lsd";
         tree = "lsd --tree";
         lgitignore = "ln -sf .git/info/exclude .gitignore_local && echo '.gitignore_local' >> .gitignore_local";
+        sshb = "set -x SSH_AUTH_SOCK $HOME/.bitwarden-ssh-agent.sock";
       };
     };
   };
