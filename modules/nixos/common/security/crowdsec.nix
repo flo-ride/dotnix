@@ -2,5 +2,16 @@
   services.crowdsec = {
     enable = true;
     autoUpdateService = true;
+    localConfig.acquisitions = [
+      {
+        source = "journalctl";
+        journalctl_filter = ["_TRANSPORT=journal"];
+        labels.type = "syslog";
+      }
+      {
+        filename = "/var/log/audit/audit.log";
+        labels.type = "auditd";
+      }
+    ];
   };
 }
