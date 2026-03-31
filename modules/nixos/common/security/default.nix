@@ -25,6 +25,17 @@
     # Disable it, since we don't need it, and is a potential security concern.
     "kernel.sysrq" = 0;
 
+    # Protection against malicious file writes (FIFO/regular files)
+    "fs.protected_fifos" = 2;
+    "fs.protected_regular" = 2;
+
+    # Restrict kernel pointer access to root only
+    "kernel.kptr_restrict" = 2;
+
+    # Hardening BPF (Berkeley Packet Filter)
+    "kernel.unprivileged_bpf_disabled" = 1;
+    "net.core.bpf_jit_harden" = 2;
+
     ## TCP hardening
     # Prevent bogus ICMP errors from filling up logs.
     "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
