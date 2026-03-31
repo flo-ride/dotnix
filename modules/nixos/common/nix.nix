@@ -48,5 +48,5 @@
 
   console.keyMap = "uk";
 
-  environment.systemPackages = with pkgs; [vim git wget curl];
+  environment.systemPackages = with pkgs; [vim git wget curl audit crowdsec lynis];
 }
