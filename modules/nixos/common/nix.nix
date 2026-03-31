@@ -12,6 +12,11 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.settings.auto-optimise-store = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
   nix.settings.builders-use-substitutes = true;
   nix.settings.flake-registry = "/etc/nix/registry.json";
 
