@@ -8,5 +8,6 @@
       AllowAgentForwarding = true;
     };
   };
+  networking.firewall.allowedTCPPorts = [42022];
   services.fail2ban.enable = true;
 }

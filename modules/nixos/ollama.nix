@@ -10,6 +10,8 @@ in {
     package = unstable.pkgs.ollama;
   };
 
+  networking.firewall.allowedTCPPorts = [11434];
+
   systemd.services.ollama.serviceConfig = {
     Environment = ["OLLAMA_HOST=0.0.0.0:11434"];
   };
