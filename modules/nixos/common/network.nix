@@ -1,4 +1,6 @@
 {lib, ...}: {
+  imports = [./network_dns.nix];
+
   networking.firewall = {
     enable = lib.mkDefault true;
     allowPing = lib.mkDefault false; # Plus discret sur le réseau
