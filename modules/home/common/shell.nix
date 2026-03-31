@@ -29,7 +29,9 @@
       enable = true;
       interactiveShellInit = ''
         set fish_greeting # Disable greeting
-        set -x SSH_AUTH_SOCK $HOME/.bitwarden-ssh-agent.sock
+        if not set -q SSH_AUTH_SOCK
+            set -x SSH_AUTH_SOCK $HOME/.bitwarden-ssh-agent.sock
+        end
         ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
       '';
       plugins = [
