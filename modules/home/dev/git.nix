@@ -76,6 +76,7 @@
         "GEMINI.md"
         "CLAUDE.md"
         "CHATGPT.md"
+        "AGENT.md"
         "AI.md"
         ".cursorrules"
         ".clineignore"
