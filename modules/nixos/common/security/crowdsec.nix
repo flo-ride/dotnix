@@ -2,7 +2,9 @@
   services.crowdsec = {
     enable = true;
     autoUpdateService = true;
-    localConfig.acquisitions = [
+    openFirewall = true;
+    localConfig.
+      acquisitions = [
       {
         source = "journalctl";
         journalctl_filter = ["_TRANSPORT=journal"];
@@ -13,5 +15,9 @@
         labels.type = "auditd";
       }
     ];
+  };
+
+  services.crowdsec-firewall-bouncer = {
+    enable = false;
   };
 }
