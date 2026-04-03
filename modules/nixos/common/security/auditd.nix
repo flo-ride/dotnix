@@ -3,26 +3,37 @@
   security.audit = {
     enable = true;
     rules = [
-      # Mots de passe et utilisateurs
+      # --- Sensitive File Monitoring ---
+
+      # Passwords and users
       "-w /etc/shadow -p wa -k shadow"
       "-w /etc/passwd -p wa -k passwd"
       "-w /etc/group -p wa -k group"
 
-      # Secrets et configurations sensibles
+      # Secrets and sensitive configurations
       "-w /home/floride/Documents/Others/dotnix/secrets.yaml -p wa -k sops_secrets"
       "-w /home/floride/Documents/Others/dotnix/ -p wa -k nixos_configs"
 
-      # Clés SSH et GPG (Surveillance des accès en lecture et écriture)
+      # SSH and GPG keys (Monitoring read and write access)
       "-w /home/floride/.ssh/ -p rwa -k ssh_keys"
       "-w /home/floride/.gnupg/ -p rwa -k gpg_keys"
 
-      # Surveillance du système de logs (pour éviter l'effacement de traces)
+      # Log system monitoring (to prevent trace deletion)
       "-w /var/log/journal/ -p wa -k systemd_journal"
 
-      # Surveillance des modules kernel (chargement/déchargement suspect)
-      "-w /run/current-system/sw/bin/insmod -p x -k kernel_modules"
-      "-w /run/current-system/sw/bin/rmmod -p x -k kernel_modules"
-      "-w /run/current-system/sw/bin/modprobe -p x -k kernel_modules"
+      # --- System Call Monitoring (Syscalls) ---
+
+      # System time modification (useful for corrupting logs or certificates)
+      "-a always,exit -F arch=b64 -S settimeofday,adjtimex,clock_settime -k time-change"
+
+      # System locale modification (hostname/domainname)
+      "-a always,exit -F arch=b64 -S sethostname,setdomainname -k system-locale"
+
+      # Kernel module monitoring (loading/unloading via syscalls)
+      "-a always,exit -F arch=b64 -S init_module,finit_module,delete_module -k kernel_modules"
+
+      # kexec monitoring (loading a new kernel without a classic reboot)
+      "-a always,exit -F arch=b64 -S kexec_load -k kexec"
     ];
   };
 }
