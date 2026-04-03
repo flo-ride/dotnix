@@ -6,4 +6,6 @@
     openfortivpn-webview
     networkmanager-fortisslvpn
   ];
+
+  networking.firewall.allowedTCPPorts = [8020];
 }
