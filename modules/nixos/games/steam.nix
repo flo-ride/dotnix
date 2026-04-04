@@ -16,6 +16,12 @@ in {
   };
   programs.gamemode.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    gamescope
+    r2modman
+    lutris
+  ];
+
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "steam"
