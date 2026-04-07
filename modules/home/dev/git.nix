@@ -75,6 +75,7 @@
         ".gemini/"
         "GEMINI.md"
         "CLAUDE.md"
+        ".claude.md"
         "CHATGPT.md"
         "AGENT.md"
         "AI.md"
