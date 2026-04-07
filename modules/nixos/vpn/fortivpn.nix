@@ -8,4 +8,5 @@
   ];
 
   networking.firewall.allowedTCPPorts = [8020];
+  networking.firewall.trustedInterfaces = ["ppp+"];
 }
