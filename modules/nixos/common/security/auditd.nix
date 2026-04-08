@@ -1,4 +1,9 @@
-{...}: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   security.auditd.enable = true;
   security.audit = {
     enable = true;
@@ -36,4 +41,18 @@
       "-a always,exit -F arch=b64 -S kexec_load -k kexec"
     ];
   };
+
+  # Workaround for https://github.com/NixOS/nixpkgs/issues/483085
+  systemd.services.audit-rules-nixos.serviceConfig.ExecStart = lib.mkForce [
+    ""
+    (pkgs.writeShellScript "load-audit-rules" ''
+      ${pkgs.audit}/bin/auditctl -D
+      ${lib.concatMapStringsSep "\n" (
+          rule: "${pkgs.audit}/bin/auditctl ${rule}"
+        )
+        config.security.audit.rules}
+      ${pkgs.audit}/bin/auditctl -e 1 || true
+      exit 0
+    '')
+  ];
 }
