@@ -19,6 +19,40 @@
   # nixpkgs/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix
   boot.loader.systemd-boot.editor = lib.mkDefault false;
 
+  # Blacklist obscure network protocols and filesystems
+  boot.blacklistedKernelModules = [
+    # Obscure network protocols
+    "ax25"
+    "netrom"
+    "rose"
+    # Obscure filesystems
+    "adfs"
+    "affs"
+    "bfs"
+    "befs"
+    "cramfs"
+    "efs"
+    "exofs"
+    "freevxfs"
+    "gfs2"
+    "hfs"
+    "hpfs"
+    "jfs"
+    "minix"
+    "nilfs2"
+    "omfs"
+    "qnx4"
+    "qnx6"
+    "sysv"
+    "ufs"
+    # Network/Other
+    "ksmbd"
+    "tipc"
+    "sctp"
+    "dccp"
+    "rds"
+  ];
+
   boot.kernel.sysctl = {
     # The Magic SysRq key is a key combo that allows users connected to the
     # system console of a Linux kernel to perform some low-level commands.
@@ -31,6 +65,12 @@
 
     # Restrict kernel pointer access to root only
     "kernel.kptr_restrict" = 2;
+
+    # Restrict dmesg access to root only
+    "kernel.dmesg_restrict" = 1;
+
+    # Restrict ptrace scope (prevents processes from spying on each other)
+    "kernel.yama.ptrace_scope" = 2;
 
     # Hardening BPF (Berkeley Packet Filter)
     "kernel.unprivileged_bpf_disabled" = 1;
