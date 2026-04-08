@@ -14,6 +14,7 @@
     ./auditd.nix
     ./apparmor.nix
     ./vulnix.nix
+    ./lynis.nix
   ];
 
   # tmpfs = /tmp is mounted in ram. Doing so makes temp file management speedy
