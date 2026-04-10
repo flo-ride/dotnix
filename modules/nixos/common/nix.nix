@@ -2,8 +2,11 @@
   config,
   pkgs,
   lib,
+  flake,
   ...
-}: {
+}: let
+  unstable = flake.inputs.nixos-unstable.legacyPackages.${pkgs.system};
+in {
   # To use the `nix` from `inputs.nixpkgs` on templates using the standalone `home-manager` template
 
   # `nix.package` is already set if on `NixOS` or `nix-darwin`.
@@ -48,5 +51,5 @@
 
   console.keyMap = "uk";
 
-  environment.systemPackages = with pkgs; [vim git wget curl audit crowdsec lynis];
+  environment.systemPackages = with pkgs; [unstable.vim git wget curl audit crowdsec lynis];
 }

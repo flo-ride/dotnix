@@ -1,9 +1,11 @@
 {
   config,
   pkgs,
-  inputs,
+  flake,
   ...
-}: {
+}: let
+  unstable = flake.inputs.nixos-unstable.legacyPackages.${pkgs.system};
+in {
   fonts = {
     packages = with pkgs; [
       meslo-lgs-nf
@@ -16,7 +18,7 @@
   location.provider = "geoclue2";
 
   environment.systemPackages = with pkgs; [
-    firefox
+    unstable.firefox
     librewolf
     bluez
     pipewire
