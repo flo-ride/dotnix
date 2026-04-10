@@ -28,7 +28,7 @@ in {
     # Productivity
     flameshot
     xfce.thunar
-    (pkgs.discord.override {
+    (unstable.discord.override {
       #withOpenASAR = true;
       withVencord = true;
     })
