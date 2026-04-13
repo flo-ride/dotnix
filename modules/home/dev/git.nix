@@ -78,6 +78,8 @@
         ".claude.md"
         "CHATGPT.md"
         "AGENT.md"
+        "AGENTS.md"
+        ".opencode/"
         "AI.md"
         ".cursorrules"
         ".clineignore"
