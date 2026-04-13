@@ -11,6 +11,7 @@ in {
     neofetch
     cargo
     xclip
+    unstablePkgs.opencode
     unstablePkgs.gemini-cli
     bitwarden-cli
     tldr
