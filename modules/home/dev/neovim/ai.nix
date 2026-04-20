@@ -31,9 +31,9 @@ in {
             __raw = ''
               function()
                 return require("codecompanion.adapters").extend("ollama", {
-                  name = "ogptoss",
+                  name = "Ollama",
                   schema = {
-                    model = { default = "qwen3.5:latest" },
+                    model = { default = "gemma4:latest" },
                     num_ctx = { default = 131072 },
                     num_predict = { default = -1 },
                   },
