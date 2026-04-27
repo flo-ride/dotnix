@@ -47,5 +47,8 @@ in {
     moonlight-qt
 
     feh
+
+    # Rust Desk
+    rustdesk
   ];
 }
