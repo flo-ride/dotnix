@@ -73,4 +73,8 @@ in {
     qpwgraph
     unstable.llmfit
   ];
+
+  users.users.floride.openssh.authorizedKeys.keys = lib.mkForce [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAxkm2wAvxsGvqb+F6dGyVta8Il+6FxWOC2n0TYkghvy" # Ares OpenSSH
+  ];
 }

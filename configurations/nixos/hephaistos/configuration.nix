@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [./hardware-configuration.nix];
 
   boot.loader.efi.canTouchEfiVariables = true;
@@ -31,5 +35,9 @@
   environment.systemPackages = with pkgs; [
     kicad
     freecad-wayland
+  ];
+
+  users.users.floride.openssh.authorizedKeys.keys = lib.mkForce [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDIugfQz7O1Cu1mhBkITwRby4X8vkSVHPaWlkbH0aa0e" # Hephaistos OpenSSH
   ];
 }
