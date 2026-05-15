@@ -1,4 +1,6 @@
 {
+  plugins.direnv.enable = true;
+
   colorschemes.catppuccin.enable = true;
 
   diagnostic = {
