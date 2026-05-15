@@ -9,7 +9,18 @@
   # Disable neovim in this case
   programs.neovim.enable = lib.mkForce false;
 
-  home.packages = with pkgs; [vectorcode alejandra];
+  home.packages = with pkgs; [
+    vectorcode
+    alejandra
+    tree-sitter
+    nodejs
+    vscode-extensions.vadimcn.vscode-lldb
+    trash-cli
+    imagemagick
+    ghostscript
+    tectonic
+    mermaid-cli
+  ];
 
   programs.nixvim = {
     enable = true;
