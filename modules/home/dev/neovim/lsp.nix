@@ -29,14 +29,30 @@
   plugins.rustaceanvim = {
     enable = true;
     settings = {
+      tools.enable_clippy = true;
       server = {
         default_settings = {
           rust-analyzer = {
             cargo = {
               allFeatures = true;
+              loadOutDirsFromCheck = true;
+              buildScripts = {
+                enable = true;
+              };
+            };
+            procMacro = {
+              enable = true;
+              ignored = {
+                leptos_macro = [
+                  "server"
+                ];
+              };
             };
             check = {
               command = "clippy"; # Use clippy instead of cargo check
+            };
+            files = {
+              excludeDirs = ["target" ".git" ".cargo" ".github" ".direnv"];
             };
           };
         };
