@@ -72,6 +72,8 @@ in {
     ptouch-print
     qpwgraph
     unstable.llmfit
+    gimp-with-plugins
+    ldtk
   ];
 
   users.users.floride.openssh.authorizedKeys.keys = lib.mkForce [
