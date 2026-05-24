@@ -20,6 +20,7 @@ in {
   environment.systemPackages = with pkgs; [
     unstable.firefox
     librewolf
+    chromium
     bluez
     pipewire
   ];
