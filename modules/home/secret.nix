@@ -12,5 +12,4 @@ in {
   ];
 
   sops.defaultSopsFile = ../../../secrets.yaml;
-  sops.age.sshKeyPaths = ["/home/floride/.ssh/id_flo"];
 }

@@ -13,10 +13,6 @@
         if [ -z "$SSH_AUTH_SOCK" ]; then
           eval "$(ssh-agent -c)"
         fi
-
-        ssh-add /home/floride/.ssh/id_flo
-
-        export SOPS_AGE_KEY=$(ssh-to-age -i /home/floride/.ssh/id_flo -private-key)
       '';
     };
   };
