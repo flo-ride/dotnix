@@ -208,7 +208,6 @@ in {
         "Generate Conventional Commit Message" = {
           strategy = "chat";
           description = "Generate a conventional commit message from staged diff";
-          adapter = "oqwen3";
           opts = {
             index = 1;
             is_default = true;
