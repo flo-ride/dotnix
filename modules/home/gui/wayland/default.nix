@@ -3,18 +3,14 @@
 {
   imports = [
     ./hyprland
-    ./waybar.nix
     ./lock.nix
-    ./mako.nix
+    ./dms.nix
   ];
 
   home.packages = with pkgs; [
     # screenshot
     grim
     slurp
-
-    # idle/lock
-    swaybg
 
     # Clipboard manager
     cliphist
@@ -23,9 +19,7 @@
     # ocrScript
     wf-recorder
     wl-clipboard
-    wlogout
     wlr-randr
-    wofi
   ];
 
   xdg.configFile = {

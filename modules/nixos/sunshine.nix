@@ -5,7 +5,8 @@
 }: let
   sunshine-do = pkgs.writeShellScriptBin "sunshine-do" ''
     ${pkgs.hyprland}/bin/hyprctl dispatch dpms on
-    ${pkgs.procps}/bin/pkill -USR1 hyprlock
+    ${pkgs.procps}/bin/pkill -USR1 hyprlock || true
+    ${lib.getExe pkgs.dms} ipc call lock unlock
     ${pkgs.hyprland}/bin/hyprctl output create headless SUNSHINE-DESKTOP
     ${pkgs.hyprland}/bin/hyprctl keyword monitor SUNSHINE-DESKTOP,''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS},auto,1
     ${pkgs.hyprland}/bin/hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.name | startswith("SUNSHINE-") | not) | .name' | xargs -I {} ${pkgs.hyprland}/bin/hyprctl keyword monitor {},disable
@@ -16,7 +17,7 @@
     if [ "$SUNSHINE_COUNT" -le 1 ]; then
         ${pkgs.hyprland}/bin/hyprctl reload
         sleep 1
-        ${pkgs.hyprlock}/bin/hyprlock &
+        ${lib.getExe pkgs.dms} ipc call lock lock &
     fi
 
     ${pkgs.hyprland}/bin/hyprctl output destroy SUNSHINE-DESKTOP
@@ -29,6 +30,7 @@
   steam-sunshine-do = pkgs.writeShellScriptBin "steam-sunshine-do" ''
     ${pkgs.hyprland}/bin/hyprctl dispatch dpms on
     ${pkgs.procps}/bin/pkill -USR1 hyprlock || true
+    ${lib.getExe pkgs.dms} ipc call lock unlock
     ${pkgs.hyprland}/bin/hyprctl output create headless SUNSHINE-STEAM
     ${pkgs.hyprland}/bin/hyprctl keyword monitor SUNSHINE-STEAM,''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS},auto,1
     ${pkgs.hyprland}/bin/hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.name | startswith("SUNSHINE-") | not) | .name' | xargs -I {} ${pkgs.hyprland}/bin/hyprctl keyword monitor {},disable
@@ -44,7 +46,7 @@
         ${pkgs.jq}/bin/jq -r '.[] | select(.disabled == true) | .name' | \
         xargs -I {} ${pkgs.hyprland}/bin/hyprctl keyword monitor {},preferred,auto,1
         sleep 1
-        ${pkgs.hyprlock}/bin/hyprlock &
+        ${lib.getExe pkgs.dms} ipc call lock lock &
     fi
 
     ${pkgs.hyprland}/bin/hyprctl output destroy SUNSHINE-STEAM

@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  lock = "${lib.getExe pkgs.hyprlock}";
+  lock = "${lib.getExe pkgs.dms} ipc call lock lock";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
   brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
   systemctl = "${pkgs.systemd}/bin/systemctl";

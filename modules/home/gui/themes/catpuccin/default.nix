@@ -7,7 +7,6 @@
 in {
   imports = [
     ./hypr
-    ./waybar
     ./alacritty.nix
     ./gtk.nix
     # ./cava.nix

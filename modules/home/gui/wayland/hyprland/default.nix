@@ -6,7 +6,6 @@
   ...
 }: {
   imports = [
-    ./hyprpaper.nix
     ./hypridle.nix
     ./hyprland.nix
   ];
