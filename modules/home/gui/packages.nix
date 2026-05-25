@@ -29,7 +29,7 @@ in {
     flameshot
     xfce.thunar
     (unstable.discord.override {
-      #withOpenASAR = true;
+      withOpenASAR = true;
       withVencord = true;
     })
     termius
