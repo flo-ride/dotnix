@@ -41,7 +41,7 @@ in {
         }
         // lib.optionalAttrs pkgs.stdenv.isLinux {
           shell = pkgs.fish;
-          extraGroups = ["wheel" "video" "networkmanager" "docker" "lp" "scanner" "libvirtd"];
+          extraGroups = ["wheel" "video" "networkmanager" "docker" "lp" "scanner" "libvirtd" "uinput"];
           isNormalUser = true;
           openssh.authorizedKeys.keys = lib.optionals (name == "floride") [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICeBLxJiFyhwhgZvYXkOXab+7TO50nrhY0wCxbaeKMXX" # Generic OpenSSH

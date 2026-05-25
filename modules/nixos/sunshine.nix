@@ -83,7 +83,12 @@
     ];
   };
 in {
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "floride";
+  };
   environment.systemPackages = [steam-run-url steam-launch-and-wait];
+  hardware.uinput.enable = true;
   systemd.user.services.steam-run-url-service = {
     enable = true;
     description = "Listen and starts steam games by id";
