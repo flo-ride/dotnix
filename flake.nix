@@ -3,7 +3,7 @@
 
   inputs = {
     # NixOS
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
     # NixOS Unstable
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -16,7 +16,7 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     # Any
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -36,7 +36,7 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     # Theme
-    catppuccin.url = "github:catppuccin/nix/release-25.11";
+    catppuccin.url = "github:catppuccin/nix/release-26.05";
 
     # DankMaterialShell
     dms.url = "github:AvengeMedia/DankMaterialShell/stable";
@@ -47,7 +47,7 @@
     dgop.inputs.nixpkgs.follows = "nixpkgs";
 
     # Neovim
-    nixvim.url = "github:nix-community/nixvim/nixos-25.11";
+    nixvim.url = "github:nix-community/nixvim/nixos-26.05";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.inputs.flake-parts.follows = "flake-parts";
   };

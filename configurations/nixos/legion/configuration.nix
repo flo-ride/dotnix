@@ -1,13 +1,4 @@
-{
-  pkgs,
-  prev,
-  flake,
-  ...
-}: let
-  inherit (flake) inputs;
-  inherit (inputs) self;
-
-  unstable = inputs.nixos-unstable.legacyPackages.${pkgs.system};
+{pkgs, ...}: let
 in {
   imports = [./hardware-configuration.nix];
 
@@ -35,12 +26,9 @@ in {
   # $ darwin-rebuild changelog
   system.stateVersion = "24.11";
 
-  environment.systemPackages = with pkgs;
-    [
-      kicad
-      freecad-wayland
-    ]
-    ++ [
-      unstable.bambu-studio
-    ];
+  environment.systemPackages = with pkgs; [
+    kicad
+    freecad-wayland
+    bambu-studio
+  ];
 }

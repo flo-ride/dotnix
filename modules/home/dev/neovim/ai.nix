@@ -1,11 +1,5 @@
-{
-  flake,
-  pkgs,
-  ...
-}: let
-  unstablePkgs = flake.inputs.nixos-unstable.legacyPackages.${pkgs.system};
-in {
-  extraPlugins = with unstablePkgs.vimPlugins; [
+{pkgs, ...}: {
+  extraPlugins = with pkgs.vimPlugins; [
     vectorcode-nvim
   ];
 
@@ -14,7 +8,6 @@ in {
   '';
   plugins.codecompanion = {
     enable = true;
-    package = unstablePkgs.vimPlugins.codecompanion-nvim;
 
     settings = {
       strategies = {

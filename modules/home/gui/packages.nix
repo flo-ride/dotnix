@@ -1,23 +1,15 @@
 {
   pkgs,
-  prev,
   flake,
-  lib,
   ...
 }: let
-  inherit (flake) inputs;
-  inherit (inputs) self;
-
-  unstable = import inputs.nixos-unstable {
-    system = pkgs.system;
-    config.allowUnfree = true;
-  };
+  unstablePkgs = flake.inputs.nixos-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in {
   home.packages = with pkgs; [
     # Tools
     pavucontrol
     networkmanagerapplet
-    blueberry
+    blueman
     wdisplays
     pulsemixer
     brightnessctl
@@ -27,8 +19,8 @@ in {
 
     # Productivity
     flameshot
-    xfce.thunar
-    (unstable.discord.override {
+    thunar
+    (discord.override {
       withOpenASAR = true;
       withVencord = true;
     })
@@ -38,10 +30,10 @@ in {
     spotify
 
     # SSH
-    unstable.xpipe
+    xpipe
 
     # Password
-    bitwarden-desktop
+    unstablePkgs.bitwarden-desktop
 
     # Moonlight
     moonlight-qt

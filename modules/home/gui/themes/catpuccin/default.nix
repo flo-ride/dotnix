@@ -17,6 +17,7 @@ in {
 
   catppuccin = {
     enable = true;
+    hyprland.enable = false;
     waybar.enable = false; # Override
   };
 

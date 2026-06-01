@@ -11,7 +11,7 @@
 
   programs.dank-material-shell = {
     enable = true;
-    dgop.package = flake.inputs.dgop.packages.${pkgs.system}.default;
+    dgop.package = flake.inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     systemd = {
       enable = true; # Systemd service for auto-start

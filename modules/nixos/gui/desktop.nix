@@ -1,11 +1,4 @@
-{
-  config,
-  pkgs,
-  flake,
-  ...
-}: let
-  unstable = flake.inputs.nixos-unstable.legacyPackages.${pkgs.system};
-in {
+{pkgs, ...}: {
   fonts = {
     packages = with pkgs; [
       meslo-lgs-nf
@@ -18,7 +11,7 @@ in {
   location.provider = "geoclue2";
 
   environment.systemPackages = with pkgs; [
-    unstable.firefox
+    firefox
     librewolf
     chromium
     bluez
@@ -27,7 +20,6 @@ in {
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs = {
-    light.enable = true;
     dconf.enable = true;
   };
 

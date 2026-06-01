@@ -1,13 +1,6 @@
-{
-  pkgs,
-  flake,
-  ...
-}: let
-  unstable = flake.inputs.nixos-unstable.legacyPackages.${pkgs.system};
-in {
+{pkgs, ...}: {
   services.ollama = {
     enable = true;
-    package = unstable.pkgs.ollama;
   };
 
   networking.firewall.allowedTCPPorts = [11434];

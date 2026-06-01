@@ -4,7 +4,6 @@
 
   services.displayManager.gdm = {
     enable = false;
-    wayland = true;
   };
   services.xserver = {
     enable = true;

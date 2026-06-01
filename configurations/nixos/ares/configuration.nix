@@ -1,11 +1,8 @@
 {
   pkgs,
-  flake,
   lib,
   ...
-}: let
-  unstable = flake.inputs.nixos-unstable.legacyPackages.${pkgs.system};
-in {
+}: {
   imports = [./hardware-configuration.nix];
 
   boot.loader.efi.canTouchEfiVariables = true;
@@ -31,8 +28,7 @@ in {
 
   services.xserver.videoDrivers = ["amdgpu"];
   services.ollama = {
-    package = lib.mkForce unstable.pkgs.ollama-rocm;
-    acceleration = "rocm";
+    package = lib.mkForce pkgs.ollama-rocm;
     rocmOverrideGfx = "12.0.1";
     environmentVariables = {
       OLLAMA_CONTEXT_LENGTH = "32000";
@@ -71,7 +67,7 @@ in {
     amdgpu_top
     ptouch-print
     qpwgraph
-    unstable.llmfit
+    llmfit
     gimp-with-plugins
     ldtk
   ];

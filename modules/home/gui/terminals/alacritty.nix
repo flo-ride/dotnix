@@ -38,7 +38,7 @@ in {
         program = "${pkgs.fish}/bin/fish";
         args = [
           "--init-command"
-          "echo; ${pkgs.neofetch}/bin/neofetch --disable packages; echo"
+          "echo; ${pkgs.hyfetch}/bin/neowofetch --disable packages; echo"
         ];
       };
     };

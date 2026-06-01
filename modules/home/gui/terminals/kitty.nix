@@ -13,7 +13,7 @@ in {
     settings =
       {
         shell = ''
-          ${lib.getExe pkgs.fish} --init-command "echo; ${lib.getExe pkgs.neofetch} --disable packages; echo"
+          ${lib.getExe pkgs.fish} --init-command "echo; ${pkgs.hyfetch}/bin/neowofetch --disable packages; echo"
         '';
         background_opacity = toString 0.7;
 

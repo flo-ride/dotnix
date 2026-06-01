@@ -7,7 +7,7 @@
     ];
 
     render = {
-      cm_fs_passthrough = 0;
+      #cm_fs_passthrough = 0;
       cm_auto_hdr = 0;
     };
   };
