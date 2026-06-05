@@ -48,6 +48,8 @@
       ignores = [
         ## Syncthing
         "*sync-conflict-*"
+        "*.syncthing.*"
+        "*.tmp"
 
         ## Vim/Neovim
         # Swap
