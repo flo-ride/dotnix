@@ -20,7 +20,7 @@ in {
     # Productivity
     flameshot
     thunar
-    (discord.override {
+    (discord-ptb.override {
       withOpenASAR = true;
       withVencord = true;
     })
