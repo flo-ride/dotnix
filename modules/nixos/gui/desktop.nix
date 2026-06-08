@@ -78,5 +78,9 @@
     rtkit.enable = true;
   };
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-39.8.10" # For bitwarden-desktop only waiting for https://github.com/bitwarden/clients/pull/20448
+  ];
+
   xdg.portal.enable = true;
 }
