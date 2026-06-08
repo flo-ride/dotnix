@@ -261,6 +261,18 @@
         "url": "https://channels.nixos.org/nixos-26.05/nixexprs.tar.xz"
       }
     },
+    "nixpkgs-patch-521906": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-oWwk3h4F/qKO7Bc3kP2ZDVN/Uf671uR0cqThj1D3JfI=",
+        "type": "file",
+        "url": "https://github.com/NixOS/nixpkgs/pull/521906.diff"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/NixOS/nixpkgs/pull/521906.diff"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1767892417,
@@ -368,6 +380,7 @@
         "nixos-unstable": "nixos-unstable",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_4",
+        "nixpkgs-patch-521906": "nixpkgs-patch-521906",
         "nixvim": "nixvim",
         "sops-nix": "sops-nix"
       }

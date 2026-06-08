@@ -1,8 +1,17 @@
 {
   pkgs,
   lib,
+  flake,
   ...
 }: let
+  patched-nixpkgs-src = pkgs.applyPatches {
+    name = "nixpkgs-patched-sunshine";
+    src = flake.inputs.nixos-unstable;
+    patches = [flake.inputs.nixpkgs-patch-521906];
+  };
+  patchedPkgs = import patched-nixpkgs-src {
+    inherit (pkgs) system config;
+  };
   sunshine-do = pkgs.writeShellScriptBin "sunshine-do" ''
     ${pkgs.hyprland}/bin/hyprctl dispatch dpms on
     ${pkgs.procps}/bin/pkill -USR1 hyprlock || true
@@ -118,8 +127,9 @@ in {
   };
   services.sunshine = {
     enable = true;
+    package = patchedPkgs.sunshine;
     capSysAdmin = true;
-    openFirewall = true;
+    openFirewall = false;
     applications = {
       env = {
         PATH = "$(PATH):$(HOME)/.local/bin";
