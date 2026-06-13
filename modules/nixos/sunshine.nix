@@ -156,6 +156,11 @@ in {
           ];
           image-path = "steam.png";
         }
+        {
+          name = "Normal";
+          exclude-global-prep-cmd = "false";
+          auto-detach = "true";
+        }
       ];
     };
   };
