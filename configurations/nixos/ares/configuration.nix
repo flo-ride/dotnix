@@ -70,6 +70,7 @@
     llmfit
     gimp-with-plugins
     ldtk
+    krita
   ];
 
   users.users.floride.openssh.authorizedKeys.keys = lib.mkForce [
