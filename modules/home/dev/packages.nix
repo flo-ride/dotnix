@@ -9,6 +9,7 @@
     gemini-cli
     bitwarden-cli
     tldr
+    mcp-nixos
   ];
 
   # Programs natively supported by home-manager.
