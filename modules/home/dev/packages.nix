@@ -6,10 +6,12 @@
     cargo
     xclip
     opencode
-    gemini-cli
+    antigravity
     bitwarden-cli
     tldr
     mcp-nixos
+    playwright
+    playwright-mcp
   ];
 
   # Programs natively supported by home-manager.
