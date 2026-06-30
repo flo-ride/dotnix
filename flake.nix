@@ -38,6 +38,9 @@
     # Theme
     catppuccin.url = "github:catppuccin/nix/release-26.05";
 
+    # Hyprland
+    hyprland.url = "github:hyprwm/Hyprland";
+
     # DankMaterialShell
     dms.url = "github:AvengeMedia/DankMaterialShell/stable";
     dms.inputs.nixpkgs.follows = "nixpkgs";
