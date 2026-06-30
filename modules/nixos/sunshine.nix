@@ -3,59 +3,77 @@
   lib,
   ...
 }: let
-  sunshine-do = pkgs.writeShellScriptBin "sunshine-do" ''
-    ${pkgs.hyprland}/bin/hyprctl dispatch dpms on
-    ${pkgs.procps}/bin/pkill -USR1 hyprlock || true
-    ${lib.getExe pkgs.dms} ipc call lock unlock
-    ${pkgs.hyprland}/bin/hyprctl output create headless SUNSHINE-DESKTOP
-    ${pkgs.hyprland}/bin/hyprctl keyword monitor SUNSHINE-DESKTOP,''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS},auto,1
-    ${pkgs.hyprland}/bin/hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.name | startswith("SUNSHINE-") | not) | .name' | xargs -I {} ${pkgs.hyprland}/bin/hyprctl keyword monitor {},disable
-  '';
-  sunshine-undo = pkgs.writeShellScriptBin "sunshine-undo" ''
-    SUNSHINE_COUNT=$(${pkgs.hyprland}/bin/hyprctl monitors -j | ${pkgs.jq}/bin/jq '[.[] | select(.name | startswith("SUNSHINE-"))] | length')
+  do-factory = {
+    monitorName,
+    extraCommands ? "",
+  }:
+    pkgs.writeShellScriptBin "sunshine-do" ''
+      # Turn on screen
+      ${pkgs.hyprland}/bin/hyprctl dispatch dpms on
 
-    if [ "$SUNSHINE_COUNT" -le 1 ]; then
-        ${pkgs.hyprland}/bin/hyprctl reload
-        sleep 1
-        ${lib.getExe pkgs.dms} ipc call lock lock &
-    fi
+      # Unlock PC
+      ${pkgs.procps}/bin/pkill -USR1 hyprlock || true
+      ${lib.getExe pkgs.dms} ipc call lock unlock
 
-    ${pkgs.hyprland}/bin/hyprctl output destroy SUNSHINE-DESKTOP
+      # Create SUNSHINE-DESKTOP monitor
+      ${pkgs.hyprland}/bin/hyprctl output create headless ${monitorName}
 
-    if [ "$SUNSHINE_COUNT" -le 1 ]; then
-        ${pkgs.hyprland}/bin/hyprctl reload
-        ${pkgs.hyprland}/bin/hyprctl reload # Why 2, i don't know but one doesn't work fully
-    fi
-  '';
-  steam-sunshine-do = pkgs.writeShellScriptBin "steam-sunshine-do" ''
-    ${pkgs.hyprland}/bin/hyprctl dispatch dpms on
-    ${pkgs.procps}/bin/pkill -USR1 hyprlock || true
-    ${lib.getExe pkgs.dms} ipc call lock unlock
-    ${pkgs.hyprland}/bin/hyprctl output create headless SUNSHINE-STEAM
-    ${pkgs.hyprland}/bin/hyprctl keyword monitor SUNSHINE-STEAM,''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS},auto,1
-    ${pkgs.hyprland}/bin/hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.name | startswith("SUNSHINE-") | not) | .name' | xargs -I {} ${pkgs.hyprland}/bin/hyprctl keyword monitor {},disable
-    ${lib.getExe steam-launch-and-wait} steam://open/bigpicture &
-  '';
+      # Configure SUNSHINE-DESKTOP monitor
+      ${pkgs.hyprland}/bin/hyprctl eval "hl.monitor({ output = \"${monitorName}\", mode = \"''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}'\", scale = 1 })"
 
-  steam-sunshine-undo = pkgs.writeShellScriptBin "steam-sunshine-undo" ''
-    ${lib.getExe steam-run-url} steam://close/bigpicture
-    SUNSHINE_COUNT=$(${pkgs.hyprland}/bin/hyprctl monitors -j | ${pkgs.jq}/bin/jq '[.[] | select(.name | startswith("SUNSHINE-"))] | length')
+      # Disable all monitor except SUNSHINE monitors
+      ${pkgs.hyprland}/bin/hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.name | startswith("SUNSHINE-") | not) | .name' | xargs -I {} ${pkgs.hyprland}/bin/hyprctl eval "hl.monitor({ output = '{}', disabled = true })"
 
-    if [ "$SUNSHINE_COUNT" -le 1 ]; then
-        ${pkgs.hyprland}/bin/hyprctl monitors all -j | \
-        ${pkgs.jq}/bin/jq -r '.[] | select(.disabled == true) | .name' | \
-        xargs -I {} ${pkgs.hyprland}/bin/hyprctl keyword monitor {},preferred,auto,1
-        sleep 1
-        ${lib.getExe pkgs.dms} ipc call lock lock &
-    fi
+      ${extraCommands}
+    '';
+  undo-factory = {
+    monitorName,
+    preCommands ? "",
+  }:
+    pkgs.writeShellScriptBin "sunshine-undo" ''
+      ${preCommands}
 
-    ${pkgs.hyprland}/bin/hyprctl output destroy SUNSHINE-STEAM
+      SUNSHINE_COUNT=$(${pkgs.hyprland}/bin/hyprctl monitors -j | ${pkgs.jq}/bin/jq '[.[] | select(.name | startswith("SUNSHINE-"))] | length')
 
-    if [ "$SUNSHINE_COUNT" -le 1 ]; then
-        ${pkgs.hyprland}/bin/hyprctl reload
-        ${pkgs.hyprland}/bin/hyprctl reload # Why 2, i don't know but one doesn't work fully
-    fi
-  '';
+      if [ "$SUNSHINE_COUNT" -le 1 ]; then
+          # Reactivate monitors
+          ${pkgs.hyprland}/bin/hyprctl monitors all -j | \
+          ${pkgs.jq}/bin/jq -r '.[] | select(.disabled == true) | .name' | \
+          xargs -I {} ${pkgs.hyprland}/bin/hyprctl keyword monitor {},preferred,auto,1
+
+          sleep 1
+          ${lib.getExe pkgs.dms} ipc call lock lock &
+      fi
+
+      ${pkgs.hyprland}/bin/hyprctl output destroy ${monitorName}
+
+      if [ "$SUNSHINE_COUNT" -le 1 ]; then
+          ${pkgs.hyprland}/bin/hyprctl reload
+          ${pkgs.hyprland}/bin/hyprctl reload # Why 2, i don't know but one doesn't work fully
+      fi
+    '';
+
+  sunshine-do = do-factory {
+    monitorName = "SUNSHINE-DESKTOP";
+  };
+  sunshine-undo = undo-factory {
+    monitorName = "SUNSHINE-DESKTOP";
+  };
+
+  steam-sunshine-do = do-factory {
+    monitorName = "SUNSHINE-STEAM";
+    extraCommands = ''
+      ${lib.getExe steam-launch-and-wait} steam://open/bigpicture &
+    '';
+  };
+
+  steam-sunshine-undo = undo-factory {
+    monitorName = "SUNSHINE-STEAM";
+    preCommands = ''
+      ${lib.getExe steam-run-url} steam://close/bigpicture
+    '';
+  };
+
   steam-run-url = pkgs.writeShellApplication {
     name = "steam-run-url";
     text = ''
