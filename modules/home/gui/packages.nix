@@ -41,6 +41,6 @@ in {
     feh
 
     # Rust Desk
-    rustdesk
+    # rustdesk
   ];
 }
