@@ -17,6 +17,17 @@
       enable = true;
       lfs.enable = true;
 
+      includes = [
+        {
+          condition = "gitdir:~/Documents/Job/Tims/**";
+          contents = {
+            user.name = "Florian Reimat";
+            user.email = "f.reimat@tims.fr";
+            core.sshCommand = "ssh -i $HOME/.ssh/gitlab_tims.pub -o IdentitiesOnly=yes";
+          };
+        }
+      ];
+
       settings = {
         # User config
         user.name = config.me.fullname;
