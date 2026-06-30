@@ -12,146 +12,132 @@
   screenshot = "dms screenshot";
   playerctl = "${lib.getExe pkgs.playerctl}";
   hypridle = "${lib.getExe pkgs.hypridle}";
+
+  mkInline = lib.generators.mkLuaInline;
 in {
   wayland.windowManager.hyprland = {
-    configType = "hyprlang";
+    enable = true;
+
+    package = null;
+    portalPackage = null;
+
+    configType = "lua";
+
     settings = {
-      "$mainMod" = mainMod;
+      config = {
+        input = {
+          kb_layout = "gb";
+          kb_variant = "extd";
+          follow_mouse = 1; # Cursor movement will always change focus to the window under the cursor.
+        };
 
-      input = {
-        kb_layout = "gb";
-        kb_variant = "extd";
-        follow_mouse = 1; # Cursor movement will always change focus to the window under the cursor.
-      };
+        general = {
+          layout = "dwindle";
+        };
 
-      general = {
-        layout = "dwindle";
-      };
-
-      decoration = {
-        blur = {
-          enabled = true;
-          size = 5;
-          passes = 1;
-          ignore_opacity = false;
+        decoration = {
+          blur = {
+            enabled = true;
+            size = 5;
+            passes = 1;
+            ignore_opacity = false;
+          };
         };
       };
 
-      # Exec configuration
-      exec-once = [
-        "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "${pkgs.systemd}/bin/systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "${pkgs.systemd}/bin/systemctl --user start graphical-session.target"
-        "${pkgs.systemd}/bin/systemctl --user restart steam-run-url-service"
-        "${hypridle}"
-        "${lib.getExe pkgs.hyprlock} --immediate"
+      on = [
+        {
+          _args = [
+            "hyprland.start"
+            (mkInline ''
+              function()
+                hl.exec_cmd("${pkgs.systemd}/bin/systemctl --user restart steam-run-url-service")
+                hl.exec_cmd("${hypridle}")
+                hl.exec_cmd("${lib.getExe pkgs.hyprlock} --immediate")
+              end
+            '')
+          ];
+        }
       ];
 
       bind =
         [
           # General
-          "$mainMod SHIFT, Q, killactive"
-          "$mainMod, F, fullscreen"
-          "$mainMod, Space, togglefloating"
+          {_args = ["${mainMod} + SHIFT + Q" (mkInline "hl.dsp.window.close()")];}
+          {_args = ["${mainMod} + F" (mkInline "hl.dsp.window.fullscreen()")];}
+          {_args = ["${mainMod} + Space" (mkInline "hl.dsp.window.float({ action = \"toggle\" })")];}
 
           # Application Launchers
-          "$mainMod, Return, exec, ${term}"
-          "$mainMod, D, exec, ${dms-ipc} spotlight toggle"
-          "$mainMod, N, exec, ${dms-ipc} notifications toggle"
-          "$mainMod, TAB, exec, ${dms-ipc} hypr toggleOverview"
+          {_args = ["${mainMod} + Return" (mkInline "hl.dsp.exec_cmd(\"${term}\")")];}
+          {_args = ["${mainMod} + D" (mkInline "hl.dsp.exec_cmd(\"${dms-ipc} spotlight toggle\")")];}
+          {_args = ["${mainMod} + N" (mkInline "hl.dsp.exec_cmd(\"${dms-ipc} notifications toggle\")")];}
+          {_args = ["${mainMod} + TAB" (mkInline "hl.dsp.exec_cmd(\"${dms-ipc} hypr toggleOverview\")")];}
 
           # Security
-          "$mainMod, X, exec, ${dms-ipc} lock lock"
+          {_args = ["${mainMod} + X" (mkInline "hl.dsp.exec_cmd(\"${dms-ipc} lock lock\")")];}
 
           # Clipboard
-          "$mainMod SHIFT, V, exec, ${dms-ipc} clipboard toggle"
+          {_args = ["${mainMod} + SHIFT + V" (mkInline "hl.dsp.exec_cmd(\"${dms-ipc} clipboard toggle\")")];}
 
           # Screenshot
-          " , PRINT, exec, ${screenshot}"
-          "$mainMod SHIFT, S, exec, ${screenshot}"
+          {_args = ["PRINT" (mkInline "hl.dsp.exec_cmd(\"${screenshot}\")")];}
+          {_args = ["${mainMod} + SHIFT + S" (mkInline "hl.dsp.exec_cmd(\"${screenshot}\")")];}
 
           # Resize submap
-          "$mainMod, R, submap, resize"
+          {_args = ["${mainMod} + R" (mkInline "hl.dsp.submap(\"resize\")")];}
 
           # Move focus
-          "$mainMod, left, movefocus, l"
-          "$mainMod, right, movefocus, r"
-          "$mainMod, up, movefocus, u"
-          "$mainMod, down, movefocus, d"
-          "$mainMod, h, movefocus, l"
-          "$mainMod, l, movefocus, r"
-          "$mainMod, k, movefocus, u"
-          "$mainMod, j, movefocus, d"
+          {_args = ["${mainMod} + left" (mkInline "hl.dsp.focus({ direction = \"l\" })")];}
+          {_args = ["${mainMod} + right" (mkInline "hl.dsp.focus({ direction = \"r\" })")];}
+          {_args = ["${mainMod} + up" (mkInline "hl.dsp.focus({ direction = \"u\" })")];}
+          {_args = ["${mainMod} + down" (mkInline "hl.dsp.focus({ direction = \"d\" })")];}
+          {_args = ["${mainMod} + h" (mkInline "hl.dsp.focus({ direction = \"l\" })")];}
+          {_args = ["${mainMod} + l" (mkInline "hl.dsp.focus({ direction = \"r\" })")];}
+          {_args = ["${mainMod} + k" (mkInline "hl.dsp.focus({ direction = \"u\" })")];}
+          {_args = ["${mainMod} + j" (mkInline "hl.dsp.focus({ direction = \"d\" })")];}
 
           # Workspaces
-          "$mainMod, mouse_down, workspace, e+1"
-          "$mainMod, mouse_up, workspace, e-1"
+          {_args = ["${mainMod} + mouse_down" (mkInline "hl.dsp.focus({ workspace = \"e+1\" })")];}
+          {_args = ["${mainMod} + mouse_up" (mkInline "hl.dsp.focus({ workspace = \"e-1\" })")];}
         ]
         ++ lib.flatten (
           map (
             n: let
-              ws = let
-                c = n / 10;
-              in
-                builtins.toString (n - (c * 10));
+              ws = let c = n / 10; in builtins.toString (n - (c * 10));
             in [
-              "$mainMod, ${ws}, workspace, ${toString n}"
-              "$mainMod SHIFT, ${ws}, movetoworkspace, ${toString n}"
+              {_args = ["${mainMod} + ${ws}" (mkInline "hl.dsp.focus({ workspace = \"${toString n}\" })")];}
+              {_args = ["${mainMod} + SHIFT + ${ws}" (mkInline "hl.dsp.window.move({ workspace = \"${toString n}\" })")];}
             ]
           ) (builtins.genList (x: x + 1) 10)
-        );
+        )
+        ++ [
+          # Brightness Controls
+          {_args = ["XF86MonBrightnessDown" (mkInline "hl.dsp.exec_cmd(\"${dms-ipc} brightness decrement 5 \\\"\\\"\")") {repeating = true;}];}
+          {_args = ["XF86MonBrightnessUp" (mkInline "hl.dsp.exec_cmd(\"${dms-ipc} brightness increment 5 \\\"\\\"\")") {repeating = true;}];}
 
-      binde = [
-        # Brightness Controls
-        " , XF86MonBrightnessDown, exec, ${dms-ipc} brightness decrement 5 \"\""
-        " , XF86MonBrightnessUp, exec, ${dms-ipc} brightness increment 5 \"\""
+          # Audio Controls
+          {_args = ["XF86AudioRaiseVolume" (mkInline "hl.dsp.exec_cmd(\"${dms-ipc} audio increment 1\")") {repeating = true;}];}
+          {_args = ["XF86AudioLowerVolume" (mkInline "hl.dsp.exec_cmd(\"${dms-ipc} audio decrement 1\")") {repeating = true;}];}
 
-        # Audio Controls
-        " , XF86AudioRaiseVolume, exec, ${dms-ipc} audio increment 1"
-        " , XF86AudioLowerVolume, exec, ${dms-ipc} audio decrement 1"
+          # Move window
+          {_args = ["${mainMod} + SHIFT + left" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow l\")") {repeating = true;}];}
+          {_args = ["${mainMod} + SHIFT + right" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow r\")") {repeating = true;}];}
+          {_args = ["${mainMod} + SHIFT + up" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow u\")") {repeating = true;}];}
+          {_args = ["${mainMod} + SHIFT + down" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow d\")") {repeating = true;}];}
+          {_args = ["${mainMod} + SHIFT + h" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow l\")") {repeating = true;}];}
+          {_args = ["${mainMod} + SHIFT + l" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow r\")") {repeating = true;}];}
+          {_args = ["${mainMod} + SHIFT + k" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow u\")") {repeating = true;}];}
+          {_args = ["${mainMod} + SHIFT + j" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow d\")") {repeating = true;}];}
 
-        # Move window
-        "$mainMod SHIFT, left, movewindow, l"
-        "$mainMod SHIFT, right, movewindow, r"
-        "$mainMod SHIFT, up, movewindow, u"
-        "$mainMod SHIFT, down, movewindow, d"
-        "$mainMod SHIFT, h, movewindow, l"
-        "$mainMod SHIFT, l, movewindow, r"
-        "$mainMod SHIFT, k, movewindow, u"
-        "$mainMod SHIFT, j, movewindow, d"
+          {_args = ["XF86AudioMute" (mkInline "hl.dsp.exec_cmd(\"${dms-ipc} audio mute\")") {locked = true;}];}
+          {_args = ["XF86AudioPlay" (mkInline "hl.dsp.exec_cmd(\"${playerctl} play-pause\")") {locked = true;}];}
+          {_args = ["XF86AudioPause" (mkInline "hl.dsp.exec_cmd(\"${playerctl} play-pause\")") {locked = true;}];}
+          {_args = ["XF86AudioNext" (mkInline "hl.dsp.exec_cmd(\"${playerctl} next\")") {locked = true;}];}
+          {_args = ["XF86AudioPrev" (mkInline "hl.dsp.exec_cmd(\"${playerctl} previous\")") {locked = true;}];}
 
-        # When floating
-        "$mainMod SHIFT, left, moveactive, -30 0"
-        "$mainMod SHIFT, right, moveactive, 30 0"
-        "$mainMod SHIFT, up, moveactive, 0 -30"
-        "$mainMod SHIFT, down, moveactive, 0 30"
-      ];
-
-      bindl = [
-        " , XF86AudioMute, exec, ${dms-ipc} audio mute"
-        " , XF86AudioPlay, exec, ${playerctl} play-pause"
-        " , XF86AudioPause, exec, ${playerctl} play-pause"
-        " , XF86AudioNext, exec, ${playerctl} next"
-        " , XF86AudioPrev, exec, ${playerctl} previous"
-      ];
-
-      bindm = [
-        "$mainMod, mouse:272, movewindow"
-        "$mainMod, mouse:273, resizewindow"
-      ];
-    };
-
-    submaps.resize.settings = {
-      binde = [
-        ", right, resizeactive, 10 0"
-        ", left, resizeactive, -10 0"
-        ", up, resizeactive, 0 -10"
-        ", down, resizeactive, 0 10"
-      ];
-
-      bind = [
-        ", escape, submap, reset"
-      ];
+          {_args = ["${mainMod} + mouse:272" (mkInline "hl.dsp.window.drag()") {mouse = true;}];}
+          {_args = ["${mainMod} + mouse:273" (mkInline "hl.dsp.window.resize()") {mouse = true;}];}
+        ];
     };
   };
 }

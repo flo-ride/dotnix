@@ -2,6 +2,7 @@
   config,
   pkgs,
   flake,
+  lib,
   ...
 }: {
   imports = [
@@ -34,10 +35,23 @@
     };
   };
 
-  wayland.windowManager.hyprland.settings.source = [
-    "${config.xdg.configHome}/hypr/dms/outputs.conf"
-    "${config.xdg.configHome}/hypr/dms/colors.conf"
-  ];
+  wayland.windowManager.hyprland = {
+    settings = {
+      on = [
+        {
+          _args = [
+            "hyprland.start"
+            (lib.generators.mkLuaInline ''
+              function()
+                hl.exec_cmd("hyprctl keyword source ${config.xdg.configHome}/hypr/dms/output.conf")
+                hl.exec_cmd("hyprctl keyword source ${config.xdg.configHome}/hypr/dms/colors.conf")
+              end
+            '')
+          ];
+        }
+      ];
+    };
+  };
 
   gtk = {
     # Include dank linux configuration

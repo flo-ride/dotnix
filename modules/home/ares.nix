@@ -2,13 +2,18 @@
   enableSuspend = false;
   wayland.windowManager.hyprland.settings = {
     monitor = [
-      "DP-1, 3440x1440@60, 1920x0, 1"
-      "HDMI-A-1, 1920x1080, 0x120, 1"
+      {
+        output = "DP-1";
+        mode = "3440x1440@60";
+        position = "1920x0";
+        scale = 1;
+      }
+      {
+        output = "HDMI-A-1";
+        mode = "1920x1080";
+        position = "0x120";
+        scale = 1;
+      }
     ];
-
-    render = {
-      #cm_fs_passthrough = 0;
-      cm_auto_hdr = 0;
-    };
   };
 }
