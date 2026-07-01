@@ -11,15 +11,44 @@
 
     settings = {
       strategies = {
-        chat.adapter = "ollama";
-        inline.adapter = "ollama";
-        cmd.adapter = "ollama";
+        chat.adapter = "llama_swap";
+        inline.adapter = "llama_swap";
+        cmd.adapter = "llama_swap";
       };
 
       opts = {log_level = "DEBUG";};
 
       adapters = {
         http = {
+          llama_swap = {
+            __raw = ''
+              function()
+                return require("codecompanion.adapters").extend("openai_compatible", {
+                  name = "llama_swap",
+                  env = {
+                    api_key = "dummy",
+                    url = "http://127.0.0.1:8080",
+                    chat_url = "/v1/chat/completions",
+                  },
+                  schema = {
+                    model = { default = "gemma4" },
+                  },
+                  handlers = {
+                    form_messages = function(self, messages)
+                      local openai = require("codecompanion.adapters.http.openai")
+                      local payload = openai.handlers.form_messages(self, messages)
+                      for _, msg in ipairs(payload.messages) do
+                        if msg.content == nil then
+                          msg.content = ""
+                        end
+                      end
+                      return payload
+                    end,
+                  },
+                })
+              end
+            '';
+          };
           ollama = {
             __raw = ''
               function()
