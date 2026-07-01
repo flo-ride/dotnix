@@ -41,6 +41,47 @@
       HSA_OVERRIDE_GFX_VERSION = "12.0.1";
     };
   };
+
+  modules.services.llama-swap = {
+    enable = true;
+    package = pkgs.llama-cpp-rocm;
+    models = {
+      "qwen2.5-coder" = {
+        repo = "Qwen/Qwen2.5-Coder-7B-Instruct-GGUF";
+        file = "qwen2.5-coder-7b-instruct-q4_k_m.gguf";
+        contextSize = 32768;
+        extraArgs = [];
+      };
+      "qwen3.6-27b" = {
+        repo = "unsloth/Qwen3.6-27B-GGUF";
+        file = "Qwen3.6-27B-Q4_K_M.gguf";
+        contextSize = 8192;
+        gpuLayers = 33;
+        extraArgs = [];
+      };
+      "qwen3.6-27b-fast" = {
+        repo = "unsloth/Qwen3.6-27B-GGUF";
+        file = "Qwen3.6-27B-Q3_K_M.gguf";
+        contextSize = 32768; # 32K context restored
+        gpuLayers = 999;
+        # KV Cache Quantization to fit 32K in VRAM (Flash attention is already auto-enabled)
+        extraArgs = [ "-ctk" "q8_0" "-ctv" "q8_0" ];
+      };
+      "gemma4" = {
+        repo = "unsloth/gemma-4-12b-it-GGUF";
+        file = "gemma-4-12b-it-Q4_K_M.gguf";
+        contextSize = 32768;
+        extraArgs = [];
+      };
+    };
+  };
+
+  systemd.services.llama-swap.environment = {
+    HIP_VISIBLE_DEVICES = "0";
+    ROCR_VISIBLE_DEVICES = "0";
+    HSA_OVERRIDE_GFX_VERSION = "12.0.1";
+  };
+
   services.printing = {
     enable = true;
     drivers = [pkgs.ptouch-driver];

@@ -14,6 +14,7 @@ in {
     self.nixosModules.docker
     self.nixosModules.vpn
     self.nixosModules.ollama
+    self.nixosModules.llama-swap
     self.nixosModules.sunshine
     self.nixosModules.no-suspend
     self.nixosModules.vm
