@@ -28,7 +28,6 @@
 
     plugins = {
       dankBatteryAlerts.enable = true;
-      discordVoice.enable = true;
       dankKDEConnect.enable = true;
       hydrate.enable = true;
       tailscale.enable = true;
