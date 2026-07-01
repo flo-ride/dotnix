@@ -1,17 +1,17 @@
 {
   lib,
-  config,
   pkgs,
   ...
 }: let
   mainMod = "SUPER";
 
   # Packages
-  dms-ipc = "dms ipc call";
-  term = "${pkgs.alacritty}/bin/alacritty";
-  screenshot = "dms screenshot";
+  dms-ipc = "${lib.getExe pkgs.dms-shell} ipc call";
+  term = "${lib.getExe pkgs.alacritty}";
+  screenshot = "${lib.getExe pkgs.dms} screenshot";
   playerctl = "${lib.getExe pkgs.playerctl}";
   hypridle = "${lib.getExe pkgs.hypridle}";
+  hyprctl = "${pkgs.hyprland}/bin/hyprctl";
 
   mkInline = lib.generators.mkLuaInline;
 in {
@@ -83,9 +83,6 @@ in {
           {_args = ["PRINT" (mkInline "hl.dsp.exec_cmd(\"${screenshot}\")")];}
           {_args = ["${mainMod} + SHIFT + S" (mkInline "hl.dsp.exec_cmd(\"${screenshot}\")")];}
 
-          # Resize submap
-          {_args = ["${mainMod} + R" (mkInline "hl.dsp.submap(\"resize\")")];}
-
           # Move focus
           {_args = ["${mainMod} + left" (mkInline "hl.dsp.focus({ direction = \"l\" })")];}
           {_args = ["${mainMod} + right" (mkInline "hl.dsp.focus({ direction = \"r\" })")];}
@@ -103,7 +100,7 @@ in {
         ++ lib.flatten (
           map (
             n: let
-              ws = let c = n / 10; in builtins.toString (n - (c * 10));
+              ws = let c = n / 10; in toString (n - (c * 10));
             in [
               {_args = ["${mainMod} + ${ws}" (mkInline "hl.dsp.focus({ workspace = \"${toString n}\" })")];}
               {_args = ["${mainMod} + SHIFT + ${ws}" (mkInline "hl.dsp.window.move({ workspace = \"${toString n}\" })")];}
@@ -120,14 +117,14 @@ in {
           {_args = ["XF86AudioLowerVolume" (mkInline "hl.dsp.exec_cmd(\"${dms-ipc} audio decrement 1\")") {repeating = true;}];}
 
           # Move window
-          {_args = ["${mainMod} + SHIFT + left" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow l\")") {repeating = true;}];}
-          {_args = ["${mainMod} + SHIFT + right" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow r\")") {repeating = true;}];}
-          {_args = ["${mainMod} + SHIFT + up" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow u\")") {repeating = true;}];}
-          {_args = ["${mainMod} + SHIFT + down" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow d\")") {repeating = true;}];}
-          {_args = ["${mainMod} + SHIFT + h" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow l\")") {repeating = true;}];}
-          {_args = ["${mainMod} + SHIFT + l" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow r\")") {repeating = true;}];}
-          {_args = ["${mainMod} + SHIFT + k" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow u\")") {repeating = true;}];}
-          {_args = ["${mainMod} + SHIFT + j" (mkInline "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow d\")") {repeating = true;}];}
+          {_args = ["${mainMod} + SHIFT + left" (mkInline "hl.dsp.exec_cmd(\"${hyprctl} dispatch movewindow l\")") {repeating = true;}];}
+          {_args = ["${mainMod} + SHIFT + right" (mkInline "hl.dsp.exec_cmd(\"${hyprctl} dispatch movewindow r\")") {repeating = true;}];}
+          {_args = ["${mainMod} + SHIFT + up" (mkInline "hl.dsp.exec_cmd(\"${hyprctl} dispatch movewindow u\")") {repeating = true;}];}
+          {_args = ["${mainMod} + SHIFT + down" (mkInline "hl.dsp.exec_cmd(\"${hyprctl} dispatch movewindow d\")") {repeating = true;}];}
+          {_args = ["${mainMod} + SHIFT + h" (mkInline "hl.dsp.exec_cmd(\"${hyprctl} dispatch movewindow l\")") {repeating = true;}];}
+          {_args = ["${mainMod} + SHIFT + l" (mkInline "hl.dsp.exec_cmd(\"${hyprctl} dispatch movewindow r\")") {repeating = true;}];}
+          {_args = ["${mainMod} + SHIFT + k" (mkInline "hl.dsp.exec_cmd(\"${hyprctl} dispatch movewindow u\")") {repeating = true;}];}
+          {_args = ["${mainMod} + SHIFT + j" (mkInline "hl.dsp.exec_cmd(\"${hyprctl} dispatch movewindow d\")") {repeating = true;}];}
 
           {_args = ["XF86AudioMute" (mkInline "hl.dsp.exec_cmd(\"${dms-ipc} audio mute\")") {locked = true;}];}
           {_args = ["XF86AudioPlay" (mkInline "hl.dsp.exec_cmd(\"${playerctl} play-pause\")") {locked = true;}];}
