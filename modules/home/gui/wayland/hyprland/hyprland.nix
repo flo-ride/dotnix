@@ -8,7 +8,7 @@
   # Packages
   dms-ipc = "${lib.getExe pkgs.dms-shell} ipc call";
   term = "${lib.getExe pkgs.alacritty}";
-  screenshot = "${lib.getExe pkgs.dms} screenshot";
+  screenshot = "${lib.getExe pkgs.dms-shell} screenshot";
   playerctl = "${lib.getExe pkgs.playerctl}";
   hypridle = "${lib.getExe pkgs.hypridle}";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
