@@ -9,8 +9,6 @@ in {
     # Tools
     pavucontrol
     networkmanagerapplet
-    blueman
-    wdisplays
     pulsemixer
     brightnessctl
 
@@ -18,13 +16,11 @@ in {
     libreoffice
 
     # Productivity
-    flameshot
     thunar
     (discord-ptb.override {
       withOpenASAR = true;
       withVencord = true;
     })
-    termius
 
     # Fun
     spotify
@@ -39,8 +35,5 @@ in {
     moonlight-qt
 
     feh
-
-    # Rust Desk
-    # rustdesk
   ];
 }
