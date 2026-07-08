@@ -10,7 +10,6 @@
   term = "${lib.getExe pkgs.alacritty}";
   screenshot = "${lib.getExe pkgs.dms-shell} screenshot";
   playerctl = "${lib.getExe pkgs.playerctl}";
-  hypridle = "${lib.getExe pkgs.hypridle}";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
 
   mkInline = lib.generators.mkLuaInline;
@@ -52,7 +51,6 @@ in {
             (mkInline ''
               function()
                 hl.exec_cmd("${pkgs.systemd}/bin/systemctl --user restart steam-run-url-service")
-                hl.exec_cmd("${hypridle}")
                 hl.exec_cmd("${lib.getExe pkgs.hyprlock} --immediate")
               end
             '')
