@@ -51,7 +51,7 @@ in {
             (mkInline ''
               function()
                 hl.exec_cmd("${pkgs.systemd}/bin/systemctl --user restart steam-run-url-service")
-                hl.exec_cmd("${lib.getExe pkgs.hyprlock} --immediate")
+                hl.exec_cmd("${dms-ipc} lock lock")
               end
             '')
           ];

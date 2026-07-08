@@ -3,7 +3,6 @@
 {
   imports = [
     ./hyprland
-    ./lock.nix
     ./dms.nix
   ];
 
