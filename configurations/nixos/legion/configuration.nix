@@ -2,6 +2,9 @@
 in {
   imports = [./hardware-configuration.nix];
 
+  modules.gui.wayland.hyprland.enable = true;
+  modules.gui.xserver.enable = false;
+
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.loader.grub.enable = true;

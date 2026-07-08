@@ -5,6 +5,9 @@
 }: {
   imports = [./hardware-configuration.nix];
 
+  modules.gui.wayland.hyprland.enable = true;
+  modules.gui.xserver.enable = false;
+
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
   boot.loader.grub.efiSupport = true;
@@ -65,7 +68,7 @@
         contextSize = 32768; # 32K context restored
         gpuLayers = 999;
         # KV Cache Quantization to fit 32K in VRAM (Flash attention is already auto-enabled)
-        extraArgs = [ "-ctk" "q8_0" "-ctv" "q8_0" ];
+        extraArgs = ["-ctk" "q8_0" "-ctv" "q8_0"];
       };
       "gemma4" = {
         repo = "unsloth/gemma-4-12b-it-GGUF";

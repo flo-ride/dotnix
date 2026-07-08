@@ -1,4 +1,5 @@
 {pkgs, ...}: {
+  modules.gui.wayland.hyprland.enable = true;
   enableSuspend = false;
   wayland.windowManager.hyprland.settings = {
     monitor = [
