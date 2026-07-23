@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   programs = {
     bash = {
       enable = true;
@@ -90,6 +94,65 @@
         tree = "lsd --tree";
         lgitignore = "ln -sf .git/info/exclude .gitignore_local && echo '.gitignore_local' >> .gitignore_local";
         sshb = "set -x SSH_AUTH_SOCK $HOME/.bitwarden-ssh-agent.sock";
+      };
+      functions = {
+        sops-bw = {
+          description = "Fetch SSH key from Bitwarden, convert to age, and set SOPS_AGE_KEY in current session";
+          body = ''
+            set -l item_name $argv[1]
+            if test -z "$item_name"
+                set item_name "Generic OpenSSH"
+            end
+
+            set -l bw_session $BW_SESSION
+
+            if test -z "$bw_session"
+                echo "Unlocking Bitwarden vault..."
+                set bw_session (${lib.getExe pkgs.bitwarden-cli} unlock --raw)
+                if test $status -ne 0
+                    echo "❌ Unlock failed."
+                    return 1
+                end
+                set -gx BW_SESSION "$bw_session"
+            end
+
+            echo "Extracting SSH key and converting to age format..."
+            set -l age_key (${lib.getExe pkgs.bitwarden-cli} get item "$item_name" --session "$bw_session" | ${lib.getExe pkgs.jq} -r '.sshKey.privateKey // empty' | ${lib.getExe pkgs.ssh-to-age} -private-key 2>/dev/null)
+
+            if test -n "$age_key"
+                set -gx SOPS_AGE_KEY "$age_key"
+                echo "✅ \$SOPS_AGE_KEY successfully loaded into current Fish session!"
+            else
+                echo "❌ Failed to retrieve or convert the SSH key."
+                return 1
+            end
+          '';
+        };
+        with-sops-key = {
+          description = "Temporarily write SOPS key to disk, run a command, and remove the key";
+          body = ''
+            if test -z "$SOPS_AGE_KEY"
+                echo "🔑 SOPS_AGE_KEY is not set. Running sops-bw..."
+                sops-bw
+                if test $status -ne 0
+                    return 1
+                end
+            end
+
+            set -l key_path ~/.config/sops/age/keys.txt
+            mkdir -p (dirname $key_path)
+            echo "$SOPS_AGE_KEY" > $key_path
+            echo "🔐 Temporary SOPS key written to $key_path."
+
+            $argv
+            set -l cmd_status $status
+
+            rm -f $key_path
+            echo "🧹 Temporary SOPS key removed from disk."
+
+            return $cmd_status
+          '';
+        };
       };
     };
   };
