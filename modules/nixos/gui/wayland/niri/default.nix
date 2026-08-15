@@ -11,10 +11,11 @@ in {
 
   config = lib.mkIf cfg.enable {
     # Make sure niri is available in the display manager (SDDM)
-    services.displayManager.sessionPackages = [pkgs.niri];
+    services.displayManager.sessionPackages = [ flake.inputs.niri.packages.${pkgs.system}.niri-unstable ];
 
     programs.niri = {
       enable = true;
+      package = flake.inputs.niri.packages.${pkgs.system}.niri-unstable;
     };
   };
 }

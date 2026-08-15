@@ -34,10 +34,13 @@
         ${lib.getExe pkgs.dms} ipc call lock unlock
 
         # Create SUNSHINE monitor (Virtual outputs are experimental/recent in niri)
-        ${lib.getExe pkgs.niri} msg action create-virtual-output --name "${monitorName}" || true
+        ${lib.getExe pkgs.niri} msg create-virtual-output --name "${monitorName}" || true
+
+        # Configure SUNSHINE monitor
+        ${lib.getExe pkgs.niri} msg output "${monitorName}" custom-mode "''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}" || true
 
         # Disable physical monitors 
-        ${lib.getExe pkgs.niri} msg outputs | grep "^Output" | cut -d' ' -f2 | tr -d ':' | grep -v "SUNSHINE" | xargs -I {} ${lib.getExe pkgs.niri} msg output {} off || true
+        ${lib.getExe pkgs.niri} msg outputs | grep "^Output" | awk -F'[()]' '{print $2}' | grep -v "SUNSHINE" | xargs -I {} ${lib.getExe pkgs.niri} msg output {} off || true
       fi
 
       ${extraCommands}
@@ -71,7 +74,7 @@
 
       elif [ "$XDG_CURRENT_DESKTOP" = "niri" ]; then
         # Reactivate all physical monitors
-        ${lib.getExe pkgs.niri} msg outputs | grep "^Output" | cut -d' ' -f2 | tr -d ':' | grep -v "SUNSHINE" | xargs -I {} ${lib.getExe pkgs.niri} msg output {} on || true
+        ${lib.getExe pkgs.niri} msg outputs | grep "^Output" | awk -F'[()]' '{print $2}' | grep -v "SUNSHINE" | xargs -I {} ${lib.getExe pkgs.niri} msg output {} on || true
         
         # Lock screen
         sleep 1
@@ -79,7 +82,7 @@
         
         # Destroy virtual output if niri supports it via IPC
         # Command syntax may vary depending on niri version
-        ${lib.getExe pkgs.niri} msg action destroy-virtual-output --name "${monitorName}" || true
+        ${lib.getExe pkgs.niri} msg remove-virtual-output "${monitorName}" || true
       fi
     '';
 

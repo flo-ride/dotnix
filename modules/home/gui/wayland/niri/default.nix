@@ -26,6 +26,7 @@ in {
     ];
     programs.niri = {
       enable = true;
+      package = flake.inputs.niri.packages.${pkgs.system}.niri-unstable;
       settings = {
         spawn-at-startup = [
           { command = [ "${pkgs.systemd}/bin/systemctl" "--user" "restart" "steam-run-url-service" ]; }

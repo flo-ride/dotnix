@@ -49,9 +49,15 @@
     dgop.url = "github:AvengeMedia/dgop";
     dgop.inputs.nixpkgs.follows = "nixpkgs";
 
+    # Niri PR for virtual outputs
+    niri-pr.url = "github:willybarret/niri/wip/virtual-outputs";
+    niri-pr.flake = false;
+
     # Niri
     niri.url = "github:sodiboo/niri-flake";
     niri.inputs.nixpkgs.follows = "nixpkgs";
+    niri.inputs.niri-stable.follows = "niri-pr";
+    niri.inputs.niri-unstable.follows = "niri-pr";
 
     # Neovim
     nixvim.url = "github:nix-community/nixvim/nixos-26.05";
