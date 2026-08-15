@@ -8,21 +8,37 @@
     extraCommands ? "",
   }:
     pkgs.writeShellScriptBin "sunshine-do" ''
-      # Turn on screen
-      ${pkgs.hyprland}/bin/hyprctl dispatch dpms on
+      if [ "$XDG_CURRENT_DESKTOP" = "Hyprland" ]; then
+        # Turn on screen
+        ${pkgs.hyprland}/bin/hyprctl dispatch dpms on
 
-      # Unlock PC
-      ${pkgs.procps}/bin/pkill -USR1 hyprlock || true
-      ${lib.getExe pkgs.dms} ipc call lock unlock
+        # Unlock PC
+        ${pkgs.procps}/bin/pkill -USR1 hyprlock || true
+        ${lib.getExe pkgs.dms} ipc call lock unlock
 
-      # Create SUNSHINE-DESKTOP monitor
-      ${pkgs.hyprland}/bin/hyprctl output create headless ${monitorName}
+        # Create SUNSHINE monitor
+        ${pkgs.hyprland}/bin/hyprctl output create headless ${monitorName}
 
-      # Configure SUNSHINE-DESKTOP monitor
-      ${pkgs.hyprland}/bin/hyprctl eval "hl.monitor({ output = \"${monitorName}\", mode = \"''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}'\", scale = 1 })"
+        # Configure SUNSHINE monitor
+        ${pkgs.hyprland}/bin/hyprctl eval "hl.monitor({ output = \"${monitorName}\", mode = \"''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}'\", scale = 1 })"
 
-      # Disable all monitor except SUNSHINE monitors
-      ${pkgs.hyprland}/bin/hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.name | startswith("SUNSHINE-") | not) | .name' | xargs -I {} ${pkgs.hyprland}/bin/hyprctl eval "hl.monitor({ output = '{}', disabled = true })"
+        # Disable all monitors except SUNSHINE monitors
+        ${pkgs.hyprland}/bin/hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.name | startswith("SUNSHINE-") | not) | .name' | xargs -I {} ${pkgs.hyprland}/bin/hyprctl eval "hl.monitor({ output = '{}', disabled = true })"
+      
+      elif [ "$XDG_CURRENT_DESKTOP" = "niri" ]; then
+        # Turn on screen
+        ${lib.getExe pkgs.niri} msg action power-on-monitors || true
+
+        # Unlock PC
+        ${pkgs.procps}/bin/pkill -USR1 hyprlock || true
+        ${lib.getExe pkgs.dms} ipc call lock unlock
+
+        # Create SUNSHINE monitor (Virtual outputs are experimental/recent in niri)
+        ${lib.getExe pkgs.niri} msg action create-virtual-output --name "${monitorName}" || true
+
+        # Disable physical monitors 
+        ${lib.getExe pkgs.niri} msg outputs | grep "^Output" | cut -d' ' -f2 | tr -d ':' | grep -v "SUNSHINE" | xargs -I {} ${lib.getExe pkgs.niri} msg output {} off || true
+      fi
 
       ${extraCommands}
     '';
@@ -33,23 +49,37 @@
     pkgs.writeShellScriptBin "sunshine-undo" ''
       ${preCommands}
 
-      SUNSHINE_COUNT=$(${pkgs.hyprland}/bin/hyprctl monitors -j | ${pkgs.jq}/bin/jq '[.[] | select(.name | startswith("SUNSHINE-"))] | length')
+      if [ "$XDG_CURRENT_DESKTOP" = "Hyprland" ]; then
+        SUNSHINE_COUNT=$(${pkgs.hyprland}/bin/hyprctl monitors -j | ${pkgs.jq}/bin/jq '[.[] | select(.name | startswith("SUNSHINE-"))] | length')
 
-      if [ "$SUNSHINE_COUNT" -le 1 ]; then
-          # Reactivate monitors
-          ${pkgs.hyprland}/bin/hyprctl monitors all -j | \
-          ${pkgs.jq}/bin/jq -r '.[] | select(.disabled == true) | .name' | \
-          xargs -I {} ${pkgs.hyprland}/bin/hyprctl keyword monitor {},preferred,auto,1
+        if [ "$SUNSHINE_COUNT" -le 1 ]; then
+            # Reactivate monitors
+            ${pkgs.hyprland}/bin/hyprctl monitors all -j | \
+            ${pkgs.jq}/bin/jq -r '.[] | select(.disabled == true) | .name' | \
+            xargs -I {} ${pkgs.hyprland}/bin/hyprctl keyword monitor {},preferred,auto,1
 
-          sleep 1
-          ${lib.getExe pkgs.dms} ipc call lock lock &
-      fi
+            sleep 1
+            ${lib.getExe pkgs.dms} ipc call lock lock &
+        fi
 
-      ${pkgs.hyprland}/bin/hyprctl output destroy ${monitorName}
+        ${pkgs.hyprland}/bin/hyprctl output destroy ${monitorName}
 
-      if [ "$SUNSHINE_COUNT" -le 1 ]; then
-          ${pkgs.hyprland}/bin/hyprctl reload
-          ${pkgs.hyprland}/bin/hyprctl reload # Why 2, i don't know but one doesn't work fully
+        if [ "$SUNSHINE_COUNT" -le 1 ]; then
+            ${pkgs.hyprland}/bin/hyprctl reload
+            ${pkgs.hyprland}/bin/hyprctl reload # Why 2, i don't know but one doesn't work fully
+        fi
+
+      elif [ "$XDG_CURRENT_DESKTOP" = "niri" ]; then
+        # Reactivate all physical monitors
+        ${lib.getExe pkgs.niri} msg outputs | grep "^Output" | cut -d' ' -f2 | tr -d ':' | grep -v "SUNSHINE" | xargs -I {} ${lib.getExe pkgs.niri} msg output {} on || true
+        
+        # Lock screen
+        sleep 1
+        ${lib.getExe pkgs.dms} ipc call lock lock &
+        
+        # Destroy virtual output if niri supports it via IPC
+        # Command syntax may vary depending on niri version
+        ${lib.getExe pkgs.niri} msg action destroy-virtual-output --name "${monitorName}" || true
       fi
     '';
 

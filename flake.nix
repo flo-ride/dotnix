@@ -49,6 +49,10 @@
     dgop.url = "github:AvengeMedia/dgop";
     dgop.inputs.nixpkgs.follows = "nixpkgs";
 
+    # Niri
+    niri.url = "github:sodiboo/niri-flake";
+    niri.inputs.nixpkgs.follows = "nixpkgs";
+
     # Neovim
     nixvim.url = "github:nix-community/nixvim/nixos-26.05";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
