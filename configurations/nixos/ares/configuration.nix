@@ -115,6 +115,7 @@
     gimp-with-plugins
     ldtk
     krita
+    libresprite
   ];
 
   users.users.floride.openssh.authorizedKeys.keys = lib.mkForce [
