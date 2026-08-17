@@ -24,6 +24,7 @@
   };
 
   services = {
+    udisks2.enable = true;
     # provide location
     geoclue2 = {
       enable = true;
