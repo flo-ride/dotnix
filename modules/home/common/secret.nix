@@ -20,10 +20,16 @@ in {
   sops.secrets."ssh/forgejo_floride_pub" = {
     path = "/home/floride/.ssh/forgejo_floride.pub";
   };
+  sops.secrets."ssh/hades_ssh_pub" = {
+    path = "/home/floride/.ssh/hades_ssh.pub";
+  };
+  sops.secrets."ssh/apollon_ssh_pub" = {
+    path = "/home/floride/.ssh/apollon_ssh.pub";
+  };
 
   # Allow sops-nix to fail without crashing the whole home-manager activation.
   # Useful for bootstrapping a new machine where the age key is not yet available.
   systemd.user.services.sops-nix = {
-    Service.SuccessExitStatus = [ 0 1 2 127 ];
+    Service.SuccessExitStatus = [0 1 2 127];
   };
 }
