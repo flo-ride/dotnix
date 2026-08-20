@@ -5,7 +5,8 @@
 }: {
   imports = [./hardware-configuration.nix];
 
-  modules.gui.wayland.hyprland.enable = true;
+  modules.gui.wayland.niri.enable = true;
+  modules.gui.wayland.hyprland.enable = false;
   modules.gui.xserver.enable = false;
 
   boot.loader.efi.canTouchEfiVariables = true;
