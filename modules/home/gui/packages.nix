@@ -17,7 +17,7 @@ in {
 
     # Productivity
     thunar
-    (discord-ptb.override {
+    (discord.override {
       withOpenASAR = true;
       withVencord = true;
     })
