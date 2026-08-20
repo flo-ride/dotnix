@@ -1,8 +1,10 @@
 {
+  config,
   pkgs,
   lib,
   ...
 }: let
+  niri-pkg = config.programs.niri.package or pkgs.niri;
   do-factory = {
     monitorName,
     extraCommands ? "",
@@ -27,22 +29,24 @@
       
       elif [ "$XDG_CURRENT_DESKTOP" = "niri" ]; then
         # Turn on screen
-        ${lib.getExe pkgs.niri} msg action power-on-monitors || true
+        ${lib.getExe niri-pkg} msg action power-on-monitors || true
 
         # Unlock PC
         ${pkgs.procps}/bin/pkill -USR1 hyprlock || true
         ${lib.getExe pkgs.dms} ipc call lock unlock
 
         # Create SUNSHINE monitor (Virtual outputs are experimental/recent in niri)
-        ${lib.getExe pkgs.niri} msg create-virtual-output --name "${monitorName}" || true
+        ${lib.getExe niri-pkg} msg create-virtual-output --name "${monitorName}" || true
+        sleep 1
 
         # Configure SUNSHINE monitor
-        ${lib.getExe pkgs.niri} msg output "${monitorName}" custom-mode "''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}" || true
+        ${lib.getExe niri-pkg} msg output "${monitorName}" custom-mode "''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}" || true
 
         # Disable physical monitors 
-        ${lib.getExe pkgs.niri} msg outputs | grep "^Output" | awk -F'[()]' '{print $2}' | grep -v "SUNSHINE" | xargs -I {} ${lib.getExe pkgs.niri} msg output {} off || true
+        ${lib.getExe niri-pkg} msg outputs | grep "^Output" | awk -F'[()]' '{print $2}' | grep -v "SUNSHINE" | xargs -I {} ${lib.getExe niri-pkg} msg output {} off || true
       fi
 
+      sleep 1
       ${extraCommands}
     '';
   undo-factory = {
@@ -74,7 +78,7 @@
 
       elif [ "$XDG_CURRENT_DESKTOP" = "niri" ]; then
         # Reactivate all physical monitors
-        ${lib.getExe pkgs.niri} msg outputs | grep "^Output" | awk -F'[()]' '{print $2}' | grep -v "SUNSHINE" | xargs -I {} ${lib.getExe pkgs.niri} msg output {} on || true
+        ${lib.getExe niri-pkg} msg outputs | grep "^Output" | awk -F'[()]' '{print $2}' | grep -v "SUNSHINE" | xargs -I {} ${lib.getExe niri-pkg} msg output {} on || true
         
         # Lock screen
         sleep 1
@@ -82,7 +86,7 @@
         
         # Destroy virtual output if niri supports it via IPC
         # Command syntax may vary depending on niri version
-        ${lib.getExe pkgs.niri} msg remove-virtual-output "${monitorName}" || true
+        ${lib.getExe niri-pkg} msg remove-virtual-output "${monitorName}" || true
       fi
     '';
 
