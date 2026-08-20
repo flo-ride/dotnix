@@ -26,6 +26,9 @@ in {
   sops.secrets."ssh/apollon_ssh_pub" = {
     path = "/home/floride/.ssh/apollon_ssh.pub";
   };
+  sops.secrets."ssh/cronos_ssh_pub" = {
+    path = "/home/floride/.ssh/cronos_ssh.pub";
+  };
 
   # Allow sops-nix to fail without crashing the whole home-manager activation.
   # Useful for bootstrapping a new machine where the age key is not yet available.

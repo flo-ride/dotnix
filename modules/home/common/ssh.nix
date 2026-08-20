@@ -19,6 +19,10 @@
         HostName = "192.168.88.1";
         IdentityFile = "~/.ssh/apollon_ssh.pub";
       };
+      "cronos" = {
+        HostName = "192.168.88.252";
+        IdentityFile = "~/.ssh/cronos_ssh.pub";
+      };
     };
   };
 }
