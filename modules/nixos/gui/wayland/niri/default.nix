@@ -30,6 +30,7 @@ in {
       ];
       config.niri = {
         default = lib.mkForce [ "gtk" "gnome" ];
+        "org.freedesktop.impl.portal.FileChooser" = lib.mkForce [ "gtk" ];
         "org.freedesktop.impl.portal.ScreenCast" = lib.mkForce [ "gnome" ];
         "org.freedesktop.impl.portal.Screenshot" = lib.mkForce [ "gnome" ];
         "org.freedesktop.impl.portal.Secret" = lib.mkForce [ "gnome" ];
