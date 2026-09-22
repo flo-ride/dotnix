@@ -16,7 +16,6 @@ in {
     libreoffice
 
     # Productivity
-    thunar
     (discord.override {
       withOpenASAR = true;
       withVencord = true;

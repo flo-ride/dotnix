@@ -21,5 +21,19 @@ in {
       enable = true;
       package = flake.inputs.niri.packages.${pkgs.system}.niri-unstable;
     };
+
+    xdg.portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-gnome
+      ];
+      config.niri = {
+        default = lib.mkForce [ "gtk" "gnome" ];
+        "org.freedesktop.impl.portal.ScreenCast" = lib.mkForce [ "gnome" ];
+        "org.freedesktop.impl.portal.Screenshot" = lib.mkForce [ "gnome" ];
+        "org.freedesktop.impl.portal.Secret" = lib.mkForce [ "gnome" ];
+      };
+    };
   };
 }

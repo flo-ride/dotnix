@@ -21,9 +21,12 @@
   # started in user sessions.
   programs = {
     dconf.enable = true;
+    thunar.enable = true;
   };
 
   services = {
+    tumbler.enable = true;
+    gvfs.enable = true; # for thunar mounts
     udisks2.enable = true;
     # provide location
     geoclue2 = {
