@@ -29,8 +29,8 @@ in {
       package = flake.inputs.niri.packages.${pkgs.system}.niri-unstable;
       settings = {
         spawn-at-startup = [
-          { command = [ "${pkgs.systemd}/bin/systemctl" "--user" "restart" "steam-run-url-service" ]; }
-          { command = toNiri "${dms-ipc} lock lock"; }
+          {command = ["${pkgs.systemd}/bin/systemctl" "--user" "restart" "steam-run-url-service"];}
+          {command = toNiri "${dms-ipc} lock lock";}
         ];
         xwayland-satellite = {
           enable = true;
@@ -142,6 +142,7 @@ in {
           QT_QPA_PLATFORMTHEME = "gtk3";
           T_QPA_PLATFORMTHEME_QT6 = "gtk3";
           ELECTRON_OZONE_PLATFORM_HINT = "auto";
+          GTK_USE_PORTAL = "1";
         };
 
         window-rules = [
@@ -149,10 +150,10 @@ in {
             matches = [
               {app-id = "^org\\.keepassxc\\.KeePassXC$";}
               {app-id = "^org\\.gnome\\.World\\.Secrets$";}
-              {app-id = "^bitwarden$";}
-              {app-id = "^Bitwarden$";}
+              # {app-id = "^bitwarden$";}
+              # {app-id = "^Bitwarden$";}
               {app-id = "^1Password$";}
-              {title = "(?i).*bitwarden.*";}
+              # {title = "(?i).*bitwarden.*";}
               {title = "(?i).*banque.*";}
               {title = "(?i).*bank.*";}
               {title = "(?i).*vault.*";}
