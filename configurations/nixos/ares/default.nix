@@ -27,4 +27,8 @@ in {
     }
     ./configuration.nix
   ];
+  
+  config = {
+    modules.system.no-suspend.enable = true;
+  };
 }
