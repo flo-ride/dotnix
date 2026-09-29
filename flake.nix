@@ -46,8 +46,6 @@
     dms.inputs.nixpkgs.follows = "nixpkgs";
     dms-plugin-registry.url = "github:AvengeMedia/dms-plugin-registry";
     dms-plugin-registry.inputs.nixpkgs.follows = "nixpkgs";
-    dgop.url = "github:AvengeMedia/dgop";
-    dgop.inputs.nixpkgs.follows = "nixpkgs";
 
     # Niri PR for virtual outputs
     niri-pr.url = "github:willybarret/niri/wip/virtual-outputs";
@@ -61,7 +59,6 @@
 
     # Neovim
     nixvim.url = "github:nix-community/nixvim/nixos-26.05";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.inputs.flake-parts.follows = "flake-parts";
   };
 

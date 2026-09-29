@@ -12,7 +12,6 @@
 
   programs.dank-material-shell = {
     enable = true;
-    dgop.package = flake.inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     systemd = {
       enable = true; # Systemd service for auto-start
@@ -27,7 +26,6 @@
     enableClipboardPaste = true; # Manage clipboard history
 
     plugins = {
-      dankBatteryAlerts.enable = true;
       dankKDEConnect.enable = true;
       hydrate.enable = true;
       tailscale.enable = true;
