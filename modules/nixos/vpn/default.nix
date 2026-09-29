@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  imports = [./tailscale.nix ./fortivpn.nix];
+  imports = [./tailscale.nix];
 
   environment.systemPackages = with pkgs; [proton-vpn];
 }
