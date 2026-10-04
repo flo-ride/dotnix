@@ -150,10 +150,10 @@ in {
             matches = [
               {app-id = "^org\\.keepassxc\\.KeePassXC$";}
               {app-id = "^org\\.gnome\\.World\\.Secrets$";}
-              # {app-id = "^bitwarden$";}
-              # {app-id = "^Bitwarden$";}
+              {app-id = "^bitwarden$";}
+              {app-id = "^Bitwarden$";}
               {app-id = "^1Password$";}
-              # {title = "(?i).*bitwarden.*";}
+              {title = "(?i).*bitwarden.*";}
               {title = "(?i).*banque.*";}
               {title = "(?i).*bank.*";}
               {title = "(?i).*vault.*";}
