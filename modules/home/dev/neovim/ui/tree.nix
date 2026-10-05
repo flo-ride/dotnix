@@ -7,7 +7,7 @@
 
   plugins.nvim-tree = {
     enable = true;
-    openOnSetup = true; # Replaces your VimEnter autocmd for simple opening
+    openOnSetup = false; # Replaces your VimEnter autocmd for simple opening
 
     settings = {
       sort.sorter = "case_sensitive";

@@ -63,17 +63,9 @@
     smartindent = true;
   };
 
-  # Custom Autocommands (Doxygen/Latex)
-  autoCmd = [
-    {
-      event = ["BufRead" "BufNewFile"];
-      pattern = ["*.h"];
-      command = "set filetype=c.doxygen";
-    }
-    {
-      event = ["BufRead" "BufNewFile"];
-      pattern = ["*.tex"];
-      command = "set filetype=latex";
-    }
-  ];
+  # Filetypes (Doxygen/Latex)
+  filetype.extension = {
+    h = "c.doxygen";
+    tex = "latex";
+  };
 }

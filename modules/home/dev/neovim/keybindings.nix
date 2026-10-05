@@ -214,17 +214,17 @@
       }
       {
         __unkeyed-1 = "<leader>fo";
-        __unkeyed-2 = "<cmd>Telescope oldfiles<cr>";
+        __unkeyed-2 = "<cmd>lua Snacks.picker.recent()<cr>";
         desc = "Open Recent File";
       }
       {
         __unkeyed-1 = "<leader>fr";
-        __unkeyed-2 = "<cmd>Telescope resume<cr>";
+        __unkeyed-2 = "<cmd>lua Snacks.picker.resume()<cr>";
         desc = "Resume Last Search";
       }
       {
         __unkeyed-1 = "<leader>ft";
-        __unkeyed-2 = "<cmd>TodoTelescope<cr>";
+        __unkeyed-2 = "<cmd>lua Snacks.picker.todo_comments()<cr>";
         desc = "Find Todo's";
       }
 

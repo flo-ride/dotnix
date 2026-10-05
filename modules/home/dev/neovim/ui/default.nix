@@ -17,6 +17,9 @@
     # Provides smooth scrolling and window animations
     mini-animate.enable = true;
 
+    # --- Persisted (Session Manager) ---
+    persisted.enable = true;
+
     # --- ToggleTerm ---
     toggleterm = {
       enable = true;

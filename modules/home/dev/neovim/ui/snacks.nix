@@ -58,7 +58,14 @@
           }
         ];
         sections = [
-          {section = "startup";}
+          {
+            section = "header";
+          }
+          {
+            section = "keys";
+            gap = 1;
+            padding = 1;
+          }
         ];
       };
 
