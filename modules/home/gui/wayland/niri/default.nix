@@ -154,6 +154,7 @@ in {
               {app-id = "^Bitwarden$";}
               {app-id = "^1Password$";}
               {title = "(?i).*bitwarden.*";}
+              {title = "(?i).*firefly.*";}
               {title = "(?i).*banque.*";}
               {title = "(?i).*bank.*";}
               {title = "(?i).*vault.*";}
