@@ -26,6 +26,7 @@
     enable = true;
     defaultEditor = true;
     vimdiffAlias = true;
+    nixpkgs.source = flake.inputs.nixpkgs;
     _module.args = {inherit flake;};
     imports = [
       ./base.nix

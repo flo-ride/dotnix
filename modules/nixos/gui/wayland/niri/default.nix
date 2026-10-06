@@ -15,11 +15,11 @@ in {
     services.gnome.gnome-keyring.enable = false;
 
     # Make sure niri is available in the display manager (SDDM)
-    services.displayManager.sessionPackages = [ flake.inputs.niri.packages.${pkgs.system}.niri-unstable ];
+    services.displayManager.sessionPackages = [ flake.inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.niri-unstable ];
 
     programs.niri = {
       enable = true;
-      package = flake.inputs.niri.packages.${pkgs.system}.niri-unstable;
+      package = flake.inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.niri-unstable;
     };
 
     xdg.portal = {
