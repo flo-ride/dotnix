@@ -83,6 +83,24 @@
         contextSize = 32768;
         extraArgs = [];
       };
+      "phi-4" = {
+        repo = "unsloth/phi-4-GGUF";
+        file = "phi-4-Q5_K_M.gguf";
+        contextSize = 16384;
+        ttl = 300;
+      };
+      "qwen2.5-14b" = {
+        repo = "bartowski/Qwen2.5-14B-Instruct-GGUF";
+        file = "Qwen2.5-14B-Instruct-Q4_K_M.gguf";
+        contextSize = 32768;
+        ttl = 300;
+      };
+      "gemma4-12b-hq" = {
+        repo = "unsloth/gemma-4-12b-it-GGUF";
+        file = "gemma-4-12b-it-Q6_K.gguf";
+        contextSize = 32768;
+        ttl = 300;
+      };
     };
   };
 
