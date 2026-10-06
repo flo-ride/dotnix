@@ -96,6 +96,63 @@
     openFirewall = true;
   };
 
+  boot.kernelModules = ["uinput"];
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = false;
+
+  services.logiops = {
+    enable = true;
+    config = {
+      devices = [
+        {
+          name = "MX Keys S";
+          buttons = [
+            {
+              cid = (fromTOML "hex = 0x0103").hex; # Fn+F5 : Dictée
+              divert = true;
+              action = {
+                type = "Keypress";
+                keys = ["KEY_VOICECOMMAND"];
+              };
+            }
+            {
+              cid = (fromTOML "hex = 0x0108").hex; # Fn+F6 : Emojis
+              divert = true;
+              action = {
+                type = "Keypress";
+                keys = ["KEY_EMOJI_PICKER"];
+              };
+            }
+            {
+              cid = (fromTOML "hex = 0x011C").hex; # Fn+F7 : Coupure micro
+              divert = true;
+              action = {
+                type = "Keypress";
+                keys = ["KEY_MICMUTE"];
+              };
+            }
+            {
+              cid = (fromTOML "hex = 0x010A").hex; # Fn+F8 : Capture d'écran (PrintScreen)
+              divert = true;
+              action = {
+                type = "Keypress";
+                keys = ["KEY_PRINT"];
+              };
+            }
+            {
+              cid = (fromTOML "hex = 0x006F").hex; # Cadenas pavé num : Verrouillage
+              divert = true;
+              action = {
+                type = "Keypress";
+                keys = ["KEY_SCREENSAVER"];
+              };
+            }
+          ];
+        }
+      ];
+    };
+  };
+
   services.lact.enable = true;
   environment.systemPackages = with pkgs; [
     kicad
