@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   modules.gui.wayland.hyprland.enable = false;
   modules.gui.wayland.niri.enable = true;
+  modules.gui.dictation.enable = true;
   enableSuspend = false;
   wayland.windowManager.hyprland.settings = {
     monitor = [

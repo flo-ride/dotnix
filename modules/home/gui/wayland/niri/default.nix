@@ -97,6 +97,10 @@ in {
           "Mod+F".action.maximize-column = {};
 
           # Audio Controls
+          "XF86VoiceCommand" = {
+            allow-when-locked = true;
+            action.spawn = toNiri "whisper-dictate";
+          };
           "XF86AudioRaiseVolume" = {
             allow-when-locked = true;
             action.spawn = toNiri "${dms-ipc} audio increment 1";
