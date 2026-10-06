@@ -27,7 +27,7 @@
                   name = "llama_swap",
                   env = {
                     api_key = "dummy",
-                    url = "http://127.0.0.1:8080",
+                    url = "http://127.0.0.1:11435",
                     chat_url = "/v1/chat/completions",
                   },
                   schema = {

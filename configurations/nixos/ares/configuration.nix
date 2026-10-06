@@ -46,6 +46,12 @@
     };
   };
 
+  modules.services.ai = {
+    enable = true;
+    backend = "llama-swap";
+    auth.enable = true;
+  };
+
   modules.services.llama-swap = {
     enable = true;
     package = pkgs.llama-cpp-rocm;

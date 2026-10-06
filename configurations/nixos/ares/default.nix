@@ -13,8 +13,7 @@ in {
     self.nixosModules.games
     self.nixosModules.docker
     self.nixosModules.vpn
-    self.nixosModules.ollama
-    self.nixosModules.llama-swap
+    self.nixosModules.ai
     self.nixosModules.sunshine
     self.nixosModules.no-suspend
     self.nixosModules.vm

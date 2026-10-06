@@ -28,6 +28,18 @@ in {
   options.modules.services.llama-swap = {
     enable = lib.mkEnableOption "Llama-swap service for model routing";
 
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 8080;
+      description = "Port for llama-swap";
+    };
+
+    host = lib.mkOption {
+      type = lib.types.str;
+      default = "127.0.0.1";
+      description = "Host for llama-swap";
+    };
+
     package = lib.mkPackageOption pkgs "llama-cpp" {};
 
     models = lib.mkOption {
@@ -73,7 +85,8 @@ in {
   config = lib.mkIf cfg.enable {
     services.llama-swap = {
       enable = true;
-      port = 8080;
+      port = cfg.port;
+      listenAddress = cfg.host;
       settings = {
         models =
           lib.mapAttrs (name: model: {
@@ -100,8 +113,9 @@ in {
         SystemCallFilter = lib.mkForce ["~@clock" "~@module" "~@reboot" "~@swap"];
         ProtectSystem = lib.mkForce "full";
         PrivateUsers = lib.mkForce false;
+        SupplementaryGroups = [ "render" "video" ];
       };
-      path = [pkgs.curl cfg.package];
+      path = [pkgs.curl cfg.package pkgs.rocmPackages.rocm-smi];
       preStart = "${downloadScript}";
     };
   };
