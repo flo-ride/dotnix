@@ -31,7 +31,7 @@
                     chat_url = "/v1/chat/completions",
                   },
                   schema = {
-                    model = { default = "gemma4" },
+                    model = { default = "phi-4" },
                   },
                   handlers = {
                     form_messages = function(self, messages)
