@@ -165,8 +165,18 @@ in {
               {title = "(?i).*ameli.*";}
               {title = "(?i).*mutuelle.*";}
               {title = "(?i).*impot.*";}
-              {title = "(?i).*authenticator.*";}
+              {title = "(?i).*authent.*";}
               {title = "(?i).*password.*";}
+              {title = "(?i).*login.*";}
+              {title = "(?i).*log in.*";}
+              {title = "(?i).*signin.*";}
+              {title = "(?i).*sign in.*";}
+              {title = "(?i).*sign-in.*";}
+              {title = "(?i).*auth.*";}
+              {title = "(?i).*oauth.*";}
+              {title = "(?i).*sso.*";}
+              {title = "(?i).*connexion.*";}
+              {title = "(?i).*identif.*";}
             ];
             block-out-from = "screen-capture";
           }
