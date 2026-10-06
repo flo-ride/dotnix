@@ -7,6 +7,10 @@
         HostName = "git.floride.dev";
         IdentityFile = "~/.ssh/forgejo_floride.pub";
       };
+      "gitlab.com" = {
+        HostName = "gitlab.com";
+        IdentityFile = "~/.ssh/gitlab.pub";
+      };
       "zeus" = {
         HostName = "192.168.1.22";
         IdentityFile = "~/.ssh/common_ssh.pub";

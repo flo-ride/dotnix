@@ -20,6 +20,9 @@ in {
   sops.secrets."ssh/forgejo_floride_pub" = {
     path = "/home/floride/.ssh/forgejo_floride.pub";
   };
+  sops.secrets."ssh/gitlab_ssh_pub" = {
+    path = "/home/floride/.ssh/gitlab.pub";
+  };
   sops.secrets."ssh/hades_ssh_pub" = {
     path = "/home/floride/.ssh/hades_ssh.pub";
   };
