@@ -76,6 +76,11 @@ in {
             default = [];
             description = "Extra arguments to pass to llama-server";
           };
+          ttl = lib.mkOption {
+            type = lib.types.int;
+            default = 300;
+            description = "Time to live in seconds before automatically unloading the model (e.g., 300 for 5m). Set to 0 to never unload.";
+          };
         };
       });
       default = {};
@@ -91,6 +96,7 @@ in {
         models =
           lib.mapAttrs (name: model: {
             cmd = "${lib.getExe' cfg.package "llama-server"} --port \${PORT} -m ${modelsDir}/${name}/${model.file} -c ${toString model.contextSize} -ngl ${toString model.gpuLayers} ${lib.escapeShellArgs model.extraArgs} --no-webui";
+            ttl = model.ttl;
           })
           cfg.models;
       };
