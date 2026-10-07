@@ -28,7 +28,7 @@ in {
     xpipe
 
     # Password
-    bitwarden-desktop
+    unstablePkgs.bitwarden-desktop
 
     # Moonlight
     moonlight-qt
