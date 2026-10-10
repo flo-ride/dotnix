@@ -27,6 +27,15 @@
         HostName = "192.168.88.252";
         IdentityFile = "~/.ssh/cronos_ssh.pub";
       };
+      "orphee" = {
+        HostName = "10.52.0.41";
+      };
+      "10.52.0.41" = {
+        User = "admin";
+        KexAlgorithms = "+diffie-hellman-group1-sha1";
+        HostKeyAlgorithms = "+ssh-rsa";
+        Ciphers = "+aes128-cbc";
+      };
     };
   };
 }
