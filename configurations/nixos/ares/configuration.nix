@@ -1,8 +1,11 @@
 {
   pkgs,
   lib,
+  flake,
   ...
-}: {
+}: let
+  unstablePkgs = flake.inputs.nixos-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in {
   imports = [./hardware-configuration.nix];
 
   modules.gui.wayland.niri.enable = true;
@@ -180,7 +183,7 @@
   services.lact.enable = true;
   environment.systemPackages = with pkgs; [
     kicad
-    freecad-wayland
+    unstablePkgs.freecad-wayland
     blender
     dbeaver-bin
     bambu-studio
