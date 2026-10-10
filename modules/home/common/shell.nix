@@ -3,6 +3,10 @@
   lib,
   ...
 }: {
+  home.sessionVariables = {
+    SSH_AUTH_SOCK = "$HOME/.bitwarden-ssh-agent.sock";
+  };
+
   programs = {
     bash = {
       enable = true;
@@ -33,9 +37,7 @@
       enable = true;
       interactiveShellInit = ''
         set fish_greeting # Disable greeting
-        if not set -q SSH_AUTH_SOCK
-            set -x SSH_AUTH_SOCK $HOME/.bitwarden-ssh-agent.sock
-        end
+        set -x SSH_AUTH_SOCK $HOME/.bitwarden-ssh-agent.sock
         ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
       '';
       plugins = [
