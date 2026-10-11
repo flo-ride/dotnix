@@ -13,6 +13,12 @@
   programs.dank-material-shell = {
     enable = true;
 
+    package = (flake.inputs.dms.lib.mkDmsShell pkgs).override {
+      extraQtPackages = [
+        pkgs.kdePackages.qtwebsockets
+      ];
+    };
+
     systemd = {
       enable = true; # Systemd service for auto-start
       restartIfChanged = true; # Auto-restart dms.service when dms-shell changes
@@ -28,7 +34,8 @@
     plugins = {
       dankKDEConnect.enable = true;
       hydrate.enable = true;
-      tailscale.enable = true;
+      dankscale.enable = true;
+      homeAssistantMonitor.enable = true;
     };
   };
 
