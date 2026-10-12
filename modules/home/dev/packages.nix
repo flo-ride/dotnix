@@ -1,11 +1,17 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  flake,
+  ...
+}: let
+  unstablePkgs = flake.inputs.nixos-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in {
   home.packages = with pkgs; [
     grc
     lsd
     hyfetch
     cargo
     xclip
-    opencode
+    unstablePkgs.opencode
     antigravity
     bitwarden-cli
     tldr
