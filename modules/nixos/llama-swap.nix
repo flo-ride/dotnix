@@ -11,6 +11,26 @@
   # Script to download missing models using curl
   downloadScript = pkgs.writeShellScript "download-llama-models" ''
     set -euo pipefail
+    shopt -s nullglob
+
+    mkdir -p "${modelsDir}"
+
+    ${lib.optionalString (cfg.models != {}) ''
+      # Prune removed model directories
+      for d in "${modelsDir}"/*; do
+        if [ -d "$d" ]; then
+          model_name="$(basename "$d")"
+          case "$model_name" in
+            ${lib.concatStringsSep "|" (lib.attrNames cfg.models)})
+              ;;
+            *)
+              echo "Pruning removed model directory: $d"
+              rm -rf "$d"
+              ;;
+          esac
+        fi
+      done
+    ''}
 
     ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: model: ''
         if [ ! -f "${modelsDir}/${name}/${model.file}" ]; then
@@ -21,6 +41,20 @@
         else
           echo "Model ${model.file} already exists for ${name}."
         fi
+        ${lib.optionalString (model.mmproj != null) (let
+          mmprojRepo = if model.mmproj.repo != null then model.mmproj.repo else model.repo;
+          mmprojFile = model.mmproj.file;
+          mmprojRev = model.mmproj.revision;
+        in ''
+          if [ ! -f "${modelsDir}/${name}/${mmprojFile}" ]; then
+            echo "Downloading multimodal projector ${mmprojFile} from ${mmprojRepo}..."
+            mkdir -p "${modelsDir}/${name}"
+            ${lib.getExe pkgs.curl} -C - -L --fail --progress-bar "https://huggingface.co/${mmprojRepo}/resolve/${mmprojRev}/${mmprojFile}" -o "${modelsDir}/${name}/${mmprojFile}.tmp"
+            mv "${modelsDir}/${name}/${mmprojFile}.tmp" "${modelsDir}/${name}/${mmprojFile}"
+          else
+            echo "Multimodal projector ${mmprojFile} already exists for ${name}."
+          fi
+        '')}
       '')
       cfg.models)}
   '';
@@ -61,6 +95,35 @@ in {
             example = "qwen2.5-coder-7b-instruct-q4_k_m.gguf";
             description = "Filename in the repository";
           };
+          mmproj = lib.mkOption {
+            type = lib.types.nullOr (lib.types.coercedTo
+              lib.types.str
+              (file: {
+                inherit file;
+                repo = null;
+                revision = "main";
+              })
+              (lib.types.submodule {
+                options = {
+                  repo = lib.mkOption {
+                    type = lib.types.nullOr lib.types.str;
+                    default = null;
+                    description = "HuggingFace repository for mmproj (defaults to model repo if null)";
+                  };
+                  file = lib.mkOption {
+                    type = lib.types.str;
+                    description = "Filename of mmproj in the repository";
+                  };
+                  revision = lib.mkOption {
+                    type = lib.types.str;
+                    default = "main";
+                    description = "Repository revision/branch for mmproj";
+                  };
+                };
+              }));
+            default = null;
+            description = "Multimodal projector file (mmproj) for vision models";
+          };
           contextSize = lib.mkOption {
             type = lib.types.int;
             default = 8192;
@@ -95,7 +158,16 @@ in {
       settings = {
         models =
           lib.mapAttrs (name: model: {
-            cmd = "${lib.getExe' cfg.package "llama-server"} --port \${PORT} -m ${modelsDir}/${name}/${model.file} -c ${toString model.contextSize} -ngl ${toString model.gpuLayers} ${lib.escapeShellArgs model.extraArgs} --no-webui";
+            cmd = lib.concatStringsSep " " (lib.filter (s: s != "") [
+              (lib.getExe' cfg.package "llama-server")
+              "--port \${PORT}"
+              "-m ${modelsDir}/${name}/${model.file}"
+              (lib.optionalString (model.mmproj != null) "--mmproj ${modelsDir}/${name}/${model.mmproj.file}")
+              "-c ${toString model.contextSize}"
+              "-ngl ${toString model.gpuLayers}"
+              (lib.escapeShellArgs model.extraArgs)
+              "--no-webui"
+            ]);
             ttl = model.ttl;
           })
           cfg.models;
