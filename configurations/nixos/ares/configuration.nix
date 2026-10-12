@@ -59,15 +59,10 @@ in {
     enable = true;
     package = pkgs.llama-cpp-rocm;
     models = {
-      "qwen2.5-coder" = {
-        repo = "Qwen/Qwen2.5-Coder-7B-Instruct-GGUF";
-        file = "qwen2.5-coder-7b-instruct-q4_k_m.gguf";
-        contextSize = 32768;
-        extraArgs = [];
-      };
       "qwen3.6-27b" = {
         repo = "unsloth/Qwen3.6-27B-GGUF";
         file = "Qwen3.6-27B-Q4_K_M.gguf";
+        mmproj = "mmproj-F16.gguf";
         contextSize = 8192;
         gpuLayers = 33;
         extraArgs = [];
@@ -75,6 +70,7 @@ in {
       "qwen3.6-27b-fast" = {
         repo = "unsloth/Qwen3.6-27B-GGUF";
         file = "Qwen3.6-27B-Q3_K_M.gguf";
+        mmproj = "mmproj-F16.gguf";
         contextSize = 32768; # 32K context restored
         gpuLayers = 999;
         # KV Cache Quantization to fit 32K in VRAM (Flash attention is already auto-enabled)
@@ -92,16 +88,50 @@ in {
         contextSize = 16384;
         ttl = 300;
       };
-      "qwen2.5-14b" = {
-        repo = "bartowski/Qwen2.5-14B-Instruct-GGUF";
-        file = "Qwen2.5-14B-Instruct-Q4_K_M.gguf";
-        contextSize = 32768;
-        ttl = 300;
-      };
       "gemma4-12b-hq" = {
         repo = "unsloth/gemma-4-12b-it-GGUF";
         file = "gemma-4-12b-it-Q6_K.gguf";
         contextSize = 32768;
+        ttl = 300;
+      };
+      "qwen2.5-vl-7b" = {
+        repo = "unsloth/Qwen2.5-VL-7B-Instruct-GGUF";
+        file = "Qwen2.5-VL-7B-Instruct-Q4_K_M.gguf";
+        mmproj = "mmproj-F16.gguf";
+        contextSize = 16384;
+        gpuLayers = 999;
+        ttl = 300;
+      };
+      "qwen3.6-35b-a3b" = {
+        repo = "unsloth/Qwen3.6-35B-A3B-GGUF";
+        file = "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf";
+        mmproj = "mmproj-F16.gguf";
+        contextSize = 32768;
+        gpuLayers = 999;
+        extraArgs = [
+          "--n-cpu-moe"
+          "16"
+          "-ctk"
+          "q8_0"
+          "-ctv"
+          "q8_0"
+        ];
+        ttl = 300;
+      };
+      "qwen3.6-35b-a3b-fast" = {
+        repo = "unsloth/Qwen3.6-35B-A3B-GGUF";
+        file = "Qwen3.6-35B-A3B-UD-Q3_K_M.gguf";
+        mmproj = "mmproj-F16.gguf";
+        contextSize = 32768;
+        gpuLayers = 999;
+        extraArgs = [
+          "--n-cpu-moe"
+          "8"
+          "-ctk"
+          "q8_0"
+          "-ctv"
+          "q8_0"
+        ];
         ttl = 300;
       };
     };
