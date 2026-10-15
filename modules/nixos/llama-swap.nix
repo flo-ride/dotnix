@@ -139,6 +139,16 @@ in {
             default = [];
             description = "Extra arguments to pass to llama-server";
           };
+          fit = lib.mkOption {
+            type = lib.types.bool;
+            default = true;
+            description = "Enable --fit to automatically adjust context/gpu-layers to fit in GPU memory (prevents OOM crashes)";
+          };
+          fitTarget = lib.mkOption {
+            type = lib.types.int;
+            default = 1024;
+            description = "Target margin in MiB to leave free on GPU for --fit (default: 1024 MiB for UI session)";
+          };
           ttl = lib.mkOption {
             type = lib.types.int;
             default = 300;
@@ -165,6 +175,8 @@ in {
               (lib.optionalString (model.mmproj != null) "--mmproj ${modelsDir}/${name}/${model.mmproj.file}")
               "-c ${toString model.contextSize}"
               "-ngl ${toString model.gpuLayers}"
+              (lib.optionalString model.fit "--fit on")
+              (lib.optionalString model.fit "--fit-target ${toString model.fitTarget}")
               (lib.escapeShellArgs model.extraArgs)
               "--no-webui"
             ]);
