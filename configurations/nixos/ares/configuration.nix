@@ -57,7 +57,7 @@ in {
 
   modules.services.llama-swap = {
     enable = true;
-    package = pkgs.llama-cpp-rocm;
+    backend = "rocm";
     models = {
       "qwen3.6-27b" = {
         repo = "unsloth/Qwen3.6-27B-GGUF";

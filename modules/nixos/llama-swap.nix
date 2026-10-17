@@ -62,6 +62,12 @@ in {
   options.modules.services.llama-swap = {
     enable = lib.mkEnableOption "Llama-swap service for model routing";
 
+    backend = lib.mkOption {
+      type = lib.types.enum ["cpu" "rocm" "vulkan"];
+      default = "cpu";
+      description = "llama.cpp compute backend; selects the default package unless `package` is overridden";
+    };
+
     port = lib.mkOption {
       type = lib.types.port;
       default = 8080;
@@ -74,7 +80,13 @@ in {
       description = "Host for llama-swap";
     };
 
-    package = lib.mkPackageOption pkgs "llama-cpp" {};
+    package = lib.mkPackageOption pkgs "llama-cpp" {
+      default = [{
+        cpu = "llama-cpp";
+        rocm = "llama-cpp-rocm";
+        vulkan = "llama-cpp-vulkan";
+      }.${cfg.backend}];
+    };
 
     models = lib.mkOption {
       description = "Models to download and configure for llama-swap";
@@ -146,8 +158,8 @@ in {
           };
           fitTarget = lib.mkOption {
             type = lib.types.int;
-            default = 1024;
-            description = "Target margin in MiB to leave free on GPU for --fit (default: 1024 MiB for UI session)";
+            default = 2048;
+            description = "Target margin in MiB to leave free on GPU for --fit (default: 2048 MiB to protect a Wayland compositor/UI session)";
           };
           ttl = lib.mkOption {
             type = lib.types.int;
