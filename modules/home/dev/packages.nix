@@ -16,6 +16,7 @@ in {
     tldr
     mcp-nixos
     mcp-grafana
+    mcp-k8s-go
     playwright
     playwright-mcp
   ];
