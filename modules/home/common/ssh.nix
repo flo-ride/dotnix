@@ -11,26 +11,50 @@
         HostName = "gitlab.com";
         IdentityFile = "~/.ssh/gitlab.pub";
       };
-      "zeus" = {
+      "zeus 192.168.1.22" = {
         HostName = "192.168.1.22";
         IdentityFile = "~/.ssh/common_ssh.pub";
       };
-      "hades" = {
+      "hades 37.187.134.12" = {
         HostName = "37.187.134.12";
+        User = "floride";
+        Port = 42022;
         IdentityFile = "~/.ssh/hades_ssh.pub";
+        IdentitiesOnly = "yes";
       };
-      "apollon" = {
-        HostName = "192.168.88.1";
+      "apollon 10.52.0.1" = {
+        HostName = "10.52.0.1";
+        User = "admin";
+        Port = 42022;
         IdentityFile = "~/.ssh/apollon_ssh.pub";
+        IdentitiesOnly = "yes";
       };
-      "cronos" = {
-        HostName = "192.168.88.252";
+      "cronos 10.52.10.10" = {
+        HostName = "10.52.10.10";
+        User = "floride";
+        Port = 42022;
         IdentityFile = "~/.ssh/cronos_ssh.pub";
+        IdentitiesOnly = "yes";
       };
-      "orphee" = {
-        HostName = "10.52.0.41";
+      "delphi 10.50.0.10" = {
+        HostName = "10.50.0.10";
+        User = "floride";
+        Port = 42022;
+        IdentityFile = "~/.ssh/common_ssh.pub";
       };
-      "10.52.0.41" = {
+      "hestia 10.50.0.11" = {
+        HostName = "10.50.0.11";
+        User = "floride";
+        Port = 42022;
+        IdentityFile = "~/.ssh/common_ssh.pub";
+      };
+      "argos 10.50.0.12" = {
+        HostName = "10.50.0.12";
+        User = "floride";
+        Port = 42022;
+        IdentityFile = "~/.ssh/common_ssh.pub";
+      };
+      "orphee 10.52.0.41" = {
         User = "admin";
         KexAlgorithms = "+diffie-hellman-group1-sha1";
         HostKeyAlgorithms = "+ssh-rsa";
