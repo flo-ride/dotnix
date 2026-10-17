@@ -15,6 +15,7 @@ in {
     bitwarden-cli
     tldr
     mcp-nixos
+    mcp-grafana
     playwright
     playwright-mcp
   ];

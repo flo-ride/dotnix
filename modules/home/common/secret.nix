@@ -33,6 +33,10 @@ in {
     path = "/home/floride/.ssh/cronos_ssh.pub";
   };
 
+  sops.secrets."opencode/grafana_service_account_token" = {
+    path = "/home/floride/.config/opencode/secrets/grafana_service_account_token";
+  };
+
   # Allow sops-nix to fail without crashing the whole home-manager activation.
   # Useful for bootstrapping a new machine where the age key is not yet available.
   systemd.user.services.sops-nix = {
