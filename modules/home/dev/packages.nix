@@ -12,7 +12,6 @@ in {
     cargo
     xclip
     unstablePkgs.opencode
-    antigravity
     bitwarden-cli
     tldr
     mcp-nixos
