@@ -2,7 +2,7 @@
   gtk = {
     enable = true;
     cursorTheme = {
-      name = "Bibata-Modern-Classic-Hyprcursor";
+      name = "Bibata-Modern-Classic";
       package = pkgs.bibata-cursors;
     };
     gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;

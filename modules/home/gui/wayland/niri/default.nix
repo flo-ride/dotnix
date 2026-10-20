@@ -47,6 +47,10 @@ in {
             };
           };
         };
+        cursor = {
+          theme = "Bibata-Modern-Classic";
+          size = 24;
+        };
         binds = {
           "Mod+Return".action.spawn = toNiri term;
           "Mod+D".action.spawn = toNiri "${dms-ipc} spotlight toggle";
