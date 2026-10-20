@@ -48,10 +48,5 @@ in {
     fzf.enable = true;
     jq.enable = true;
     btop.enable = true;
-
-    tmate = {
-      enable = true;
-      #host = ""; #In case you wish to use a server other than tmate.io
-    };
   };
 }
