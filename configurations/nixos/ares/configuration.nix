@@ -33,6 +33,22 @@ in {
   # $ darwin-rebuild changelog
   system.stateVersion = "25.11";
 
+  # Node metrics for Prometheus (scraped from the Oracle Alloy over Tailscale)
+  services.prometheus.exporters.node = {
+    enable = true;
+    port = 9101;
+    listenAddress = "0.0.0.0";
+    enabledCollectors = ["systemd"];
+  };
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [9101];
+
+  # Ship the journal to Loki (unprivileged: DynamicUser + systemd-journal only).
+  # Resolve the public ingress through Tailscale to stay within its allowlist.
+  modules.services.alloy = {
+    enable = true;
+    lokiIngressIp = "10.40.2.1";
+  };
+
   services.xserver.videoDrivers = ["amdgpu"];
   services.ollama = {
     package = lib.mkForce pkgs.ollama-rocm;
